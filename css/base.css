@@ -97,7 +97,7 @@ button:focus-visible {
   font-family: var(--font-sans);
   font-size: var(--fs-small);
   z-index: 200;
-  transition: top var(--dur) var(--ease);
+  transition: top var(--duration-ui) var(--ease);
 }
 
 .skip-link:focus {
@@ -110,7 +110,13 @@ button:focus-visible {
   color: var(--color-bg);
 }
 
-/* ---- Movimiento reducido ---- */
+/* ---- Movimiento reducido ----
+   Red de seguridad general: cualquier transición o animación que
+   se nos haya escapado en algún componente queda casi instantánea.
+   Las entradas (hero, revelado al hacer scroll, menú móvil) además
+   nunca dejan contenido oculto: ver el bloque
+   "@media (prefers-reduced-motion: no-preference)" en cada archivo,
+   que es lo que realmente decide si esos estados ocultos existen. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

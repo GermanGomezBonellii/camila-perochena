@@ -52,8 +52,15 @@
   --section-space-sm: clamp(2.5rem, 4.5vw, 4.25rem);
   --grid-gap: clamp(1rem, 2vw, 2rem);
 
-  /* ---- Movimiento ---- */
+  /* ---- Movimiento ----
+     Sistema único de timing, reutilizado en todo el sitio para que
+     cada transición/animación se sienta consistente:
+     - fast: micro-interacciones de hover (color, línea, ícono)
+     - ui: cambios de estado con desplazamiento (menú, header, hover de imagen)
+     - reveal: entradas de contenido (hero, revelado al hacer scroll)
+     Una sola curva de easing (suave, sin rebote) para todo el sitio. */
   --ease: cubic-bezier(.4, 0, .2, 1);
-  --dur-fast: 150ms;
-  --dur: 260ms;
+  --duration-fast: 180ms;
+  --duration-ui: 320ms;
+  --duration-reveal: 560ms;
 }

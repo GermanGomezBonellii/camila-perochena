@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Marca el documento como "con JS" antes del primer render, para
+     que los estados iniciales ocultos de las animaciones (hero,
+     revelado al scroll) solo existan cuando JS realmente va a
+     mostrarlos. Sin esto, o con prefers-reduced-motion, el
+     contenido queda visible desde el arranque. -->
+<script>document.documentElement.classList.add("js");</script>
 <title>Camila Perochena — Historiadora</title>
 <meta name="description" content="Camila Perochena, historiadora. Investigación, docencia, publicaciones y participaciones en medios sobre historia argentina reciente.">
 
@@ -61,7 +67,7 @@
   </section>
 
   <!-- ÍNDICE EDITORIAL -->
-  <section class="index-editorial" aria-labelledby="index-heading">
+  <section class="index-editorial reveal" aria-labelledby="index-heading">
     <h2 id="index-heading" class="visually-hidden">Áreas de trabajo</h2>
     <div class="container index-grid">
 
@@ -93,7 +99,7 @@
   </section>
 
   <!-- LIBRO DESTACADO -->
-  <section class="featured-book" id="publicaciones" aria-labelledby="book-heading">
+  <section class="featured-book reveal" id="publicaciones" aria-labelledby="book-heading">
     <div class="container book-grid">
 
       <figure class="book-cover-wrap">
@@ -113,7 +119,7 @@
   </section>
 
   <!-- EN MEDIOS -->
-  <section class="media-section" id="medios" aria-labelledby="media-heading">
+  <section class="media-section reveal" id="medios" aria-labelledby="media-heading">
     <div class="container media-layout">
 
       <div class="section-head">
@@ -138,7 +144,7 @@
   </section>
 
   <!-- DOCENCIA E INVESTIGACIÓN -->
-  <section class="teaching-section" id="docencia" aria-labelledby="teaching-heading">
+  <section class="teaching-section reveal" id="docencia" aria-labelledby="teaching-heading">
     <div class="container teaching-grid">
       <h2 id="teaching-heading">Docencia e investigación</h2>
 
@@ -156,7 +162,7 @@
   </section>
 
   <!-- ARTÍCULOS -->
-  <section class="articles-section" aria-labelledby="articles-heading">
+  <section class="articles-section reveal" aria-labelledby="articles-heading">
     <div class="container">
       <div class="section-head">
         <h2 id="articles-heading">Artículos</h2>
@@ -185,7 +191,7 @@
   </section>
 
   <!-- RECONOCIMIENTOS -->
-  <section class="recognitions-section" aria-labelledby="recognitions-heading">
+  <section class="recognitions-section reveal" aria-labelledby="recognitions-heading">
     <div class="container">
       <h2 id="recognitions-heading">Reconocimientos</h2>
 
@@ -203,7 +209,7 @@
   </section>
 
   <!-- CONTACTO -->
-  <section class="contact-cta" id="contacto" aria-labelledby="contact-heading">
+  <section class="contact-cta reveal" id="contacto" aria-labelledby="contact-heading">
     <div class="container">
       <h2 id="contact-heading">Contacto profesional</h2>
       <p>Para conferencias, notas periodísticas, actividades académicas y otras consultas profesionales.</p>

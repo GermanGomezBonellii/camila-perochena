@@ -1,6 +1,7 @@
 /* ============================================================
    MAIN.JS — comportamiento mínimo e intencional
-   - navegación móvil
+   - navegación móvil (abrir/cerrar animado, Escape, resize)
+   - entrada del hero y revelado de secciones al hacer scroll
    - grilla de "En medios" generada desde un array de datos
    - patrón "click-to-load" para miniaturas de video
      (ningún iframe se carga hasta que el usuario interactúa)
@@ -9,25 +10,133 @@
 (function () {
   "use strict";
 
+  var prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
   /* ---------- Navegación móvil ---------- */
   var toggle = document.getElementById("navToggle");
   var nav = document.getElementById("primaryNav");
+  var MOBILE_BREAKPOINT = 720;
 
   if (toggle && nav) {
+    var openMenu = function () {
+      nav.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.querySelector(".nav-toggle-text").textContent = "Cerrar";
+    };
+
+    var closeMenu = function () {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.querySelector(".nav-toggle-text").textContent = "Menú";
+    };
+
     toggle.addEventListener("click", function () {
-      var isOpen = nav.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      toggle.querySelector(".nav-toggle-text").textContent = isOpen ? "Cerrar" : "Menú";
+      if (nav.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     // Cerrar el menú al navegar (mejora la experiencia en móvil)
     nav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        nav.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.querySelector(".nav-toggle-text").textContent = "Menú";
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Cerrar con Escape y devolver el foco al botón que abrió el menú.
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && nav.classList.contains("is-open")) {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+
+    // Si la ventana pasa a ancho de escritorio con el menú móvil
+    // abierto, se resetea el estado para no quedar "abierto" detrás
+    // de una navegación que ya se muestra distinto en ese ancho.
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > MOBILE_BREAKPOINT && nav.classList.contains("is-open")) {
+        closeMenu();
+      }
+    });
+  }
+
+  /* ---------- Header: estado "scrolleado" ---------- */
+  var header = document.querySelector(".site-header");
+
+  if (header) {
+    var SCROLL_THRESHOLD = 24;
+    var ticking = false;
+
+    var updateHeaderState = function () {
+      header.classList.toggle("is-scrolled", window.scrollY > SCROLL_THRESHOLD);
+      ticking = false;
+    };
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          window.requestAnimationFrame(updateHeaderState);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    updateHeaderState();
+  }
+
+  /* ---------- Entrada del hero (una vez, al cargar) ----------
+     La clase "hero-ready" en <html> dispara la transición definida
+     en home.css. Con movimiento reducido se aplica igual pero sin
+     efecto visible, porque ese CSS vive dentro de un
+     @media (prefers-reduced-motion: no-preference). Un doble
+     requestAnimationFrame asegura que el estado inicial oculto ya
+     se haya pintado antes de animar hacia el estado visible. */
+  if (prefersReducedMotion) {
+    document.documentElement.classList.add("hero-ready");
+  } else {
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        document.documentElement.classList.add("hero-ready");
       });
     });
+  }
+
+  /* ---------- Revelado de secciones al hacer scroll ----------
+     Se observa cada .reveal y se marca .is-visible una sola vez,
+     la primera vez que entra en viewport. El CSS correspondiente
+     (layout.css) ya está condicionado a "no-preference", así que
+     acá alcanza con no molestarse en observar si hay movimiento
+     reducido o si el navegador no soporta IntersectionObserver:
+     el contenido ya es visible por default en esos casos. */
+  var revealEls = document.querySelectorAll(".reveal");
+
+  if (revealEls.length) {
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+      var revealObserver = new IntersectionObserver(
+        function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      );
+
+      revealEls.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    } else {
+      revealEls.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+    }
   }
 
   /* ---------- "En medios" — datos ----------

@@ -64,3 +64,26 @@ section + section {
     --section-space: clamp(2.75rem, 9vw, 4.5rem);
   }
 }
+
+/* ---------------------------------------------------------
+   Revelado al hacer scroll (.reveal)
+
+   Utilidad genérica que usan las secciones principales de Home.
+   El estado oculto solo existe si hay JS (html.js) y la persona
+   no pidió movimiento reducido: así, sin JS o con
+   prefers-reduced-motion, el contenido está visible desde el
+   primer render y no depende de que un observer dispare nada.
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity var(--duration-reveal) var(--ease),
+                transform var(--duration-reveal) var(--ease);
+  }
+
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

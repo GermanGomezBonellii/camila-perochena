@@ -69,7 +69,7 @@
   font-style: italic;
   font-weight: 400;
   font-size: clamp(1.1rem, 1.4vw + 0.4rem, 1.7rem);
-  color: var(--color-muted);
+  color: var(--color-text);
 }
 
 .hero-role::before {
@@ -98,6 +98,50 @@
   object-fit: cover;
   object-position: center 30%;
   filter: grayscale(1) contrast(1.05);
+}
+
+/* ---------------------------------------------------------
+   Entrada del hero (solo al cargar la página, una vez)
+
+   Tres bloques — nombre, rol, foto — aparecen con una pequeña
+   traslación vertical y un pequeño desfasaje entre ellos. El
+   estado oculto solo existe con JS y sin prefers-reduced-motion:
+   sin JS, o con movimiento reducido, el hero se ve completo
+   desde el primer render.
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-name,
+  html.js .hero-role,
+  html.js .hero-figure {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--duration-ui) var(--ease),
+                transform var(--duration-ui) var(--ease);
+  }
+
+  html.js .hero-name { transition-delay: 0ms; }
+  html.js .hero-figure { transition-delay: 90ms; }
+  html.js .hero-role { transition-delay: 170ms; }
+
+  html.js.hero-ready .hero-name,
+  html.js.hero-ready .hero-role,
+  html.js.hero-ready .hero-figure {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Revelado discreto de la fotografía: un velo que se retrae en
+     simultáneo con el desplazamiento de .hero-figure, en vez de
+     aparecer de golpe. Muy sutil — un 7% recortado, no una cortina. */
+  html.js .hero-image {
+    clip-path: inset(0 0 7% 0);
+    transition: clip-path 640ms var(--ease);
+    transition-delay: 90ms;
+  }
+
+  html.js.hero-ready .hero-image {
+    clip-path: inset(0 0 0% 0);
+  }
 }
 
 /* ---------------------------------------------------------
@@ -177,6 +221,21 @@
   height: auto;
   display: block;
   border: 1px solid var(--color-line);
+}
+
+/* Misma idea discreta que la foto del hero, pero disparada por el
+   revelado al scroll de la sección (.reveal / .is-visible) en vez
+   de por la carga de página — sin observer ni clases extra. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .book-cover {
+    clip-path: inset(0 0 6% 0);
+    transition: clip-path 640ms var(--ease);
+    transition-delay: 80ms;
+  }
+
+  html.js .featured-book.is-visible .book-cover {
+    clip-path: inset(0 0 0% 0);
+  }
 }
 
 .book-info {

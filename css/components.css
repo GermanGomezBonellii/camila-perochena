@@ -10,8 +10,26 @@
   top: 0;
   z-index: 100;
   padding-block: clamp(1.1rem, 2vw, 1.6rem);
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-line);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: padding-block var(--duration-ui) var(--ease),
+              background-color var(--duration-ui) var(--ease),
+              border-color var(--duration-ui) var(--ease);
+}
+
+/* Al bajar el scroll el header se compacta levemente y gana un
+   borde apenas más presente — nada de sombra ni un bloque opaco
+   grande, solo la señal justa de que quedó "elevado". */
+.site-header.is-scrolled {
+  padding-block: clamp(0.7rem, 1.1vw, 1rem);
+  border-bottom-color: var(--color-line);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .site-header.is-scrolled {
+    background-color: color-mix(in srgb, var(--color-bg) 90%, transparent);
+    backdrop-filter: blur(8px);
+  }
 }
 
 .header-inner {
@@ -25,6 +43,10 @@
   font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.25rem);
   font-weight: 500;
   letter-spacing: 0.01em;
+}
+
+.brand {
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .brand:hover {
@@ -54,7 +76,7 @@
   bottom: 0;
   height: 1px;
   background: var(--color-accent-hover);
-  transition: right var(--dur) var(--ease);
+  transition: right var(--duration-ui) var(--ease);
 }
 
 .primary-nav a:hover,
@@ -69,10 +91,31 @@
 
 .nav-toggle {
   display: none;
+  position: relative;
   font-family: var(--font-sans);
   font-size: var(--fs-small);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.nav-toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -0.15rem;
+  height: 1px;
+  background: var(--color-accent);
+  transition: right var(--duration-fast) var(--ease);
+}
+
+.nav-toggle[aria-expanded="true"] {
+  color: var(--color-accent);
+}
+
+.nav-toggle[aria-expanded="true"]::after {
+  right: 0;
 }
 
 @media (max-width: 720px) {
@@ -81,25 +124,38 @@
     padding: 0.4rem 0;
   }
 
+  /* El panel se anima con la técnica grid-template-rows 0fr → 1fr:
+     permite una altura "auto" fluida sin medir el contenido en JS.
+     El padding y los bordes viven en el <ul> (no en .primary-nav)
+     para que colapsen de verdad a 0, no solo se recorten. */
   .primary-nav {
-    display: none;
+    display: grid;
+    grid-template-rows: 0fr;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background: var(--color-bg);
-    border-top: 1px solid var(--color-line);
-    border-bottom: 1px solid var(--color-line);
-    padding: 0.5rem var(--gutter) 1.25rem;
+    visibility: hidden;
+    transition: grid-template-rows var(--duration-ui) var(--ease),
+                visibility 0s linear var(--duration-ui);
   }
 
   .primary-nav.is-open {
-    display: block;
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows var(--duration-ui) var(--ease),
+                visibility 0s linear 0s;
   }
 
   .primary-nav ul {
     flex-direction: column;
     gap: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.5rem var(--gutter) 1.25rem;
   }
 
   .primary-nav li {
@@ -119,12 +175,34 @@
   .primary-nav a::after {
     display: none;
   }
+
+  /* Revelado escalonado de los links al abrir — puramente
+     decorativo, por eso solo existe sin prefers-reduced-motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .primary-nav li {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity var(--duration-ui) var(--ease),
+                  transform var(--duration-ui) var(--ease);
+    }
+
+    .primary-nav.is-open li {
+      opacity: 1;
+      transform: none;
+    }
+
+    .primary-nav li:nth-child(1) { transition-delay: 60ms; }
+    .primary-nav li:nth-child(2) { transition-delay: 110ms; }
+    .primary-nav li:nth-child(3) { transition-delay: 160ms; }
+    .primary-nav li:nth-child(4) { transition-delay: 210ms; }
+  }
 }
 
 /* ---------------------------------------------------------
    Enlaces de texto ("Ver publicaciones →", etc.)
    --------------------------------------------------------- */
 .text-link {
+  position: relative;
   display: inline-block;
   font-family: var(--font-sans);
   font-size: var(--fs-small);
@@ -133,14 +211,41 @@
   color: var(--color-text);
   border-bottom: 1px solid var(--color-line-strong);
   padding-bottom: 0.2rem;
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+/* El subrayado no cambia de color en bloque: se "dibuja" en bordó
+   por encima de la línea neutra existente, de izquierda a derecha. */
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -1px;
+  height: 1px;
+  background: var(--color-accent-hover);
+  transition: right var(--duration-ui) var(--ease);
 }
 
 .text-link:hover,
 .text-link:focus-visible {
   color: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  transform: translateX(2px);
+}
+
+.text-link:hover::after,
+.text-link:focus-visible::after {
+  right: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .text-link {
+    transition: color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  }
+
+  .text-link:hover,
+  .text-link:focus-visible {
+    transform: translateX(2px);
+  }
 }
 
 .text-link--lg {
@@ -208,7 +313,7 @@
 
 .index-item h3 {
   margin-top: 0.5rem;
-  transition: color var(--dur-fast) var(--ease);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .index-item p {
@@ -245,6 +350,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--duration-ui) var(--ease);
 }
 
 .play-mark {
@@ -255,7 +361,9 @@
   border-radius: 50%;
   border: 1px solid var(--color-muted-light);
   background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-  transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  transition: border-color var(--duration-fast) var(--ease),
+              background-color var(--duration-fast) var(--ease),
+              transform var(--duration-fast) var(--ease);
 }
 
 .play-mark::after {
@@ -267,7 +375,7 @@
   border-style: solid;
   border-width: 0.45rem 0 0.45rem 0.7rem;
   border-color: transparent transparent transparent var(--color-placeholder-text);
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: border-color var(--duration-fast) var(--ease);
 }
 
 .media-trigger:hover .play-mark,
@@ -278,6 +386,20 @@
 .media-trigger:hover .play-mark::after,
 .media-trigger:focus-visible .play-mark::after {
   border-left-color: var(--color-accent-hover);
+}
+
+/* Zoom y desplazamiento mínimos, contenidos por el overflow:hidden
+   del contenedor — nunca alteran la grilla ni el tamaño de la card. */
+@media (prefers-reduced-motion: no-preference) {
+  .media-trigger:hover .media-thumb-img,
+  .media-trigger:focus-visible .media-thumb-img {
+    transform: scale(1.03);
+  }
+
+  .media-trigger:hover .play-mark,
+  .media-trigger:focus-visible .play-mark {
+    transform: translateY(-2px);
+  }
 }
 
 .media-info {
@@ -301,7 +423,7 @@
   font-size: var(--fs-h3);
   line-height: var(--line-snug);
   color: var(--color-text);
-  transition: color var(--dur-fast) var(--ease);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .media-trigger:hover .media-title,
