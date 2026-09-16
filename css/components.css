@@ -6,9 +6,11 @@
    Header / navegación
    --------------------------------------------------------- */
 .site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 100;
   padding-block: clamp(1.1rem, 2vw, 1.6rem);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -26,7 +28,7 @@
 }
 
 .brand:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .primary-nav ul {
@@ -51,13 +53,13 @@
   right: 100%;
   bottom: 0;
   height: 1px;
-  background: var(--color-accent);
+  background: var(--color-accent-hover);
   transition: right var(--dur) var(--ease);
 }
 
 .primary-nav a:hover,
 .primary-nav a:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .primary-nav a:hover::after,
@@ -136,8 +138,8 @@
 
 .text-link:hover,
 .text-link:focus-visible {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
   transform: translateX(2px);
 }
 
@@ -216,7 +218,7 @@
 
 .index-item:hover h3,
 .index-item:focus-visible h3 {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 /* ---------------------------------------------------------
@@ -228,16 +230,32 @@
 }
 
 .media-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-placeholder-bg);
+}
+
+.media-thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .play-mark {
+  position: relative;
+  z-index: 1;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  border: 1px solid var(--color-placeholder-text);
-  position: relative;
-  transition: border-color var(--dur-fast) var(--ease);
+  border: 1px solid var(--color-muted-light);
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
 }
 
 .play-mark::after {
@@ -254,12 +272,12 @@
 
 .media-trigger:hover .play-mark,
 .media-trigger:focus-visible .play-mark {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-hover);
 }
 
 .media-trigger:hover .play-mark::after,
 .media-trigger:focus-visible .play-mark::after {
-  border-left-color: var(--color-accent);
+  border-left-color: var(--color-accent-hover);
 }
 
 .media-info {
@@ -288,7 +306,7 @@
 
 .media-trigger:hover .media-title,
 .media-trigger:focus-visible .media-title {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .media-date {
@@ -458,7 +476,7 @@
 
 .footer-inner nav a:hover,
 .footer-inner nav a:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .footer-meta {

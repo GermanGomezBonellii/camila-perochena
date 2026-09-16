@@ -23,6 +23,12 @@ section {
   padding-block: var(--section-space);
 }
 
+/* Compensa el header fijo al saltar a un ancla del menú,
+   para que el título de la sección no quede tapado debajo. */
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+
 section + section {
   border-top: 1px solid var(--color-line);
 }

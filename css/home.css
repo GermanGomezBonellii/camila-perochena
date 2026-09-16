@@ -21,6 +21,12 @@
   background-blend-mode: multiply;
 }
 
+/* La transición al índice editorial queda marcada solo por el
+   cambio de textura/fondo del hero — sin línea divisoria. */
+.hero + section {
+  border-top: 0;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -32,7 +38,7 @@
   grid-column: 1 / 6;
   position: relative;
   z-index: 2;
-  padding-top: clamp(0.5rem, 2vw, 1.25rem);
+  padding-top: clamp(1.75rem, 6vw, 3.75rem);
 }
 
 .hero-name {
@@ -47,7 +53,7 @@
 
 .hero-name span:last-child {
   margin-left: clamp(1.25rem, 5vw, 3.5rem);
-  color: var(--color-text-soft);
+  color: var(--color-accent);
 }
 
 /* "Historiadora" se resuelve como parte del mismo bloque tipográfico:
@@ -290,6 +296,7 @@
 
   .hero-text {
     grid-column: 1 / -1;
+    padding-top: clamp(1rem, 4vw, 1.75rem);
   }
 
   .hero-figure {

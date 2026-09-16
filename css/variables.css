@@ -14,8 +14,8 @@
   --color-muted: #746c62;         /* gris cálido */
   --color-muted-light: #a89f92;   /* gris cálido claro, metadatos */
 
-  --color-accent: #6f1d2b;        /* bordó — uso moderado */
-  --color-accent-soft: #8a3242;
+  --color-accent: #8a2f40;        /* bordó base — rico y presente, uso moderado */
+  --color-accent-hover: #bf3350;  /* hover: versión más luminosa/vívida del bordó base */
 
   --color-line: rgba(24, 22, 20, 0.14);
   --color-line-strong: rgba(24, 22, 20, 0.3);
@@ -45,6 +45,7 @@
   --line-normal: 1.55;
 
   /* ---- Grilla y espaciado ---- */
+  --header-h: clamp(3.75rem, 4vw + 2.5rem, 4.75rem);
   --container-max: 1360px;
   --gutter: clamp(1.25rem, 4vw, 3.25rem);
   --section-space: clamp(3.75rem, 7vw, 7.5rem);
