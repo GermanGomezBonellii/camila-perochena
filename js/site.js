@@ -107,6 +107,30 @@
     );
 
     updateHeaderState();
+
+    /* ---------- Alto real del header, para el hero de Home ----------
+       --header-h (variables.css) es una aproximación pensada para
+       scroll-margin-top; el hero de Home necesita el valor exacto para
+       poder valer "100svh - header" sin dejar un resto de un puñado de
+       píxeles que insinúe la sección siguiente. Se mide en vivo acá y
+       se expone como --header-h-actual (home.css cae a --header-h si
+       por lo que sea esto no llegó a correr todavía). Se recalcula en
+       cada resize por si el header cambia de alto en algún ancho. */
+    var setHeaderHeightVar = function () {
+      document.documentElement.style.setProperty(
+        "--header-h-actual",
+        header.offsetHeight + "px"
+      );
+    };
+
+    setHeaderHeightVar();
+    window.addEventListener("resize", setHeaderHeightVar);
+
+    if (document.fonts && document.fonts.ready) {
+      // La tipografía cargada puede correr el alto del header un par
+      // de píxeles respecto de la fuente de reserva del primer render.
+      document.fonts.ready.then(setHeaderHeightVar);
+    }
   }
 
   /* ---------- Entrada del hero (una vez, al cargar) ----------
