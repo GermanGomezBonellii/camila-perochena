@@ -98,6 +98,18 @@
   right: 0;
 }
 
+/* Sección activa: mismo lenguaje tipográfico que el resto del sitio
+   (bordó + trazo + algo más de peso), sin botón ni fondo. */
+.primary-nav a[aria-current="page"] {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.primary-nav a[aria-current="page"]::after {
+  right: 0;
+  background: var(--color-accent);
+}
+
 .nav-toggle {
   display: none;
   position: relative;

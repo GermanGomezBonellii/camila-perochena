@@ -1,0 +1,284 @@
+/* ============================================================
+   MEDIA — composición específica de /medios/ (archivo audiovisual)
+
+   A diferencia de Home, esta página es deliberadamente MÁS
+   ORDENADA: es un archivo, no una portada. La asimetría vive en
+   la relación entre el encabezado angosto de cada sección y el
+   bloque ancho de contenido (.archive-layout) — nunca dentro de
+   la grilla de videos o podcasts en sí, que es estrictamente
+   uniforme (mismo ancho, mismo aspect-ratio, misma línea de base).
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Hero — compacto, tipográfico, sin fotografía
+   --------------------------------------------------------- */
+.media-hero {
+  padding-top: clamp(2.25rem, 5vw, 3.75rem);
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-top: 0;
+}
+
+.media-hero + section {
+  border-top: 0;
+}
+
+.media-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  align-items: end;
+}
+
+.media-hero-title {
+  grid-column: 1 / 7;
+  font-size: clamp(2.5rem, 3.2vw + 1.3rem, 4.25rem);
+  line-height: 0.98;
+  font-weight: 500;
+}
+
+.media-hero-desc {
+  grid-column: 7 / 13;
+  align-self: end;
+  justify-self: end;
+  max-width: 34ch;
+  padding-bottom: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-lead);
+  color: var(--color-text-soft);
+  text-align: right;
+}
+
+/* Misma técnica de entrada que el hero de Home (html.hero-ready,
+   disparada por js/site.js): un desplazamiento vertical mínimo y
+   un pequeño desfasaje entre título y descripción. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .media-hero-title,
+  html.js .media-hero-desc {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--duration-ui) var(--ease),
+                transform var(--duration-ui) var(--ease);
+  }
+
+  html.js .media-hero-title { transition-delay: 0ms; }
+  html.js .media-hero-desc { transition-delay: 90ms; }
+
+  html.js.hero-ready .media-hero-title,
+  html.js.hero-ready .media-hero-desc {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   Encabezado de sección de archivo — "01 / Odisea Argentina"
+   El número funciona como elemento gráfico, no como decoración:
+   mismo lenguaje que .index-num / .eyebrow en el resto del sitio.
+   --------------------------------------------------------- */
+.archive-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+}
+
+.archive-head {
+  grid-column: 1 / 4;
+}
+
+.archive-body {
+  grid-column: 4 / 13;
+}
+
+.archive-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.archive-num {
+  color: var(--color-text-soft);
+  font-weight: 400;
+}
+
+.archive-head .section-sub {
+  margin-top: 0.6rem;
+}
+
+.archive-desc {
+  max-width: 34ch;
+  margin-top: 1.25rem;
+}
+
+/* Secciones de menor protagonismo (OLGA, Otras participaciones):
+   mismo sistema tipográfico, sin ningún elemento visual adicional
+   que les dé más peso que a Odisea Argentina. */
+.archive-section--secondary .archive-desc {
+  margin-bottom: 0;
+}
+
+.archive-pending {
+  grid-column: 4 / 13;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-style: italic;
+  color: var(--color-muted);
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  border-top: 1px solid var(--color-line);
+}
+
+/* ---------------------------------------------------------
+   Grilla de columnas de video (Odisea Argentina, y OLGA a
+   futuro): 3 columnas en desktop, 2 en tablet, 1 en mobile.
+   Reutiliza .media-item / .media-trigger / .media-thumb / etc.
+   de components.css — acá solo se define el layout de la grilla.
+   --------------------------------------------------------- */
+.archive-grid {
+  grid-column: 4 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--grid-gap);
+  row-gap: clamp(2.25rem, 4vw, 3rem);
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.archive-links {
+  grid-column: 4 / 13;
+}
+
+/* ---------------------------------------------------------
+   Podcasts — lista editorial, no cards: portada cuadrada +
+   texto, separados por líneas finas, igual que .role-list o
+   .timeline en el resto del sitio.
+   --------------------------------------------------------- */
+.podcast-list {
+  grid-column: 4 / 13;
+}
+
+.podcast-item {
+  display: flex;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.podcast-item:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.podcast-cover {
+  flex-shrink: 0;
+  width: clamp(4.5rem, 7vw, 6rem);
+  aspect-ratio: 1 / 1;
+}
+
+.podcast-body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.1rem;
+}
+
+.podcast-name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+a.podcast-name:hover,
+a.podcast-name:focus-visible {
+  color: var(--color-accent-hover);
+}
+
+.podcast-role {
+  margin-top: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent);
+}
+
+.podcast-desc {
+  margin-top: 0.6rem;
+  max-width: 52ch;
+}
+
+.podcast-link {
+  margin-top: 0.9rem;
+  align-self: flex-start;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  .archive-head { grid-column: 1 / 5; }
+  .archive-body,
+  .archive-grid,
+  .archive-pending,
+  .archive-links,
+  .podcast-list { grid-column: 5 / 13; }
+}
+
+@media (max-width: 880px) {
+  .media-hero {
+    padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .media-hero-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+
+  .media-hero-title,
+  .media-hero-desc {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-align: left;
+    max-width: none;
+  }
+
+  .archive-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-head,
+  .archive-body,
+  .archive-grid,
+  .archive-pending,
+  .archive-links,
+  .podcast-list {
+    grid-column: 1 / -1;
+  }
+
+  .archive-head {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .archive-desc {
+    max-width: 52ch;
+  }
+
+  .archive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .podcast-item {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .podcast-cover {
+    width: 4.5rem;
+  }
+}

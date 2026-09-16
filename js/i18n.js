@@ -39,10 +39,19 @@ var CamilaI18n = (function () {
 
   var translations = {
     es: {
-      meta: {
-        title: "Camila Perochena — Historiadora",
-        description:
-          "Camila Perochena, historiadora. Investigación, docencia, publicaciones y participaciones en medios sobre historia argentina reciente."
+      // Título/descripción por página. La clave activa la decide
+      // data-page en <html> (por defecto "home" si no está presente).
+      pages: {
+        home: {
+          title: "Camila Perochena — Historiadora",
+          description:
+            "Camila Perochena, historiadora. Investigación, docencia, publicaciones y participaciones en medios sobre historia argentina reciente."
+        },
+        media: {
+          title: "Medios — Camila Perochena",
+          description:
+            "Columnas, entrevistas, podcasts y participaciones audiovisuales de la historiadora Camila Perochena, incluyendo su columna en Odisea Argentina."
+        }
       },
       a11y: {
         skipLink: "Saltar al contenido"
@@ -115,14 +124,62 @@ var CamilaI18n = (function () {
       },
       footer: {
         socialLabel: "Redes sociales"
+      },
+
+      // Página /medios/. Nombres propios (Odisea Argentina, El espejo
+      // de la historia, OLGA, HistoriAr, Primavera Cero, Hay que pasar
+      // el invierno, La banda presidencial) van directo en el HTML,
+      // sin clave: no se traducen.
+      mediaPage: {
+        heroTitle: "Medios",
+        heroDesc: "Columnas, entrevistas, podcasts y participaciones audiovisuales.",
+        odisea: {
+          description:
+            "Camila participa regularmente en Odisea Argentina con una columna donde analiza temas políticos, sociales y económicos contemporáneos desde una perspectiva histórica.",
+          watchOnYoutube: "Ver en YouTube"
+        },
+        olga: {
+          heading: "OLGA",
+          description: "Desde 2024, Camila participa con columnas históricas periódicas en OLGA.",
+          comingSoon: "Selección de columnas en preparación."
+        },
+        podcasts: {
+          heading: "Podcasts",
+          listenCta: "Escuchar →",
+          historiar: {
+            role: "Copresentadora y coproductora",
+            description: "Entrevistas a historiadores sobre historia argentina, latinoamericana y global."
+          },
+          primaveraCero: {
+            description: "Podcast realizado junto con La Nación."
+          },
+          hayQuePasarElInvierno: {
+            description: "Proyecto de podcast realizado con La Nación."
+          },
+          laBandaPresidencial: {
+            description: "Podcast producido en conjunto con La Nación."
+          }
+        },
+        other: {
+          heading: "Otras participaciones",
+          description: "Entrevistas, documentales y otras participaciones audiovisuales.",
+          comingSoon: "Sección en preparación."
+        }
       }
     },
 
     en: {
-      meta: {
-        title: "Camila Perochena — Historian",
-        description:
-          "Camila Perochena, historian. Research, teaching, publications and media appearances on recent Argentine history."
+      pages: {
+        home: {
+          title: "Camila Perochena — Historian",
+          description:
+            "Camila Perochena, historian. Research, teaching, publications and media appearances on recent Argentine history."
+        },
+        media: {
+          title: "Media — Camila Perochena",
+          description:
+            "Columns, interviews, podcasts and audiovisual appearances by historian Camila Perochena, including her column on Odisea Argentina."
+        }
       },
       a11y: {
         skipLink: "Skip to content"
@@ -198,6 +255,43 @@ var CamilaI18n = (function () {
       },
       footer: {
         socialLabel: "Social media"
+      },
+
+      mediaPage: {
+        heroTitle: "Media",
+        heroDesc: "Columns, interviews, podcasts and audiovisual appearances.",
+        odisea: {
+          description:
+            "Camila appears regularly on Odisea Argentina with a column that examines contemporary political, social and economic issues from a historical perspective.",
+          watchOnYoutube: "Watch on YouTube"
+        },
+        olga: {
+          heading: "OLGA",
+          description: "Since 2024, Camila has contributed periodic history columns to OLGA.",
+          comingSoon: "A selection of columns is being prepared."
+        },
+        podcasts: {
+          heading: "Podcasts",
+          listenCta: "Listen →",
+          historiar: {
+            role: "Co-host and co-producer",
+            description: "Interviews with historians on Argentine, Latin American and global history."
+          },
+          primaveraCero: {
+            description: "Podcast produced together with La Nación."
+          },
+          hayQuePasarElInvierno: {
+            description: "Podcast project produced with La Nación."
+          },
+          laBandaPresidencial: {
+            description: "Podcast produced together with La Nación."
+          }
+        },
+        other: {
+          heading: "Other appearances",
+          description: "Interviews, documentaries and other audiovisual appearances.",
+          comingSoon: "Section in preparation."
+        }
       }
     }
   };
@@ -245,9 +339,13 @@ var CamilaI18n = (function () {
   function applyToDom() {
     document.documentElement.lang = currentLang;
 
-    document.title = t("meta.title");
+    // Cada página declara su identidad con data-page="home" | "media"
+    // en <html> (home es el default para no romper páginas viejas
+    // que todavía no tengan el atributo).
+    var page = document.documentElement.getAttribute("data-page") || "home";
+    document.title = t("pages." + page + ".title");
     var metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", t("meta.description"));
+    if (metaDesc) metaDesc.setAttribute("content", t("pages." + page + ".description"));
 
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       el.textContent = t(el.getAttribute("data-i18n"));
