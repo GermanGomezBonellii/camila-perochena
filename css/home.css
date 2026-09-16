@@ -9,6 +9,16 @@
   padding-top: clamp(1.5rem, 3.5vw, 2.5rem);
   padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
   border-top: 0;
+  /* Textura de papel muy sutil sobre el mismo tono cálido de fondo:
+     background-blend-mode la tiñe con --color-bg para que no
+     introduzca un color ajeno a la paleta, solo una superficie
+     con más carácter que un color plano. */
+  background-color: var(--color-bg);
+  background-image: url("../img/heroblanco.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
 }
 
 .hero-grid {
@@ -19,7 +29,7 @@
 }
 
 .hero-text {
-  grid-column: 1 / 8;
+  grid-column: 1 / 6;
   position: relative;
   z-index: 2;
   padding-top: clamp(0.5rem, 2vw, 1.25rem);
@@ -40,12 +50,38 @@
   color: var(--color-text-soft);
 }
 
+/* "Historiadora" se resuelve como parte del mismo bloque tipográfico:
+   misma indentación que la segunda línea del nombre, tratamiento
+   más liviano (itálica, menor tamaño, gris cálido) y un pequeño
+   trazo bordó que lo liga visualmente al nombre en vez de a la foto. */
+.hero-role {
+  display: flex;
+  align-items: center;
+  margin-top: clamp(0.65rem, 1.6vw, 1.1rem);
+  margin-left: clamp(1.25rem, 5vw, 3.5rem);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.4vw + 0.4rem, 1.7rem);
+  color: var(--color-muted);
+}
+
+.hero-role::before {
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--color-accent);
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
 .hero-figure {
-  grid-column: 7 / 13;
+  grid-column: 6 / 13;
   position: relative;
   justify-self: end;
   width: 100%;
-  max-width: 300px;
+  max-width: 430px;
   margin-top: 0;
 }
 
@@ -58,33 +94,15 @@
   filter: grayscale(1) contrast(1.05);
 }
 
-.hero-role {
-  position: absolute;
-  left: clamp(-3rem, -7vw, -1.25rem);
-  bottom: clamp(1.25rem, 3vw, 2.25rem);
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  background: var(--color-bg);
-  padding: 0.5rem 1.1rem 0.5rem 0;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.15rem, 1.6vw, 1.7rem);
-  color: var(--color-text);
-  white-space: nowrap;
-}
-
-.hero-role::before {
-  content: "";
-  display: inline-block;
-  width: 1.75rem;
-  height: 1px;
-  background: var(--color-accent);
-  margin-right: 0.75rem;
-}
-
 /* ---------------------------------------------------------
    Índice editorial — cuatro áreas, composición asimétrica
+
+   La asimetría es estructural, no decorativa: surge del ancho
+   relativo de cada bloque dentro de la grilla de 12 columnas y
+   de la escala tipográfica (Publicaciones y Sobre mí llevan el
+   título mayor; Medios y Docencia, el menor). Las cuatro celdas
+   comparten la misma línea de base por fila — nada se desplaza
+   verticalmente ni corta líneas a la mitad.
    --------------------------------------------------------- */
 .index-editorial {
   padding-top: var(--section-space-sm);
@@ -94,7 +112,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: var(--grid-gap);
-  row-gap: clamp(2.5rem, 5vw, 4rem);
+  row-gap: clamp(3rem, 6vw, 5rem);
 }
 
 .index-item--publicaciones {
@@ -107,16 +125,23 @@
 
 .index-item--medios {
   grid-column: 8 / 13;
-  margin-top: clamp(1.5rem, 5vw, 3.5rem);
+  align-self: end;
+}
+
+.index-item--medios h3 {
+  font-size: var(--fs-h3);
 }
 
 .index-item--docencia {
   grid-column: 1 / 5;
 }
 
+.index-item--docencia h3 {
+  font-size: var(--fs-h3);
+}
+
 .index-item--sobre-mi {
   grid-column: 5 / 13;
-  margin-top: clamp(0.75rem, 2.5vw, 1.75rem);
   text-align: right;
 }
 
@@ -142,7 +167,10 @@
 }
 
 .book-cover {
-  aspect-ratio: 2 / 3;
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--color-line);
 }
 
 .book-info {
@@ -179,21 +207,35 @@
 
 /* ---------------------------------------------------------
    En medios
+
+   La asimetría vive en el bloque general: una columna angosta
+   para el título/descripción de la sección junto a un bloque
+   más ancho para las columnas en video. Puertas adentro de ese
+   bloque, las tres miniaturas son estrictamente uniformes —
+   mismo ancho, mismo aspect ratio, misma línea de base para
+   título y metadata — sin desalinear cada una por separado.
    --------------------------------------------------------- */
-.media-grid {
+.media-layout {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: var(--grid-gap);
+}
+
+.media-layout .section-head {
+  grid-column: 1 / 4;
+  margin-bottom: 0;
+}
+
+.media-layout .media-body {
+  grid-column: 4 / 13;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--grid-gap);
   row-gap: clamp(2.25rem, 4vw, 3rem);
   margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.media-item {
-  grid-column: span 4;
-}
-
-.media-item:nth-child(2) {
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* ---------------------------------------------------------
@@ -253,16 +295,12 @@
   .hero-figure {
     grid-column: 1 / -1;
     justify-self: start;
-    max-width: 260px;
+    max-width: 320px;
     margin-top: clamp(1.5rem, 5vw, 2.25rem);
   }
 
   .hero-role {
-    position: static;
-    display: inline-flex;
-    margin-top: 1.25rem;
-    padding: 0;
-    background: none;
+    margin-left: 0;
   }
 
   .index-item--publicaciones,
@@ -271,7 +309,12 @@
   .index-item--sobre-mi {
     grid-column: 1 / -1;
     text-align: left;
-    margin-top: 0;
+    align-self: auto;
+  }
+
+  .index-item--medios h3,
+  .index-item--docencia h3 {
+    font-size: var(--fs-h2);
   }
 
   .index-item--sobre-mi p {
@@ -290,12 +333,17 @@
     grid-column: 1 / -1;
   }
 
-  .media-item {
-    grid-column: span 6;
+  .media-layout .section-head,
+  .media-layout .media-body {
+    grid-column: 1 / -1;
   }
 
-  .media-item:nth-child(2) {
-    margin-top: 0;
+  .media-layout .section-head {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .teaching-grid h2 {
@@ -321,8 +369,8 @@
     margin-left: clamp(0.75rem, 8vw, 1.5rem);
   }
 
-  .media-item {
-    grid-column: 1 / -1;
+  .media-grid {
+    grid-template-columns: 1fr;
   }
 
   .article-list li {
