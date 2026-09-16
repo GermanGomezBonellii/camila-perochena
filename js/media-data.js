@@ -18,10 +18,15 @@
      (https://youtube.com/playlist?list=PLWYpDY_TMICI) que todavía
      no se sumaron acá — agregarlas es solo sumar un objeto más.
 
-   podcasts: { name, url, roleKey, descKey }.
+   podcasts: { name, url, cover, roleKey, descKey }.
      name: nombre real del proyecto (no se traduce).
      url: enlace público oficial verificado (Spotify o Apple
        Podcasts). Dejar sin "url" si no hay un enlace verificado.
+     cover: ruta a la portada cuadrada real (relativa a
+       /medios/index.html, ej. "../img/podcast-historiar.jpg").
+       Dejar sin "cover" si todavía no hay una portada real — en ese
+       caso js/media.js muestra el placeholder sobrio de siempre en
+       vez de inventar una imagen.
      roleKey / descKey: claves de js/i18n.js (mediaPage.podcasts.*)
        para el rol y la descripción, así se traducen solas al
        cambiar de idioma sin tocar este archivo.
@@ -71,22 +76,26 @@ var CamilaMediaData = {
     {
       name: "HistoriAr",
       url: "https://open.spotify.com/show/6ZzcVyIlDzcz3YaXAb7KEg",
+      cover: "../img/podcast-historiar.jpg",
       roleKey: "mediaPage.podcasts.historiar.role",
       descKey: "mediaPage.podcasts.historiar.description"
     },
     {
       name: "Primavera Cero",
       url: "https://open.spotify.com/show/6uyHGJfT4kgpcNZAv9wAUv",
+      cover: "../img/podcast-primavera-cero.jpg",
       descKey: "mediaPage.podcasts.primaveraCero.description"
     },
     {
       name: "Hay que pasar el invierno",
-      url: "https://podcasts.apple.com/ar/podcast/hay-que-pasar-el-invierno/id1502741141",
+      url: "https://open.spotify.com/show/1eXph4FqMC82dFek4zz5cW",
+      cover: "../img/podcast-hay-que-pasar-el-invierno.jpg",
       descKey: "mediaPage.podcasts.hayQuePasarElInvierno.description"
     },
     {
       name: "La banda presidencial",
       url: "https://open.spotify.com/show/2Js8jTzuiQP0FkybFbsjcB",
+      cover: "../img/podcast-la-banda-presidencial.jpg",
       descKey: "mediaPage.podcasts.laBandaPresidencial.description"
     }
   ]

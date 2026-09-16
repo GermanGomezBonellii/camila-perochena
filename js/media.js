@@ -37,8 +37,21 @@
       li.className = "podcast-item";
 
       var cover = document.createElement("span");
-      cover.className = "podcast-cover media-placeholder";
+      cover.className = "podcast-cover";
       cover.setAttribute("aria-hidden", "true");
+
+      if (item.cover) {
+        // Portada real: la decoración de placeholder (fondo + marco
+        // interior) es solo para cuando todavía no hay una.
+        var coverImg = document.createElement("img");
+        coverImg.className = "podcast-cover-img";
+        coverImg.src = item.cover;
+        coverImg.alt = "";
+        coverImg.loading = "lazy";
+        cover.appendChild(coverImg);
+      } else {
+        cover.classList.add("media-placeholder");
+      }
 
       var body = document.createElement("div");
       body.className = "podcast-body";

@@ -43,12 +43,12 @@ var CamilaI18n = (function () {
       // data-page en <html> (por defecto "home" si no está presente).
       pages: {
         home: {
-          title: "Camila Perochena — Historiadora",
+          title: "Camila Perochena / Home",
           description:
             "Camila Perochena, historiadora. Investigación, docencia, publicaciones y participaciones en medios sobre historia argentina reciente."
         },
         media: {
-          title: "Medios — Camila Perochena",
+          title: "Camila Perochena / Medios",
           description:
             "Columnas, entrevistas, podcasts y participaciones audiovisuales de la historiadora Camila Perochena, incluyendo su columna en Odisea Argentina."
         }
@@ -148,16 +148,16 @@ var CamilaI18n = (function () {
           listenCta: "Escuchar →",
           historiar: {
             role: "Copresentadora y coproductora",
-            description: "Entrevistas a historiadores sobre historia argentina, latinoamericana y global."
+            description: "Bienvenidos al podcast de la ASAIH, la Asociación Argentina de Investigadores en Historia.\nUn podcast de entrevistas a historiadores sobre historia argentina, latinoamericana y mundial.\nUn recorrido por el pasado para pensarnos en el presente."
           },
           primaveraCero: {
-            description: "Podcast realizado junto con La Nación."
+            description: "Primavera Cero recorre, año por año, la vuelta de la democracia en la Argentina, desde 1982 hasta 1989, a través de las voces de sus protagonistas.\nCon la conducción de los historiadores Camila Perochena y Martín Marimón, cada episodio aborda un año específico de este período."
           },
           hayQuePasarElInvierno: {
-            description: "Proyecto de podcast realizado con La Nación."
+            description: "A lo largo de una quincena de episodios vamos a conocer cómo el país se fue insertando en el mercado internacional, primero de la mano de las ovejas; cómo en el camino al presente pasamos por crisis bancarias, cesaciones de pago (nuestros amigos los defaults), tipos de cambio fijos, variables, industrializaciones parciales, crecimiento interrumpido, 1 a 1, corralitos y corralones."
           },
           laBandaPresidencial: {
-            description: "Podcast producido en conjunto con La Nación."
+            description: "La banda presidencial es un podcast conducido por Camila Perochena, historiadora y docente de la Universidad Torcuato Di Tella, y Santiago Rodríguez Rey, politólogo y especialista en comunicación política, que hará un repaso semanal por todos los presidentes argentinos, desde Bernardino Rivadavia hasta Mauricio Macri, al estilo de lo que hicieron los podcasts Presidential, de Lillian Cunningham para el Washington Post, y Presidente da Semana, de Rodrigo Vizeu para Folha de São Paulo."
           }
         },
         other: {
@@ -171,12 +171,12 @@ var CamilaI18n = (function () {
     en: {
       pages: {
         home: {
-          title: "Camila Perochena — Historian",
+          title: "Camila Perochena / Home",
           description:
             "Camila Perochena, historian. Research, teaching, publications and media appearances on recent Argentine history."
         },
         media: {
-          title: "Media — Camila Perochena",
+          title: "Camila Perochena / Media",
           description:
             "Columns, interviews, podcasts and audiovisual appearances by historian Camila Perochena, including her column on Odisea Argentina."
         }
@@ -275,16 +275,16 @@ var CamilaI18n = (function () {
           listenCta: "Listen →",
           historiar: {
             role: "Co-host and co-producer",
-            description: "Interviews with historians on Argentine, Latin American and global history."
+            description: "Welcome to the podcast of ASAIH, the Asociación Argentina de Investigadores en Historia.\nA podcast of interviews with historians on Argentine, Latin American and world history.\nA journey through the past to think about the present."
           },
           primaveraCero: {
-            description: "Podcast produced together with La Nación."
+            description: "Primavera Cero traces, year by year, Argentina's return to democracy between 1982 and 1989, through the voices of the people who lived it.\nHosted by historians Camila Perochena and Martín Marimón, each episode focuses on one specific year of that period."
           },
           hayQuePasarElInvierno: {
-            description: "Podcast project produced with La Nación."
+            description: "Over a fortnight of episodes, we trace how the country became part of the international market, starting with wool, and follow the road to the present through banking crises, defaults, fixed and floating exchange rates, partial industrialization drives, growth cut short, the 1-to-1 peg, and the corralito and corralón."
           },
           laBandaPresidencial: {
-            description: "Podcast produced together with La Nación."
+            description: "La banda presidencial is a podcast hosted by Camila Perochena, historian and professor at Universidad Torcuato Di Tella, and Santiago Rodríguez Rey, political scientist and political communication specialist, taking a weekly look back at every Argentine president, from Bernardino Rivadavia to Mauricio Macri, in the spirit of Presidential, by Lillian Cunningham for The Washington Post, and Presidente da Semana, by Rodrigo Vizeu for Folha de São Paulo."
           }
         },
         other: {
