@@ -20,17 +20,31 @@
   var MOBILE_BREAKPOINT = 720;
 
   if (toggle && nav) {
+    // El label del botón depende de dos cosas a la vez — el idioma
+    // activo y si el menú está abierto o cerrado — por eso no alcanza
+    // con un data-i18n estático: se resuelve acá con CamilaI18n.t().
+    var updateToggleLabel = function () {
+      var isOpen = nav.classList.contains("is-open");
+      var key = isOpen ? "nav.close" : "nav.menu";
+      toggle.querySelector(".nav-toggle-text").textContent =
+        window.CamilaI18n ? window.CamilaI18n.t(key) : isOpen ? "Cerrar" : "Menú";
+    };
+
     var openMenu = function () {
       nav.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
-      toggle.querySelector(".nav-toggle-text").textContent = "Cerrar";
+      updateToggleLabel();
     };
 
     var closeMenu = function () {
       nav.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
-      toggle.querySelector(".nav-toggle-text").textContent = "Menú";
+      updateToggleLabel();
     };
+
+    if (window.CamilaI18n) {
+      window.CamilaI18n.onChange(updateToggleLabel);
+    }
 
     toggle.addEventListener("click", function () {
       if (nav.classList.contains("is-open")) {
@@ -179,7 +193,16 @@
     }
   ];
 
-  /* ---------- "En medios" — render ---------- */
+  /* ---------- "En medios" — render ----------
+     El programa/columna ("Odisea Argentina") es nombre propio y no
+     se traduce. La fecha de respaldo y el aria-label del placeholder
+     sí, y llevan su propio data-i18n para que un cambio de idioma
+     posterior los actualice solo, sin tener que re-renderizar toda
+     la grilla. */
+  function t(key) {
+    return window.CamilaI18n ? window.CamilaI18n.t(key) : key;
+  }
+
   function renderMediaGrid() {
     var grid = document.getElementById("mediaGrid");
     if (!grid) return;
@@ -206,7 +229,8 @@
       } else {
         thumb.classList.add("media-placeholder");
         thumb.setAttribute("role", "img");
-        thumb.setAttribute("aria-label", "Miniatura no disponible todavía");
+        thumb.setAttribute("data-i18n-aria-label", "media.thumbUnavailable");
+        thumb.setAttribute("aria-label", t("media.thumbUnavailable"));
       }
 
       var playMark = document.createElement("span");
@@ -227,7 +251,12 @@
 
       var date = document.createElement("span");
       date.className = "media-date";
-      date.textContent = item.date || "Fecha a confirmar";
+      if (item.date) {
+        date.textContent = item.date;
+      } else {
+        date.setAttribute("data-i18n", "media.dateTbc");
+        date.textContent = t("media.dateTbc");
+      }
 
       info.appendChild(program);
       info.appendChild(title);
@@ -255,7 +284,8 @@
         if (!item.querySelector(".media-pending-note")) {
           var note = document.createElement("p");
           note.className = "media-pending-note";
-          note.textContent = "Video disponible próximamente.";
+          note.setAttribute("data-i18n", "media.videoSoon");
+          note.textContent = t("media.videoSoon");
           item.appendChild(note);
         }
         return;
