@@ -1,0 +1,466 @@
+/* ============================================================
+   COMPONENTS — header/nav, enlaces, placeholders, media, timeline
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Header / navegación
+   --------------------------------------------------------- */
+.site-header {
+  position: relative;
+  z-index: 100;
+  padding-block: clamp(1.1rem, 2vw, 1.6rem);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.25rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.brand:hover {
+  color: var(--color-accent);
+}
+
+.primary-nav ul {
+  display: flex;
+  gap: clamp(1.5rem, 2.5vw, 2.75rem);
+}
+
+.primary-nav a {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  padding-bottom: 0.2rem;
+}
+
+.primary-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: right var(--dur) var(--ease);
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: var(--color-accent);
+}
+
+.primary-nav a:hover::after,
+.primary-nav a:focus-visible::after {
+  right: 0;
+}
+
+.nav-toggle {
+  display: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: block;
+    padding: 0.4rem 0;
+  }
+
+  .primary-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.5rem var(--gutter) 1.25rem;
+  }
+
+  .primary-nav.is-open {
+    display: block;
+  }
+
+  .primary-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .primary-nav li {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .primary-nav li:first-child {
+    border-top: 0;
+  }
+
+  .primary-nav a {
+    display: block;
+    padding-block: 0.9rem;
+    font-size: var(--fs-body);
+  }
+
+  .primary-nav a::after {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   Enlaces de texto ("Ver publicaciones →", etc.)
+   --------------------------------------------------------- */
+.text-link {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-line-strong);
+  padding-bottom: 0.2rem;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+.text-link--lg {
+  font-size: var(--fs-lead);
+  font-family: var(--font-serif);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------
+   Placeholders de imagen (fotografía / portada / miniatura)
+   --------------------------------------------------------- */
+.media-placeholder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  background: var(--color-placeholder-bg);
+  border: 1px solid var(--color-placeholder-line);
+}
+
+.media-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--color-placeholder-line);
+  pointer-events: none;
+}
+
+.media-placeholder-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2vw, 2.25rem);
+  color: var(--color-placeholder-text);
+}
+
+.media-placeholder-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-placeholder-text);
+}
+
+/* ---------------------------------------------------------
+   Índice editorial (áreas de trabajo)
+   --------------------------------------------------------- */
+.index-item {
+  display: block;
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.index-num {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-wide);
+}
+
+.index-item h3 {
+  margin-top: 0.5rem;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.index-item p {
+  margin-top: 0.75rem;
+  max-width: 34ch;
+}
+
+.index-item:hover h3,
+.index-item:focus-visible h3 {
+  color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------
+   Medios: miniaturas / tarjetas editoriales de video
+   --------------------------------------------------------- */
+.media-trigger {
+  display: block;
+  width: 100%;
+}
+
+.media-thumb {
+  aspect-ratio: 16 / 10;
+}
+
+.play-mark {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-placeholder-text);
+  position: relative;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.play-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 0.45rem 0 0.45rem 0.7rem;
+  border-color: transparent transparent transparent var(--color-placeholder-text);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.media-trigger:hover .play-mark,
+.media-trigger:focus-visible .play-mark {
+  border-color: var(--color-accent);
+}
+
+.media-trigger:hover .play-mark::after,
+.media-trigger:focus-visible .play-mark::after {
+  border-left-color: var(--color-accent);
+}
+
+.media-info {
+  display: block;
+  margin-top: 0.9rem;
+}
+
+.media-program {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent);
+  margin-bottom: 0.35rem;
+}
+
+.media-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: var(--line-snug);
+  color: var(--color-text);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.media-trigger:hover .media-title,
+.media-trigger:focus-visible .media-title {
+  color: var(--color-accent);
+}
+
+.media-date {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--color-muted);
+  margin-top: 0.4rem;
+}
+
+.media-pending-note {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--color-muted);
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
+.media-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.media-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------------------------------------------------------
+   Docencia — lista de roles (no CV)
+   --------------------------------------------------------- */
+.role-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: clamp(0.9rem, 1.6vw, 1.25rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.role-list li:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.role-org {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lead);
+}
+
+.role-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Artículos — lista tipográfica
+   --------------------------------------------------------- */
+.article-list li {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.5rem 1.75rem;
+  padding-block: clamp(1.1rem, 2vw, 1.5rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.article-list li:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.article-list time {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--color-accent);
+}
+
+.article-pub {
+  grid-column: 2;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+.article-list h3 {
+  grid-column: 2;
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: var(--line-snug);
+  max-width: 62ch;
+}
+
+/* ---------------------------------------------------------
+   Reconocimientos — cronología editorial
+   --------------------------------------------------------- */
+.timeline li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.75rem;
+  padding-block: clamp(0.85rem, 1.5vw, 1.15rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.timeline li:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.timeline-year {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent);
+  min-width: 6.5rem;
+}
+
+.timeline-desc {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--color-text-soft);
+}
+
+/* ---------------------------------------------------------
+   Footer
+   --------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.footer-inner nav ul {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-inner nav a {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+.footer-inner nav a:hover,
+.footer-inner nav a:focus-visible {
+  color: var(--color-accent);
+}
+
+.footer-meta {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--color-muted-light);
+}

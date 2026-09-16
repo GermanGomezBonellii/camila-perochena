@@ -1,0 +1,60 @@
+/* ============================================================
+   LAYOUT — contenedor y grilla editorial de 12 columnas
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Grilla base reutilizable de 12 columnas.
+   Las secciones de home.css definen sus propios grid-column
+   por elemento para lograr la composición asimétrica. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+}
+
+/* Ritmo vertical estándar entre secciones */
+section {
+  padding-block: var(--section-space);
+}
+
+section + section {
+  border-top: 1px solid var(--color-line);
+}
+
+.section-head {
+  margin-bottom: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+.section-head h2 {
+  font-size: var(--fs-h2);
+}
+
+.section-sub {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-top: 0.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 880px) {
+  :root {
+    --section-space: clamp(2.75rem, 9vw, 4.5rem);
+  }
+}
