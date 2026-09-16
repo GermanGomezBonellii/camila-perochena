@@ -677,3 +677,13 @@
   font-size: var(--fs-meta);
   color: var(--color-muted-light);
 }
+
+/* En mobile el nombre y las redes pasan de estar lado a lado a
+   apilarse en columna, ambos alineados al mismo margen izquierdo
+   (el gutter de .container) — sin quedar uno centrado y otro no. */
+@media (max-width: 720px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -412,8 +412,11 @@
     align-self: auto;
   }
 
-  .index-item--medios h3,
-  .index-item--docencia h3 {
+  /* Los cuatro títulos del índice pasan al mismo tamaño en mobile:
+     la jerarquía tipográfica entre bloques es un recurso de la
+     composición de escritorio y no se traduce bien a una sola
+     columna angosta. */
+  .index-item h3 {
     font-size: var(--fs-h2);
   }
 
