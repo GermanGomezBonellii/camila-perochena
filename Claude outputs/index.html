@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" data-page="contact">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Ver index.html para la explicación completa de este script:
+     marca html.js antes del primer render (para las animaciones de
+     entrada) y fija lang="en" de entrada si ya había un idioma
+     guardado de una visita anterior. -->
+<script>
+(function () {
+  document.documentElement.classList.add("js");
+  try {
+    if (localStorage.getItem("camila-language") === "en") {
+      document.documentElement.lang = "en";
+    }
+  } catch (e) {}
+})();
+</script>
+<title>Camila Perochena / Contacto</title>
+<meta name="description" content="Contacto profesional de la historiadora Camila Perochena: conferencias, notas periodísticas, actividades académicas y otras consultas.">
+
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/contact.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenido" data-i18n="a11y.skipLink">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">Camila Perochena</a>
+
+    <div class="header-actions">
+      <nav class="primary-nav" id="primaryNav" data-i18n-aria-label="nav.mainLabel" aria-label="Navegación principal">
+        <ul>
+          <li><a href="../sobre-mi/index.html" data-i18n="nav.about">Sobre mí</a></li>
+          <li><a href="../publicaciones/index.html" data-i18n="nav.publications">Publicaciones</a></li>
+          <li><a href="../medios/index.html" data-i18n="nav.media">Medios</a></li>
+          <li><a href="index.html" data-i18n="nav.contact" aria-current="page">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-option" data-lang-option="es" aria-pressed="true">ES</button>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <button type="button" class="lang-option" data-lang-option="en" aria-pressed="false">EN</button>
+      </div>
+
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-text" data-i18n="nav.menu">Menú</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- HERO -->
+  <section class="contact-hero" aria-labelledby="contact-hero-heading">
+    <div class="container contact-hero-grid">
+      <h1 id="contact-hero-heading" class="contact-hero-title" data-i18n="contactPage.heroTitle">Contacto</h1>
+      <p class="contact-hero-desc" data-i18n="contact.description">Para conferencias, notas periodísticas, actividades académicas y otras consultas profesionales.</p>
+    </div>
+  </section>
+
+  <!-- 01 / CONTACTO PROFESIONAL -->
+  <section class="contact-section reveal" aria-labelledby="contact-professional-heading">
+    <div class="container contact-layout">
+
+      <div class="contact-head">
+        <h2 id="contact-professional-heading" class="contact-eyebrow">
+          <span class="contact-num">01</span> / <span data-i18n="contact.heading">Contacto profesional</span>
+        </h2>
+      </div>
+
+      <div class="contact-body">
+        <a class="contact-email-lg" href="mailto:camila.perochena@utdt.edu">camila.perochena@utdt.edu</a>
+
+        <div class="contact-professional-meta">
+          <a class="contact-linkedin" href="https://www.linkedin.com/in/camila-perochena-2b861613/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          <span class="contact-location">Buenos Aires, Argentina</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 02 / CONSULTAS -->
+  <section class="contact-section reveal" aria-labelledby="contact-inquiries-heading">
+    <div class="container contact-layout">
+
+      <div class="contact-head">
+        <h2 id="contact-inquiries-heading" class="contact-eyebrow">
+          <span class="contact-num">02</span> / <span data-i18n="contactPage.inquiries.heading">Consultas</span>
+        </h2>
+      </div>
+
+      <div class="contact-body">
+        <div class="contact-inquiries">
+          <div class="contact-inquiry"><p data-i18n="contactPage.inquiries.conferences">Conferencias</p></div>
+          <div class="contact-inquiry"><p data-i18n="contactPage.inquiries.press">Prensa y entrevistas</p></div>
+          <div class="contact-inquiry"><p data-i18n="contactPage.inquiries.academic">Actividades académicas</p></div>
+          <div class="contact-inquiry"><p data-i18n="contactPage.inquiries.projects">Proyectos y colaboraciones</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03 / REDES -->
+  <section class="contact-section reveal" aria-labelledby="contact-social-heading">
+    <div class="container contact-layout">
+
+      <div class="contact-head">
+        <h2 id="contact-social-heading" class="contact-eyebrow">
+          <span class="contact-num">03</span> / <span data-i18n="contactPage.social.heading">Redes</span>
+        </h2>
+      </div>
+
+      <div class="contact-body">
+        <ul class="contact-social-list">
+          <li><a href="https://www.instagram.com/camiperochena/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.tiktok.com/@camiperochena" target="_blank" rel="noopener noreferrer">TikTok <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-name">Camila Perochena</p>
+    <nav data-i18n-aria-label="footer.socialLabel" aria-label="Redes sociales">
+      <ul>
+        <li><a href="https://www.linkedin.com/in/camila-perochena-2b861613/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/camiperochena/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@camiperochena" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </nav>
+    <p class="footer-meta">© 2026</p>
+  </div>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/site.js"></script>
+</body>
+</html>
