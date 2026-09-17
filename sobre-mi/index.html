@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es" data-page="about">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Ver index.html para la explicación completa de este script:
+     marca html.js antes del primer render (para las animaciones de
+     entrada) y fija lang="en" de entrada si ya había un idioma
+     guardado de una visita anterior. -->
+<script>
+(function () {
+  document.documentElement.classList.add("js");
+  try {
+    if (localStorage.getItem("camila-language") === "en") {
+      document.documentElement.lang = "en";
+    }
+  } catch (e) {}
+})();
+</script>
+<title>Camila Perochena / Sobre mí</title>
+<meta name="description" content="Historiadora argentina. Investigación, docencia y comunicación pública sobre los usos políticos del pasado, la memoria y la historia reciente.">
+
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenido" data-i18n="a11y.skipLink">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">Camila Perochena</a>
+
+    <div class="header-actions">
+      <nav class="primary-nav" id="primaryNav" data-i18n-aria-label="nav.mainLabel" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html" data-i18n="nav.about" aria-current="page">Sobre mí</a></li>
+          <li><a href="../publicaciones/index.html" data-i18n="nav.publications">Publicaciones</a></li>
+          <li><a href="../medios/index.html" data-i18n="nav.media">Medios</a></li>
+          <li><a href="../contacto/index.html" data-i18n="nav.contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-option" data-lang-option="es" aria-pressed="true">ES</button>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <button type="button" class="lang-option" data-lang-option="en" aria-pressed="false">EN</button>
+      </div>
+
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-text" data-i18n="nav.menu">Menú</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- HERO -->
+  <section class="about-hero" aria-labelledby="about-hero-heading">
+    <div class="container about-hero-grid">
+      <div class="about-hero-text">
+        <h1 id="about-hero-heading" class="about-hero-title" data-i18n="aboutPage.heroTitle">Sobre mí</h1>
+        <p class="about-hero-lead" data-i18n="aboutPage.heroLead">Soy historiadora. Mi trabajo se desarrolla entre la investigación, la docencia y la comunicación pública.</p>
+      </div>
+
+      <figure class="about-hero-figure">
+        <!-- Fotografía propia de esta página (img/sobremi.webp), distinta
+             de la del hero de Home (img/hero.webp). Ya viene en blanco y
+             negro desde el archivo, así que acá no se le aplica ningún
+             filter. Recorte 4/3 (igual que la proporción real de la
+             imagen, 2400×1800) para no perder ancho de la composición. -->
+        <div class="about-hero-photo">
+          <img src="../img/sobremi.webp" data-i18n-alt="aboutPage.heroImageAlt" alt="Retrato de Camila Perochena">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- BIO PRINCIPAL -->
+  <section class="reveal" aria-labelledby="about-bio-heading">
+    <div class="container about-bio">
+      <h2 id="about-bio-heading" class="visually-hidden" data-i18n="aboutPage.heroTitle">Sobre mí</h2>
+      <div class="about-bio-text">
+        <p data-i18n="aboutPage.bio.p1">Soy historiadora y mi trabajo gira en torno a una pregunta que atraviesa tanto mi investigación como mi participación en la esfera pública: ¿qué significa usar la historia para entender el presente?</p>
+        <p data-i18n="aboutPage.bio.p2">Investigo los usos políticos del pasado, la memoria y las formas en que distintos actores construyen, disputan y movilizan relatos históricos. Mi trabajo se ha concentrado especialmente en América Latina, desde las conmemoraciones y los liderazgos políticos hasta los modos en que las nuevas derechas recurren a la historia.</p>
+        <p data-i18n="aboutPage.bio.p3">Al mismo tiempo, siempre entendí que el conocimiento histórico no debía quedar limitado al ámbito académico. Por eso mi trayectoria combina investigación y docencia con proyectos de comunicación pública en televisión, streaming, podcasts y prensa. En todos esos espacios busco acercar las herramientas del pensamiento histórico a públicos más amplios sin renunciar a la complejidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPIO DE TRABAJO -->
+  <section class="about-principle reveal" aria-label="Principio de trabajo">
+    <div class="container grid-12">
+      <p class="about-principle-text">
+        <span data-i18n="aboutPage.principle.line1">Comprender sin simplificar,</span>
+        <span data-i18n="aboutPage.principle.line2">explicar sin moralizar,</span>
+        <span data-i18n="aboutPage.principle.line3">comunicar sin trivializar.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- TRES DIMENSIONES: INVESTIGACIÓN / DOCENCIA / COMUNICACIÓN PÚBLICA -->
+  <section class="reveal" aria-label="Investigación, docencia y comunicación pública">
+    <div class="container about-dims">
+
+      <div class="about-dim">
+        <div class="about-dim-head">
+          <p class="about-dim-eyebrow"><span class="about-dim-num">01</span> / <span data-i18n="aboutPage.dimensions.research.heading">Investigación</span></p>
+        </div>
+        <div class="about-dim-body">
+          <p data-i18n="aboutPage.dimensions.research.body">Mi investigación se inscribe en la historia política e intelectual contemporánea, con especial interés en los usos públicos del pasado en América Latina. Estudio cómo gobiernos y actores políticos recurren a la historia para construir legitimidades, identidades y sentidos colectivos, y cómo esas operaciones transforman la manera en que el pasado es narrado en el presente.</p>
+        </div>
+      </div>
+
+      <div class="about-dim">
+        <div class="about-dim-head">
+          <p class="about-dim-eyebrow"><span class="about-dim-num">02</span> / <span data-i18n="aboutPage.dimensions.teaching.heading">Docencia</span></p>
+        </div>
+        <div class="about-dim-body">
+          <p data-i18n="aboutPage.dimensions.teaching.body">La docencia es otra parte central de mi práctica como historiadora. En la Universidad Torcuato Di Tella enseño historia y participo en la formación de estudiantes de grado y posgrado. Me interesa que la universidad sea un espacio para adquirir herramientas que permitan pensar históricamente el presente, antes que buscar en el pasado respuestas inmediatas.</p>
+        </div>
+      </div>
+
+      <div class="about-dim">
+        <div class="about-dim-head">
+          <p class="about-dim-eyebrow"><span class="about-dim-num">03</span> / <span data-i18n="aboutPage.dimensions.publicComm.heading">Comunicación pública</span></p>
+        </div>
+        <div class="about-dim-body">
+          <p data-i18n="aboutPage.dimensions.publicComm.body">Para mí, la divulgación no es una etapa posterior a la investigación, sino parte del trabajo historiográfico. Trabajar con públicos y formatos diversos obliga a encontrar nuevas formas de argumentar, formular preguntas y hacer circular el conocimiento sin reducirlo a analogías fáciles o lecciones morales.</p>
+          <a class="text-link" href="../medios/index.html" data-i18n="aboutPage.dimensions.publicComm.mediaCta">Ver trabajo en medios →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UNA PRÁCTICA DE COMPRENSIÓN -->
+  <section class="about-practice-section reveal" aria-labelledby="about-practice-heading">
+    <div class="container about-practice">
+      <div class="about-practice-head">
+        <h2 id="about-practice-heading" data-i18n="aboutPage.practice.heading">Una práctica de comprensión</h2>
+      </div>
+      <div class="about-practice-body">
+        <p data-i18n="aboutPage.practice.p1">No entiendo la historia como un repertorio de ejemplos del que extraer respuestas inmediatas para el presente. Comprender el pasado exige reconstruir contextos, atender a la diversidad de actores, trabajar críticamente con las fuentes y reconocer la contingencia.</p>
+        <p data-i18n="aboutPage.practice.p2">La historia no ofrece lecciones simples ni respuestas unívocas. Su potencia está justamente en ayudarnos a pensar la complejidad y también a reconocer qué hay de nuevo en nuestro propio presente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMACIÓN -->
+  <section class="reveal" aria-labelledby="about-education-heading">
+    <div class="container about-education">
+      <div class="about-education-head">
+        <h2 id="about-education-heading" data-i18n="aboutPage.education.heading">Formación</h2>
+      </div>
+
+      <div class="about-education-list">
+        <!-- Nombres institucionales y título de tesis: reales, no se
+             traducen (misma política que role-org en el resto del sitio). -->
+        <div class="about-edu-item">
+          <span class="about-edu-year">2020</span>
+          <div>
+            <p class="about-edu-degree" data-i18n="aboutPage.education.phd.degree">Doctorado en Historia</p>
+            <p class="about-edu-org">Universidad de Buenos Aires</p>
+            <p class="about-edu-thesis"><span class="about-edu-thesis-label" data-i18n="aboutPage.education.thesisLabel">Tesis:</span>“Los usos políticos del pasado en la construcción de dos liderazgos presidenciales. Argentina y México en tiempos bicentenarios”</p>
+          </div>
+        </div>
+
+        <div class="about-edu-item">
+          <span class="about-edu-year">2016</span>
+          <div>
+            <p class="about-edu-degree" data-i18n="aboutPage.education.masters.degree">Maestría en Ciencia Política</p>
+            <p class="about-edu-org">Universidad Torcuato Di Tella</p>
+          </div>
+        </div>
+
+        <div class="about-edu-item">
+          <span class="about-edu-year">2012</span>
+          <div>
+            <p class="about-edu-degree" data-i18n="aboutPage.education.teachingDegree.degree">Profesorado de Historia</p>
+            <p class="about-edu-org">Universidad Nacional de Rosario</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTUALMENTE -->
+  <section class="reveal" aria-labelledby="about-current-heading">
+    <div class="container about-current">
+      <div class="about-current-head">
+        <h2 id="about-current-heading" data-i18n="aboutPage.current.heading">Actualmente</h2>
+      </div>
+      <div class="about-current-body">
+        <p class="about-current-org">Universidad Torcuato Di Tella</p>
+        <div class="about-current-roles">
+          <p class="about-current-role-title">
+            <span data-i18n="aboutPage.current.role1">Profesora investigadora</span>
+            <span class="about-current-role-org">Departamento de Estudios Históricos y Sociales</span>
+          </p>
+          <p class="about-current-role-title">
+            <span data-i18n="aboutPage.current.role2">Directora de la Maestría y el Doctorado en Historia</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECONOCIMIENTOS -->
+  <section class="reveal" aria-labelledby="about-recognitions-heading">
+    <div class="container about-recognitions">
+      <h2 id="about-recognitions-heading" data-i18n="recognitions.heading">Reconocimientos</h2>
+
+      <!-- Reutiliza .timeline / .timeline-year / .timeline-desc de
+           components.css (mismo componente que Home). Nombres oficiales
+           de premios e instituciones: no se traducen. -->
+      <ol class="timeline">
+        <li>
+          <span class="timeline-year">2024</span>
+          <span class="timeline-desc" data-i18n="aboutPage.recognitions.items.scientistsCount">Científicas que cuentan / CONICET + Embajada de Francia</span>
+        </li>
+        <li>
+          <span class="timeline-year">2015-2024</span>
+          <span class="timeline-desc" data-i18n="aboutPage.recognitions.items.canaveseAward">Premio Alfredo Canavese a la excelencia docente / Universidad Torcuato Di Tella</span>
+        </li>
+        <li>
+          <span class="timeline-year">2013</span>
+          <span class="timeline-desc" data-i18n="aboutPage.recognitions.items.bestAverage">Mejor promedio académico de la carrera de Historia / Universidad Nacional de Rosario + Academia Nacional de la Historia</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section class="about-cv reveal" aria-labelledby="about-cv-heading">
+    <div class="container">
+      <h2 id="about-cv-heading" data-i18n="aboutPage.cv.heading">Trayectoria completa</h2>
+      <p class="about-cv-body" data-i18n="aboutPage.cv.body">Para consultar publicaciones, becas, conferencias y experiencia profesional en detalle:</p>
+
+      <p class="about-cv-label" data-i18n="aboutPage.cv.label">Descargar CV</p>
+      <!-- Sin archivo real todavía en el proyecto (ni .docx ni .pdf):
+           en vez de un href roto o inventado, se deja un enlace inerte
+           (sin href) con el mismo texto, listo para activarse apenas
+           existan los archivos en assets/cv/. Ver explicación al usuario. -->
+      <div class="about-cv-links">
+        <span class="about-cv-link--pending">
+          <span data-i18n="aboutPage.cv.es">CV / Español</span>
+          <span class="about-cv-pending-note" data-i18n="aboutPage.cv.pending">Se habilita al incorporar el archivo.</span>
+        </span>
+        <span class="about-cv-link--pending">
+          <span data-i18n="aboutPage.cv.en">CV / English</span>
+          <span class="about-cv-pending-note" data-i18n="aboutPage.cv.pending">Se habilita al incorporar el archivo.</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-name">Camila Perochena</p>
+    <nav data-i18n-aria-label="footer.socialLabel" aria-label="Redes sociales">
+      <ul>
+        <li><a href="https://www.linkedin.com/in/camila-perochena-2b861613/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/camiperochena/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@camiperochena" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </nav>
+    <p class="footer-meta">© 2026</p>
+  </div>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/site.js"></script>
+</body>
+</html>

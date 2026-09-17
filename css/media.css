@@ -233,6 +233,83 @@ a.podcast-name:focus-visible {
   align-self: flex-start;
 }
 
+/* ---------------------------------------------------------
+   Prensa y columnas — lista tipográfica, sin cards: una columna
+   angosta con la etiqueta (Columna / Artículo / Entrevista) junto
+   a cada entrada, igual lenguaje que .pub-year en Publicaciones
+   pero con un rótulo de tipo en vez de un año, porque acá lo que
+   distingue cada fila es el formato, no la fecha. Una entrevista
+   nunca se muestra como si fuera un texto escrito por Camila: la
+   etiqueta ENTREVISTA queda siempre separada del nombre del medio.
+   --------------------------------------------------------- */
+.press-list {
+  grid-column: 4 / 13;
+}
+
+.press-item {
+  display: flex;
+  gap: var(--grid-gap);
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.press-item:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.press-type {
+  flex-shrink: 0;
+  width: 8rem;
+  padding-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-accent);
+}
+
+.press-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.press-outlet {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+a.press-outlet:hover,
+a.press-outlet:focus-visible {
+  color: var(--color-accent-hover);
+}
+
+.press-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-body);
+  color: var(--color-text-soft);
+  max-width: 52ch;
+}
+
+.press-topic {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--color-text-soft);
+}
+
+.press-date {
+  margin-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -243,7 +320,8 @@ a.podcast-name:focus-visible {
   .archive-grid,
   .archive-pending,
   .archive-links,
-  .podcast-list { grid-column: 5 / 13; }
+  .podcast-list,
+  .press-list { grid-column: 5 / 13; }
 }
 
 @media (max-width: 880px) {
@@ -273,7 +351,8 @@ a.podcast-name:focus-visible {
   .archive-grid,
   .archive-pending,
   .archive-links,
-  .podcast-list {
+  .podcast-list,
+  .press-list {
     grid-column: 1 / -1;
   }
 
@@ -302,5 +381,14 @@ a.podcast-name:focus-visible {
 
   .podcast-cover {
     width: 4.5rem;
+  }
+
+  .press-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .press-type {
+    width: auto;
   }
 }

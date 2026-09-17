@@ -51,10 +51,10 @@
     <div class="header-actions">
       <nav class="primary-nav" id="primaryNav" data-i18n-aria-label="nav.mainLabel" aria-label="Navegación principal">
         <ul>
-          <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
-          <li><a href="#publicaciones" data-i18n="nav.publications">Publicaciones</a></li>
+          <li><a href="sobre-mi/index.html" data-i18n="nav.about">Sobre mí</a></li>
+          <li><a href="publicaciones/index.html" data-i18n="nav.publications">Publicaciones</a></li>
           <li><a href="medios/index.html" data-i18n="nav.media">Medios</a></li>
-          <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+          <li><a href="contacto/index.html" data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </nav>
 
@@ -90,7 +90,7 @@
       <figure class="hero-figure">
         <!-- Tratamiento en blanco y negro aplicado vía CSS (filter en .hero-image, home.css).
              Si se reemplaza la fotografía, mantener la misma clase para conservar el tratamiento. -->
-        <img class="hero-image" src="img/camilahero.jpg" data-i18n-alt="hero.imageAlt" alt="Camila Perochena en una biblioteca">
+        <img class="hero-image" src="img/hero.webp" data-i18n-alt="hero.imageAlt" alt="Retrato de Camila Perochena">
       </figure>
     </div>
   </section>
@@ -100,7 +100,7 @@
     <h2 id="index-heading" class="visually-hidden" data-i18n="index.heading">Áreas de trabajo</h2>
     <div class="container index-grid">
 
-      <a class="index-item index-item--publicaciones" href="#publicaciones">
+      <a class="index-item index-item--publicaciones" href="publicaciones/index.html">
         <span class="index-num">01</span>
         <h3 data-i18n="index.publications.title">Publicaciones</h3>
         <p data-i18n="index.publications.desc">Libros y artículos sobre historia argentina reciente y los usos políticos del pasado.</p>
@@ -118,7 +118,7 @@
         <p data-i18n="index.teaching.desc">Actividad académica actual.</p>
       </a>
 
-      <a class="index-item index-item--sobre-mi" href="#sobre-mi">
+      <a class="index-item index-item--sobre-mi" href="sobre-mi/index.html">
         <span class="index-num">04</span>
         <h3 data-i18n="index.about.title">Sobre mí</h3>
         <p data-i18n="index.about.desc">Trayectoria, formación y curriculum.</p>
@@ -190,7 +190,7 @@
         <p class="book-subtitle">El kirchnerismo y sus batallas por el pasado</p>
         <p class="book-meta">Crítica, 2022</p>
         <p class="book-desc" data-i18n="book.description">Un recorrido por los usos del pasado en el discurso kirchnerista y por las batallas culturales en torno a la historia argentina reciente.</p>
-        <a class="text-link" href="#publicaciones" data-i18n="book.cta">Ver publicaciones →</a>
+        <a class="text-link" href="publicaciones/index.html" data-i18n="book.cta">Ver publicaciones →</a>
       </div>
 
     </div>
@@ -203,27 +203,18 @@
         <h2 id="articles-heading" data-i18n="articles.heading">Artículos</h2>
       </div>
 
-      <!-- article-pub y los títulos son citas reales ya publicadas en
-           español: no se traducen ni se inventa una versión en inglés. -->
-      <ol class="article-list">
-        <li>
-          <time datetime="2021">2021</time>
-          <span class="article-pub">História da Historiografia</span>
-          <h3>Tiempo, historia y política. Una reflexión comparativa sobre las conmemoraciones bicentenarias en México y Argentina</h3>
-        </li>
-        <li>
-          <time datetime="2020">2020</time>
-          <span class="article-pub">Historia y Memoria</span>
-          <h3>Entre el «deber de memoria» y el uso político del olvido: México y Argentina frente al pasado reciente</h3>
-        </li>
-        <li>
-          <time datetime="2020">2020</time>
-          <span class="article-pub">Prohistoria</span>
-          <h3>La historia en la política y las políticas de la historia. Batalla cultural y revisionismo histórico en los discursos de Cristina Fernández de Kirchner (2007-2015)</h3>
-        </li>
-      </ol>
+      <!-- Los 3 artículos destacados se generan desde
+           CamilaPublicationsData.journalArticles (los marcados con
+           homeFeatured, ver js/publications-data.js) vía js/main.js.
+           Títulos y nombres de revista son citas reales ya publicadas:
+           no se traducen ni se inventa una versión en inglés. -->
+      <ol class="article-list" id="homeArticles"></ol>
 
-      <a class="text-link" href="#publicaciones" data-i18n="articles.viewAllCta">Ver todas las publicaciones →</a>
+      <noscript>
+        <p class="media-pending-note" data-i18n="articles.noscript">Activá JavaScript para ver los artículos destacados.</p>
+      </noscript>
+
+      <a class="text-link" href="publicaciones/index.html#articulos" data-i18n="articles.viewAllCta">Ver todas las publicaciones →</a>
     </div>
   </section>
 
@@ -251,7 +242,7 @@
     <div class="container">
       <h2 id="contact-heading" data-i18n="contact.heading">Contacto profesional</h2>
       <p data-i18n="contact.description">Para conferencias, notas periodísticas, actividades académicas y otras consultas profesionales.</p>
-      <a class="text-link text-link--lg" href="#contacto" data-i18n="contact.cta">Ir a contacto →</a>
+      <a class="text-link text-link--lg" href="contacto/index.html" data-i18n="contact.cta">Ir a contacto →</a>
     </div>
   </section>
 
@@ -274,6 +265,7 @@
 
 <script src="js/i18n.js"></script>
 <script src="js/site.js"></script>
+<script src="js/publications-data.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

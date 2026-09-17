@@ -1,0 +1,167 @@
+/* ============================================================
+   CONTACT — composición específica de /contacto/
+
+   Página breve y tipográfica, sin formulario: mismo lenguaje que
+   el hero de Medios/Publicaciones (.media-hero / .pub-hero) para
+   el título, y el mismo patrón de "encabezado angosto + contenido
+   ancho" (.archive-head / .archive-body, .pub-head / .pub-body)
+   para los dos bloques de contacto. Clases propias para mantener
+   este archivo autocontenido, sin tocar los otros.
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Hero — compacto, tipográfico, sin fotografía
+   --------------------------------------------------------- */
+.contact-hero {
+  padding-top: clamp(2.25rem, 5vw, 3.75rem);
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-top: 0;
+}
+
+.contact-hero + section {
+  border-top: 0;
+}
+
+.contact-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  align-items: end;
+}
+
+.contact-hero-title {
+  grid-column: 1 / 7;
+  font-size: clamp(2.5rem, 3.2vw + 1.3rem, 4.25rem);
+  line-height: 0.98;
+  font-weight: 500;
+}
+
+.contact-hero-desc {
+  grid-column: 7 / 13;
+  align-self: end;
+  justify-self: end;
+  max-width: 34ch;
+  padding-bottom: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-lead);
+  color: var(--color-text-soft);
+  text-align: right;
+}
+
+/* Misma técnica de entrada que el resto de los heroes tipográficos
+   del sitio (html.hero-ready, disparada por js/site.js). */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .contact-hero-title,
+  html.js .contact-hero-desc {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--duration-ui) var(--ease),
+                transform var(--duration-ui) var(--ease);
+  }
+
+  html.js .contact-hero-title { transition-delay: 0ms; }
+  html.js .contact-hero-desc { transition-delay: 90ms; }
+
+  html.js.hero-ready .contact-hero-title,
+  html.js.hero-ready .contact-hero-desc {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   Bloques — "Contacto profesional" y "Redes", mismo patrón de
+   encabezado angosto + contenido ancho que el resto del sitio.
+   --------------------------------------------------------- */
+.contact-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+}
+
+.contact-head {
+  grid-column: 1 / 4;
+}
+
+.contact-body {
+  grid-column: 4 / 13;
+}
+
+/* Email real: mismo lenguaje visual que los .text-link del resto
+   del sitio, pero con más presencia tipográfica (serif, tamaño
+   mayor) porque es el contenido principal del bloque, no un CTA
+   secundario. */
+.contact-email {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.contact-email:hover,
+.contact-email:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Redes: lista simple, mismo lenguaje que el footer (nombres de
+   marca, sin iconos). */
+.contact-social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-social-list a {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.contact-social-list a:hover,
+.contact-social-list a:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  .contact-head { grid-column: 1 / 5; }
+  .contact-body { grid-column: 5 / 13; }
+}
+
+@media (max-width: 880px) {
+  .contact-hero {
+    padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .contact-hero-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+
+  .contact-hero-title,
+  .contact-hero-desc {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-align: left;
+    max-width: none;
+  }
+
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-head,
+  .contact-body {
+    grid-column: 1 / -1;
+  }
+
+  .contact-head {
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+  }
+}

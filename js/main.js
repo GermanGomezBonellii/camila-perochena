@@ -56,4 +56,42 @@
     window.CamilaMedia.attachLazyEmbed(document);
   }
 
+  /* ---------- Artículos destacados ----------
+     Usa los mismos datos que /publicaciones/ (js/publications-data.js,
+     incluido antes que este archivo): los 3 artículos marcados con
+     homeFeatured, en ese orden. Títulos y revistas son citas reales,
+     no se traducen — por eso alcanza con armar el DOM una sola vez,
+     sin volver a renderizar al cambiar de idioma. */
+  var homeArticlesList = document.getElementById("homeArticles");
+
+  if (homeArticlesList && window.CamilaPublicationsData) {
+    var featuredArticles = window.CamilaPublicationsData.journalArticles
+      .filter(function (item) {
+        return !!item.homeFeatured;
+      })
+      .sort(function (a, b) {
+        return a.homeFeatured - b.homeFeatured;
+      });
+
+    featuredArticles.forEach(function (item) {
+      var li = document.createElement("li");
+
+      var time = document.createElement("time");
+      time.setAttribute("datetime", String(item.year));
+      time.textContent = String(item.year);
+
+      var pub = document.createElement("span");
+      pub.className = "article-pub";
+      pub.textContent = item.publication;
+
+      var title = document.createElement("h3");
+      title.textContent = item.title;
+
+      li.appendChild(time);
+      li.appendChild(pub);
+      li.appendChild(title);
+      homeArticlesList.appendChild(li);
+    });
+  }
+
 })();

@@ -51,6 +51,21 @@ var CamilaI18n = (function () {
           title: "Camila Perochena / Medios",
           description:
             "Columnas, entrevistas, podcasts y participaciones audiovisuales de la historiadora Camila Perochena, incluyendo su columna en Odisea Argentina."
+        },
+        publications: {
+          title: "Camila Perochena / Publicaciones",
+          description:
+            "Libros, artículos académicos y capítulos de libro de la historiadora Camila Perochena sobre historia, memoria y los usos políticos del pasado."
+        },
+        about: {
+          title: "Camila Perochena / Sobre mí",
+          description:
+            "Historiadora argentina. Investigación, docencia y comunicación pública sobre los usos políticos del pasado, la memoria y la historia reciente."
+        },
+        contact: {
+          title: "Camila Perochena / Contacto",
+          description:
+            "Contacto profesional de la historiadora Camila Perochena: conferencias, notas periodísticas, actividades académicas y otras consultas."
         }
       },
       a11y: {
@@ -68,7 +83,7 @@ var CamilaI18n = (function () {
       hero: {
         sectionLabel: "Presentación",
         role: "Historiadora",
-        imageAlt: "Camila Perochena en una biblioteca"
+        imageAlt: "Retrato de Camila Perochena"
       },
       index: {
         heading: "Áreas de trabajo",
@@ -112,7 +127,8 @@ var CamilaI18n = (function () {
       },
       articles: {
         heading: "Artículos",
-        viewAllCta: "Ver todas las publicaciones →"
+        viewAllCta: "Ver todas las publicaciones →",
+        noscript: "Activá JavaScript para ver los artículos destacados."
       },
       recognitions: {
         heading: "Reconocimientos"
@@ -151,6 +167,7 @@ var CamilaI18n = (function () {
             description: "Bienvenidos al podcast de la ASAIH, la Asociación Argentina de Investigadores en Historia.\nUn podcast de entrevistas a historiadores sobre historia argentina, latinoamericana y mundial.\nUn recorrido por el pasado para pensarnos en el presente."
           },
           primaveraCero: {
+            role: "Productora y conductora",
             description: "Primavera Cero recorre, año por año, la vuelta de la democracia en la Argentina, desde 1982 hasta 1989, a través de las voces de sus protagonistas.\nCon la conducción de los historiadores Camila Perochena y Martín Marimón, cada episodio aborda un año específico de este período."
           },
           hayQuePasarElInvierno: {
@@ -160,10 +177,126 @@ var CamilaI18n = (function () {
             description: "La banda presidencial es un podcast conducido por Camila Perochena, historiadora y docente de la Universidad Torcuato Di Tella, y Santiago Rodríguez Rey, politólogo y especialista en comunicación política, que hará un repaso semanal por todos los presidentes argentinos, desde Bernardino Rivadavia hasta Mauricio Macri, al estilo de lo que hicieron los podcasts Presidential, de Lillian Cunningham para el Washington Post, y Presidente da Semana, de Rodrigo Vizeu para Folha de São Paulo."
           }
         },
+        press: {
+          heading: "Prensa y columnas",
+          description: "Columnas de opinión, artículos y entrevistas en medios gráficos y digitales.",
+          typeColumn: "Columna",
+          typeArticle: "Artículo",
+          typeInterview: "Entrevista",
+          laNacionTopic: "Historia y política"
+        },
         other: {
           heading: "Otras participaciones",
           description: "Entrevistas, documentales y otras participaciones audiovisuales.",
           comingSoon: "Sección en preparación."
+        }
+      },
+
+      // Página /publicaciones/. Títulos de libros, artículos y
+      // capítulos van directo en js/publications-data.js (no se
+      // traducen): acá solo viven encabezados, etiquetas y la
+      // descripción del libro.
+      publicationsPage: {
+        heroTitle: "Publicaciones",
+        heroDesc: "Libros, artículos e investigaciones sobre historia, memoria y los usos políticos del pasado.",
+        books: {
+          heading: "Libros",
+          eyebrow: "Libro",
+          cristina: {
+            description: "Basado en su tesis doctoral, el libro estudia cómo Cristina Fernández de Kirchner utilizó distintas interpretaciones del pasado para construir identidad política, legitimar su gobierno y estructurar sus conflictos con la oposición."
+          }
+        },
+        journalArticles: {
+          heading: "Artículos académicos"
+        },
+        bookChapters: {
+          heading: "Capítulos de libro",
+          tag: "Capítulo",
+          inLabel: "En",
+          coAuthorLabel: "Coautora",
+          editorLabel: "Editor",
+          compilersLabel: "Compiladores"
+        },
+        readCta: "Leer artículo →",
+        noscript: "Activá JavaScript para ver el archivo completo de publicaciones."
+      },
+
+      // Página /sobre-mi/. Única página del sitio en primera persona
+      // — el resto mantiene presentación institucional. Nombres de
+      // instituciones, departamentos y el título de la tesis no se
+      // traducen (misma política que role-org en el resto del sitio).
+      aboutPage: {
+        heroTitle: "Sobre mí",
+        heroLead: "Soy historiadora. Mi trabajo se desarrolla entre la investigación, la docencia y la comunicación pública.",
+        heroImageAlt: "Retrato de Camila Perochena",
+        bio: {
+          p1: "Mi trabajo gira en torno a una pregunta que atraviesa tanto mi investigación como mi participación en la esfera pública: ¿qué significa usar la historia para entender el presente?",
+          p2: "Investigo los usos políticos del pasado, la memoria y las formas en que distintos actores construyen, disputan y movilizan relatos históricos. Mi trabajo se ha concentrado especialmente en América Latina, desde las conmemoraciones y los liderazgos políticos hasta los modos en que las nuevas derechas recurren a la historia.",
+          p3: "Al mismo tiempo, siempre entendí que el conocimiento histórico no debía quedar limitado al ámbito académico. Por eso mi trayectoria combina investigación y docencia con proyectos de comunicación pública en televisión, streaming, podcasts y prensa. En todos esos espacios busco acercar las herramientas del pensamiento histórico a públicos más amplios sin renunciar a la complejidad."
+        },
+        principle: {
+          line1: "Comprender sin simplificar,",
+          line2: "explicar sin moralizar,",
+          line3: "comunicar sin trivializar."
+        },
+        dimensions: {
+          research: {
+            heading: "Investigación",
+            body: "Mi investigación se inscribe en la historia política e intelectual contemporánea, con especial interés en los usos públicos del pasado en América Latina. Estudio cómo gobiernos y actores políticos recurren a la historia para construir legitimidades, identidades y sentidos colectivos, y cómo esas operaciones transforman la manera en que el pasado es narrado en el presente."
+          },
+          teaching: {
+            heading: "Docencia",
+            body: "La docencia es otra parte central de mi práctica como historiadora. En la Universidad Torcuato Di Tella enseño historia y participo en la formación de estudiantes de grado y posgrado. Me interesa que la universidad sea un espacio para adquirir herramientas que permitan pensar históricamente el presente, antes que buscar en el pasado respuestas inmediatas."
+          },
+          publicComm: {
+            heading: "Comunicación pública",
+            body: "Para mí, la divulgación no es una etapa posterior a la investigación, sino parte del trabajo historiográfico. Trabajar con públicos y formatos diversos obliga a encontrar nuevas formas de argumentar, formular preguntas y hacer circular el conocimiento sin reducirlo a analogías fáciles o lecciones morales.",
+            mediaCta: "Ver trabajo en medios →"
+          }
+        },
+        practice: {
+          heading: "Una práctica de comprensión",
+          p1: "No entiendo la historia como un repertorio de ejemplos del que extraer respuestas inmediatas para el presente. Comprender el pasado exige reconstruir contextos, atender a la diversidad de actores, trabajar críticamente con las fuentes y reconocer la contingencia.",
+          p2: "La historia no ofrece lecciones simples ni respuestas unívocas. Su potencia está justamente en ayudarnos a pensar la complejidad y también a reconocer qué hay de nuevo en nuestro propio presente."
+        },
+        education: {
+          heading: "Formación",
+          thesisLabel: "Tesis:",
+          phd: {
+            degree: "Doctorado en Historia"
+          },
+          masters: {
+            degree: "Maestría en Ciencia Política"
+          },
+          teachingDegree: {
+            degree: "Profesorado de Historia"
+          }
+        },
+        current: {
+          heading: "Actualmente",
+          role1: "Profesora investigadora",
+          role2: "Directora de la Maestría y el Doctorado en Historia"
+        },
+        recognitions: {
+          items: {
+            scientistsCount: "Científicas que cuentan / CONICET + Embajada de Francia",
+            canaveseAward: "Premio Alfredo Canavese a la excelencia docente / Universidad Torcuato Di Tella",
+            bestAverage: "Mejor promedio académico de la carrera de Historia / Universidad Nacional de Rosario + Academia Nacional de la Historia"
+          }
+        },
+        cv: {
+          heading: "Trayectoria completa",
+          body: "Para consultar publicaciones, becas, conferencias y experiencia profesional en detalle:",
+          label: "Descargar CV",
+          es: "CV / Español",
+          en: "CV / English",
+          pending: "Se habilita al incorporar el archivo."
+        }
+      },
+      contactPage: {
+        heroTitle: "Contacto",
+        social: {
+          heading: "Redes"
         }
       }
     },
@@ -179,6 +312,21 @@ var CamilaI18n = (function () {
           title: "Camila Perochena / Media",
           description:
             "Columns, interviews, podcasts and audiovisual appearances by historian Camila Perochena, including her column on Odisea Argentina."
+        },
+        publications: {
+          title: "Camila Perochena / Publications",
+          description:
+            "Books, academic articles and book chapters by historian Camila Perochena on history, memory and the political uses of the past."
+        },
+        about: {
+          title: "Camila Perochena / About",
+          description:
+            "Argentine historian. Research, teaching and public communication on the political uses of the past, memory and recent history."
+        },
+        contact: {
+          title: "Camila Perochena / Contact",
+          description:
+            "Professional contact for historian Camila Perochena: conferences, press pieces, academic activities and other inquiries."
         }
       },
       a11y: {
@@ -196,7 +344,7 @@ var CamilaI18n = (function () {
       hero: {
         sectionLabel: "Introduction",
         role: "Historian",
-        imageAlt: "Camila Perochena in a library"
+        imageAlt: "Portrait of Camila Perochena"
       },
       index: {
         heading: "Areas of work",
@@ -243,7 +391,8 @@ var CamilaI18n = (function () {
       },
       articles: {
         heading: "Articles",
-        viewAllCta: "View all publications →"
+        viewAllCta: "View all publications →",
+        noscript: "Enable JavaScript to see the featured articles."
       },
       recognitions: {
         heading: "Honors & Awards"
@@ -278,6 +427,7 @@ var CamilaI18n = (function () {
             description: "Welcome to the podcast of ASAIH, the Asociación Argentina de Investigadores en Historia.\nA podcast of interviews with historians on Argentine, Latin American and world history.\nA journey through the past to think about the present."
           },
           primaveraCero: {
+            role: "Producer and host",
             description: "Primavera Cero traces, year by year, Argentina's return to democracy between 1982 and 1989, through the voices of the people who lived it.\nHosted by historians Camila Perochena and Martín Marimón, each episode focuses on one specific year of that period."
           },
           hayQuePasarElInvierno: {
@@ -287,10 +437,118 @@ var CamilaI18n = (function () {
             description: "La banda presidencial is a podcast hosted by Camila Perochena, historian and professor at Universidad Torcuato Di Tella, and Santiago Rodríguez Rey, political scientist and political communication specialist, taking a weekly look back at every Argentine president, from Bernardino Rivadavia to Mauricio Macri, in the spirit of Presidential, by Lillian Cunningham for The Washington Post, and Presidente da Semana, by Rodrigo Vizeu for Folha de São Paulo."
           }
         },
+        press: {
+          heading: "Press and columns",
+          description: "Opinion columns, articles and interviews in print and digital media.",
+          typeColumn: "Column",
+          typeArticle: "Article",
+          typeInterview: "Interview",
+          laNacionTopic: "History and politics"
+        },
         other: {
           heading: "Other appearances",
           description: "Interviews, documentaries and other audiovisual appearances.",
           comingSoon: "Section in preparation."
+        }
+      },
+
+      publicationsPage: {
+        heroTitle: "Publications",
+        heroDesc: "Books, articles and research on history, memory and the political uses of the past.",
+        books: {
+          heading: "Books",
+          eyebrow: "Book",
+          cristina: {
+            description: "Drawing on her doctoral dissertation, the book examines how Cristina Fernández de Kirchner used different interpretations of the past to build political identity, legitimize her government and frame her conflicts with the opposition."
+          }
+        },
+        journalArticles: {
+          heading: "Academic articles"
+        },
+        bookChapters: {
+          heading: "Book chapters",
+          tag: "Chapter",
+          inLabel: "In",
+          coAuthorLabel: "Co-author",
+          editorLabel: "Editor",
+          compilersLabel: "Edited by"
+        },
+        readCta: "Read article →",
+        noscript: "Enable JavaScript to see the full archive of publications."
+      },
+
+      aboutPage: {
+        heroTitle: "About",
+        heroLead: "I am a historian. My work spans research, teaching and public communication.",
+        heroImageAlt: "Portrait of Camila Perochena",
+        bio: {
+          p1: "My work revolves around a question that runs through both my academic research and my engagement in the public sphere: what does it mean to use history to understand the present?",
+          p2: "I study the political uses of the past, memory, and the ways in which different actors construct, dispute and mobilize historical narratives. My work has focused particularly on Latin America, from commemorations and political leadership to the ways in which contemporary right-wing movements make use of history.",
+          p3: "At the same time, I have always believed that historical knowledge should not remain confined to academia. My career therefore combines research and teaching with public history projects across television, streaming, podcasts and the press. Across these formats, I aim to make the tools of historical thinking available to broader audiences without sacrificing complexity."
+        },
+        principle: {
+          line1: "Understand without oversimplifying,",
+          line2: "explain without moralizing,",
+          line3: "communicate without trivializing."
+        },
+        dimensions: {
+          research: {
+            heading: "Research",
+            body: "My research is situated within contemporary political and intellectual history, with a particular interest in the public uses of the past in Latin America. I study how governments and political actors turn to history to construct legitimacy, identities and collective meanings, and how these operations reshape the ways the past is narrated in the present."
+          },
+          teaching: {
+            heading: "Teaching",
+            body: "Teaching is another central part of my work as a historian. At Universidad Torcuato Di Tella, I teach history and work with undergraduate and graduate students. I see the university as a space for developing the tools to think historically about the present, rather than searching the past for immediate answers."
+          },
+          publicComm: {
+            heading: "Public communication",
+            body: "For me, public communication is not something that comes after research; it is part of historical practice itself. Working across different audiences and formats requires finding new ways to argue, formulate questions and circulate knowledge without reducing history to easy analogies or moral lessons.",
+            mediaCta: "View media work →"
+          }
+        },
+        practice: {
+          heading: "A practice of understanding",
+          p1: "I do not understand history as a repertoire of examples from which to extract immediate answers for the present. Understanding the past requires reconstructing contexts, attending to a diversity of actors, working critically with sources and recognizing contingency.",
+          p2: "History does not offer simple lessons or unequivocal answers. Its power lies precisely in helping us think through complexity, and in allowing us to recognize what is genuinely new about our own present."
+        },
+        education: {
+          heading: "Education",
+          thesisLabel: "Thesis:",
+          phd: {
+            degree: "PhD in History"
+          },
+          masters: {
+            degree: "Master's in Political Science"
+          },
+          teachingDegree: {
+            degree: "Teaching Degree in History"
+          }
+        },
+        current: {
+          heading: "Currently",
+          role1: "Research Professor",
+          role2: "Director of the Master's and PhD Programs in History"
+        },
+        recognitions: {
+          items: {
+            scientistsCount: "Científicas que cuentan / CONICET + Embajada de Francia",
+            canaveseAward: "Premio Alfredo Canavese a la excelencia docente / Universidad Torcuato Di Tella",
+            bestAverage: "Best academic average, History program / Universidad Nacional de Rosario + Academia Nacional de la Historia"
+          }
+        },
+        cv: {
+          heading: "Full CV",
+          body: "For publications, fellowships, conferences and professional experience in detail:",
+          label: "Download CV",
+          es: "CV / Español",
+          en: "CV / English",
+          pending: "Enabled once the file is added."
+        }
+      },
+      contactPage: {
+        heroTitle: "Contact",
+        social: {
+          heading: "Social"
         }
       }
     }

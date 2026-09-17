@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" data-page="publications">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Ver index.html para la explicación completa de este script:
+     marca html.js antes del primer render (para las animaciones de
+     entrada) y fija lang="en" de entrada si ya había un idioma
+     guardado de una visita anterior. -->
+<script>
+(function () {
+  document.documentElement.classList.add("js");
+  try {
+    if (localStorage.getItem("camila-language") === "en") {
+      document.documentElement.lang = "en";
+    }
+  } catch (e) {}
+})();
+</script>
+<title>Camila Perochena / Publicaciones</title>
+<meta name="description" content="Libros, artículos académicos y capítulos de libro de la historiadora Camila Perochena sobre historia, memoria y los usos políticos del pasado.">
+
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/publications.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenido" data-i18n="a11y.skipLink">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">Camila Perochena</a>
+
+    <div class="header-actions">
+      <nav class="primary-nav" id="primaryNav" data-i18n-aria-label="nav.mainLabel" aria-label="Navegación principal">
+        <ul>
+          <li><a href="../sobre-mi/index.html" data-i18n="nav.about">Sobre mí</a></li>
+          <li><a href="index.html" data-i18n="nav.publications" aria-current="page">Publicaciones</a></li>
+          <li><a href="../medios/index.html" data-i18n="nav.media">Medios</a></li>
+          <li><a href="../contacto/index.html" data-i18n="nav.contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-option" data-lang-option="es" aria-pressed="true">ES</button>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <button type="button" class="lang-option" data-lang-option="en" aria-pressed="false">EN</button>
+      </div>
+
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+        <span class="nav-toggle-text" data-i18n="nav.menu">Menú</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- HERO -->
+  <section class="pub-hero" aria-labelledby="pub-hero-heading">
+    <div class="container pub-hero-grid">
+      <h1 id="pub-hero-heading" class="pub-hero-title" data-i18n="publicationsPage.heroTitle">Publicaciones</h1>
+      <p class="pub-hero-desc" data-i18n="publicationsPage.heroDesc">Libros, artículos e investigaciones sobre historia, memoria y los usos políticos del pasado.</p>
+    </div>
+  </section>
+
+  <noscript>
+    <div class="container">
+      <p class="pub-noscript" data-i18n="publicationsPage.noscript">Activá JavaScript para ver el archivo completo de publicaciones.</p>
+    </div>
+  </noscript>
+
+  <!-- 01 / LIBROS -->
+  <section class="pub-section pub-section--books reveal" id="libros" aria-labelledby="books-heading">
+    <div class="container pub-layout">
+      <div class="pub-head">
+        <h2 id="books-heading" class="pub-eyebrow"><span class="pub-num">01</span> / <span data-i18n="publicationsPage.books.heading">Libros</span></h2>
+      </div>
+
+      <div class="pub-body">
+        <!-- El contenido se genera desde CamilaPublicationsData.books
+             (js/publications-data.js) vía js/publications.js. -->
+        <ul class="pub-books-list" id="booksList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 / ARTÍCULOS ACADÉMICOS -->
+  <section class="pub-section reveal" id="articulos" aria-labelledby="articles-heading">
+    <div class="container pub-layout">
+      <div class="pub-head">
+        <h2 id="articles-heading" class="pub-eyebrow"><span class="pub-num">02</span> / <span data-i18n="publicationsPage.journalArticles.heading">Artículos académicos</span></h2>
+      </div>
+
+      <div class="pub-body">
+        <ol class="pub-index" id="articlesIndex"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 / CAPÍTULOS DE LIBRO -->
+  <section class="pub-section reveal" id="capitulos" aria-labelledby="chapters-heading">
+    <div class="container pub-layout">
+      <div class="pub-head">
+        <h2 id="chapters-heading" class="pub-eyebrow"><span class="pub-num">03</span> / <span data-i18n="publicationsPage.bookChapters.heading">Capítulos de libro</span></h2>
+      </div>
+
+      <div class="pub-body">
+        <ul class="pub-chapters" id="chaptersList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prensa, columnas y entrevistas NO van acá: viven en la sección
+       "Prensa y columnas" dentro de Medios (Publicaciones = libros +
+       producción académica; Medios = TV/streaming/podcasts/prensa/
+       columnas/entrevistas). -->
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-name">Camila Perochena</p>
+    <nav data-i18n-aria-label="footer.socialLabel" aria-label="Redes sociales">
+      <ul>
+        <li><a href="https://www.linkedin.com/in/camila-perochena-2b861613/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/camiperochena/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@camiperochena" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </nav>
+    <p class="footer-meta">© 2026</p>
+  </div>
+</footer>
+
+<script src="../js/i18n.js"></script>
+<script src="../js/site.js"></script>
+<script src="../js/publications-data.js"></script>
+<script src="../js/publications.js"></script>
+</body>
+</html>

@@ -99,4 +99,94 @@
     });
   }
 
+  /* ---------- Prensa y columnas ----------
+     Igual lógica que los artículos de Publicaciones (js/publications.js):
+     las fechas se arman con nombres de mes localizados, así que la
+     lista se reconstruye por completo cada vez que cambia el idioma
+     en vez de depender solo de data-i18n. */
+  var MONTHS = {
+    es: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  };
+
+  var PRESS_TYPE_KEYS = {
+    column: "mediaPage.press.typeColumn",
+    article: "mediaPage.press.typeArticle",
+    interview: "mediaPage.press.typeInterview"
+  };
+
+  function lang() {
+    return window.CamilaI18n ? window.CamilaI18n.getLanguage() : "es";
+  }
+
+  function monthYear(month, year) {
+    var names = MONTHS[lang()] || MONTHS.es;
+    if (!month) return String(year);
+    return names[month - 1] + " " + year;
+  }
+
+  var pressList = document.getElementById("pressList");
+
+  function renderPress() {
+    if (!pressList || !window.CamilaMediaData || !window.CamilaMediaData.press) return;
+    pressList.innerHTML = "";
+
+    var items = window.CamilaMediaData.press.slice().sort(function (a, b) {
+      return b.sortValue - a.sortValue;
+    });
+
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "press-item";
+
+      var type = document.createElement("span");
+      type.className = "press-type";
+      type.textContent = t(PRESS_TYPE_KEYS[item.type] || "");
+      li.appendChild(type);
+
+      var body = document.createElement("div");
+      body.className = "press-body";
+
+      // Nombre del medio: link real solo si hay un url verificado
+      // (mismo criterio que en publicaciones, nunca un href inventado).
+      var outlet = document.createElement(item.url ? "a" : "span");
+      outlet.className = "press-outlet";
+      outlet.textContent = item.outlet;
+      if (item.url) {
+        outlet.setAttribute("href", item.url);
+        outlet.setAttribute("target", "_blank");
+        outlet.setAttribute("rel", "noopener");
+      }
+      body.appendChild(outlet);
+
+      if (item.title) {
+        // Título real ya publicado: no se traduce.
+        var title = document.createElement("p");
+        title.className = "press-title";
+        title.textContent = "“" + item.title + "”";
+        body.appendChild(title);
+      } else if (item.topicKey) {
+        // Tema recurrente de una columna (no un título publicado):
+        // sí se traduce, ver js/i18n.js mediaPage.press.laNacionTopic.
+        var topic = document.createElement("p");
+        topic.className = "press-topic";
+        topic.textContent = t(item.topicKey);
+        body.appendChild(topic);
+      }
+
+      var date = document.createElement("p");
+      date.className = "press-date";
+      date.textContent = item.startYear
+        ? monthYear(item.startMonth, item.startYear) + " - " + monthYear(item.endMonth, item.endYear)
+        : monthYear(item.month, item.year);
+      body.appendChild(date);
+
+      li.appendChild(body);
+      pressList.appendChild(li);
+    });
+  }
+
+  renderPress();
+  if (window.CamilaI18n) window.CamilaI18n.onChange(renderPress);
+
 })();

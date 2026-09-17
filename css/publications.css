@@ -1,0 +1,415 @@
+/* ============================================================
+   PUBLICATIONS — composición específica de /publicaciones/ (archivo
+   editorial del trabajo escrito de Camila)
+
+   Misma lógica que /medios/ (media.css): un encabezado angosto de
+   sección ("01 / Libros") junto a un bloque ancho de contenido
+   (.pub-layout), con la asimetría viviendo en esa relación y no
+   dentro de cada lista en sí, que es tipográfica y uniforme — sin
+   cards, sin sombras, sin iconos por entrada.
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Hero — corto y tipográfico, sin fotografía (misma escala
+   conceptual que .media-hero)
+   --------------------------------------------------------- */
+.pub-hero {
+  padding-top: clamp(2.25rem, 5vw, 3.75rem);
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-top: 0;
+}
+
+.pub-hero + section {
+  border-top: 0;
+}
+
+.pub-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  align-items: end;
+}
+
+.pub-hero-title {
+  grid-column: 1 / 7;
+  font-size: clamp(2.5rem, 3.2vw + 1.3rem, 4.25rem);
+  line-height: 0.98;
+  font-weight: 500;
+}
+
+.pub-hero-desc {
+  grid-column: 7 / 13;
+  align-self: end;
+  justify-self: end;
+  max-width: 34ch;
+  padding-bottom: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-lead);
+  color: var(--color-text-soft);
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .pub-hero-title,
+  html.js .pub-hero-desc {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--duration-ui) var(--ease),
+                transform var(--duration-ui) var(--ease);
+  }
+
+  html.js .pub-hero-title { transition-delay: 0ms; }
+  html.js .pub-hero-desc { transition-delay: 90ms; }
+
+  html.js.hero-ready .pub-hero-title,
+  html.js.hero-ready .pub-hero-desc {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   Encabezado de sección — "01 / Libros", igual lenguaje que
+   .archive-eyebrow / .archive-num en /medios/.
+   --------------------------------------------------------- */
+.pub-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+}
+
+.pub-head {
+  grid-column: 1 / 4;
+}
+
+.pub-body {
+  grid-column: 4 / 13;
+}
+
+.pub-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.pub-num {
+  color: var(--color-text-soft);
+  font-weight: 400;
+}
+
+.pub-noscript {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------
+   01 / Libros — la sección con más peso visual de la página.
+   Preparada para convivir con un segundo libro: cada .pub-book
+   es una fila independiente con su propia línea divisoria, no
+   una tarjeta aislada ni un layout pensado para un solo ítem.
+   --------------------------------------------------------- */
+.pub-books-list {
+  grid-column: 4 / 13;
+}
+
+.pub-book {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.pub-book:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pub-book-cover {
+  grid-column: 1 / 4;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+}
+
+.pub-book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mismo revelado discreto que la portada destacada de Home
+   (home.css), disparado por el .reveal de la sección. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .pub-book-cover img {
+    clip-path: inset(0 0 6% 0);
+    transition: clip-path 640ms var(--ease);
+    transition-delay: 80ms;
+  }
+
+  html.js .pub-section--books.is-visible .pub-book-cover img {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+.pub-book-info {
+  grid-column: 5 / 13;
+  padding-top: clamp(0.25rem, 1.5vw, 1rem);
+}
+
+.pub-book-title {
+  font-size: var(--fs-h1);
+  margin-top: 0.4rem;
+}
+
+.pub-book-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-lead);
+  color: var(--color-text-soft);
+  margin-top: 0.5rem;
+}
+
+.pub-book-meta {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  margin-top: 0.9rem;
+}
+
+.pub-book-desc {
+  max-width: 52ch;
+  margin-top: 1.25rem;
+}
+
+.pub-book-info .text-link {
+  margin-top: 1.5rem;
+}
+
+/* ---------------------------------------------------------
+   02 / Artículos académicos — índice tipográfico agrupado por
+   año. El año lleva presencia tipográfica propia (columna fija,
+   serif grande); las entradas dentro de un mismo año comparten
+   ese año sin repetirlo. Línea completa entre años, nunca
+   cortada arbitrariamente.
+   --------------------------------------------------------- */
+.pub-index {
+  grid-column: 4 / 13;
+}
+
+.pub-year-block {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  column-gap: var(--grid-gap);
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.pub-year-block:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pub-year {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 1.6vw + 1.1rem, 2.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.pub-year-entries {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+.pub-entry-title {
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: var(--line-snug);
+  max-width: 62ch;
+}
+
+.pub-entry-meta {
+  margin-top: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+.pub-entry-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--color-accent);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pub-entry-link {
+    transition: color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+    display: inline-block;
+  }
+
+  .pub-entry-link:hover,
+  .pub-entry-link:focus-visible {
+    transform: translateX(2px);
+  }
+}
+
+.pub-entry-link:hover,
+.pub-entry-link:focus-visible {
+  color: var(--color-accent-hover);
+}
+
+/* ---------------------------------------------------------
+   03 / Capítulos de libro — misma lógica tipográfica que
+   Artículos, distinguida por la etiqueta "Capítulo" y por
+   mostrar el libro que los contiene.
+   --------------------------------------------------------- */
+.pub-chapters {
+  grid-column: 4 / 13;
+}
+
+.pub-chapter {
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--color-line);
+}
+
+.pub-chapter:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pub-chapter-title {
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: var(--line-snug);
+  max-width: 62ch;
+  margin-top: 0.6rem;
+}
+
+.pub-chapter-meta {
+  margin-top: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.pub-chapter-in {
+  margin-top: 0.9rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-body);
+  color: var(--color-text-soft);
+  max-width: 56ch;
+}
+
+.pub-chapter-in-label {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  margin-right: 0.35rem;
+}
+
+.pub-chapter-pub {
+  margin-top: 0.9rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+/* Prensa, columnas y entrevistas NO tienen estilos acá: viven en la
+   sección "Prensa y columnas" dentro de Medios (css/media.css). */
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  .pub-head { grid-column: 1 / 5; }
+  .pub-body,
+  .pub-books-list,
+  .pub-index,
+  .pub-chapters { grid-column: 5 / 13; }
+
+  .pub-book-cover { grid-column: 1 / 5; }
+  .pub-book-info { grid-column: 5 / 13; }
+}
+
+@media (max-width: 880px) {
+  .pub-hero {
+    padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .pub-hero-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+
+  .pub-hero-title,
+  .pub-hero-desc {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-align: left;
+    max-width: none;
+  }
+
+  .pub-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pub-head,
+  .pub-body,
+  .pub-books-list,
+  .pub-index,
+  .pub-chapters {
+    grid-column: 1 / -1;
+  }
+
+  .pub-head {
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .pub-book {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+
+  /* Portada centrada y con márgenes iguales en mobile, en vez de
+     quedar pegada al borde izquierdo del bloque de texto. */
+  .pub-book-cover {
+    grid-column: 1 / -1;
+    width: min(100%, 16rem);
+    margin-inline: auto;
+  }
+
+  .pub-book-info {
+    grid-column: 1 / -1;
+  }
+
+  .pub-year-block {
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .pub-year {
+    font-size: clamp(1.5rem, 6vw, 1.85rem);
+  }
+}

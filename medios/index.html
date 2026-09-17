@@ -44,10 +44,10 @@
     <div class="header-actions">
       <nav class="primary-nav" id="primaryNav" data-i18n-aria-label="nav.mainLabel" aria-label="Navegación principal">
         <ul>
-          <li><a href="../index.html#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
-          <li><a href="../index.html#publicaciones" data-i18n="nav.publications">Publicaciones</a></li>
+          <li><a href="../sobre-mi/index.html" data-i18n="nav.about">Sobre mí</a></li>
+          <li><a href="../publicaciones/index.html" data-i18n="nav.publications">Publicaciones</a></li>
           <li><a href="index.html" data-i18n="nav.media" aria-current="page">Medios</a></li>
-          <li><a href="../index.html#contacto" data-i18n="nav.contact">Contacto</a></li>
+          <li><a href="../contacto/index.html" data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </nav>
 
@@ -133,12 +133,33 @@
     </div>
   </section>
 
-  <!-- 04 / OTRAS PARTICIPACIONES -->
+  <!-- 04 / PRENSA Y COLUMNAS -->
+  <section class="archive-section reveal" id="prensa" aria-labelledby="prensa-heading">
+    <div class="container archive-layout">
+
+      <div class="archive-head">
+        <h2 id="prensa-heading" class="archive-eyebrow"><span class="archive-num">04</span> / <span data-i18n="mediaPage.press.heading">Prensa y columnas</span></h2>
+        <p class="archive-desc" data-i18n="mediaPage.press.description">Columnas de opinión, artículos y entrevistas en medios gráficos y digitales.</p>
+      </div>
+
+      <div class="archive-body">
+        <!-- El contenido se genera desde CamilaMediaData.press
+             (js/media-data.js) vía js/media.js. Las fechas se arman
+             con nombres de mes localizados, por eso la lista se
+             reconstruye por completo al cambiar de idioma (igual
+             que los artículos de Publicaciones). -->
+        <ul class="press-list" id="pressList"></ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 / OTRAS PARTICIPACIONES -->
   <section class="archive-section archive-section--secondary reveal" id="otras" aria-labelledby="otras-heading">
     <div class="container archive-layout">
 
       <div class="archive-head">
-        <h2 id="otras-heading" class="archive-eyebrow"><span class="archive-num">04</span> / <span data-i18n="mediaPage.other.heading">Otras participaciones</span></h2>
+        <h2 id="otras-heading" class="archive-eyebrow"><span class="archive-num">05</span> / <span data-i18n="mediaPage.other.heading">Otras participaciones</span></h2>
         <p class="archive-desc" data-i18n="mediaPage.other.description">Entrevistas, documentales y otras participaciones audiovisuales.</p>
       </div>
 
