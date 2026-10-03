@@ -1,0 +1,31 @@
+{
+  "name": "pagina-camila-admin-cms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --env-file-if-exists=.env --watch server.js",
+    "test": "node --test test/*.test.js",
+    "create-admin": "node --env-file-if-exists=.env scripts/create-admin.js",
+    "reset-totp": "node --env-file-if-exists=.env scripts/reset-totp.js",
+    "backup": "node scripts/backup.js",
+    "seed-existing-content": "node scripts/seed-existing-content.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "multer": "^2.4.0",
+    "otplib": "^13.5.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

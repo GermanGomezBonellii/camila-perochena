@@ -8,9 +8,8 @@
    odisea: mismo formato que MEDIA_ITEMS en js/main.js —
      { title, youtubeId, date, program }.
      youtubeId: ID de 11 caracteres del video en YouTube.
-     date: fecha de emisión si se confirma. Dejar "" si no está
-       confirmada — se muestra "Fecha a confirmar" en vez de
-       inventar un dato.
+     date: fecha editorial legacy. El CMS usa publishedAt con la
+       fecha oficial de YouTube; si falta, simplemente no muestra fecha.
      Los 6 videos de abajo son columnas reales de Camila Perochena
      en Odisea Argentina, verificadas de forma individual (título
      e ID de YouTube). Sus fechas de emisión no están confirmadas.

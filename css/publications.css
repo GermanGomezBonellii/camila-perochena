@@ -275,19 +275,48 @@
 /* ---------------------------------------------------------
    03 / Capítulos de libro — misma lógica tipográfica que
    Artículos, distinguida por la etiqueta "Capítulo" y por
-   mostrar el libro que los contiene.
+   mostrar el libro que los contiene. Cada capítulo es una fila de
+   dos columnas (portada del libro + información): la columna de
+   portada tiene un ancho fijo, igual en los tres casos, y cada
+   imagen conserva su proporción real (width 100% + height auto,
+   sin object-fit) para no recortar ninguna tapa.
    --------------------------------------------------------- */
 .pub-chapters {
   grid-column: 4 / 13;
 }
 
 .pub-chapter {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  column-gap: var(--grid-gap);
+  align-items: start;
   padding-block: clamp(1.75rem, 3vw, 2.5rem);
   border-top: 1px solid var(--color-line);
 }
 
 .pub-chapter:last-child {
   border-bottom: 1px solid var(--color-line);
+}
+
+.pub-chapter-cover {
+  grid-column: 1;
+}
+
+.pub-chapter-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Placeholder (sin portada real todavía): el único caso que
+   necesita una proporción fija, ya que no hay imagen que la
+   determine por sí sola. */
+.pub-chapter-cover.media-placeholder {
+  aspect-ratio: 2 / 3;
+}
+
+.pub-chapter-info {
+  grid-column: 2;
 }
 
 .pub-chapter-title {
@@ -405,6 +434,23 @@
   .pub-year-block {
     grid-template-columns: 1fr;
     row-gap: 0.75rem;
+  }
+
+  /* Portada apilada arriba del texto, alineada al margen izquierdo
+     del contenido (nunca centrada ni flotando) — a diferencia de
+     .pub-book-cover, que sí se centra en mobile. */
+  .pub-chapter {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+
+  .pub-chapter-cover {
+    grid-column: 1 / -1;
+    width: 9rem;
+  }
+
+  .pub-chapter-info {
+    grid-column: 1 / -1;
   }
 }
 

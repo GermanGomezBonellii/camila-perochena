@@ -50,7 +50,7 @@
 
    ---- bookChapters ----
    { year, sortValue, title, coAuthor, inBook, editorRole,
-     editorNames, editorNamesEn, publisher, url }
+     editorNames, editorNamesEn, publisher, cover, url }
      editorRole: "editor" (una persona editora) o "compilers"
        (compiladores/as) — decide qué etiqueta se muestra
        (js/i18n.js: publicationsPage.bookChapters.editorLabel /
@@ -58,6 +58,11 @@
      editorNames / editorNamesEn: mismo dato, solo cambia el
        conector entre nombres ("y" / "and") — los nombres en sí no
        se traducen.
+     cover: portada real del libro que contiene el capítulo (no del
+       capítulo en sí), relativa a /publicaciones/index.html. Dejar
+       sin "cover" si todavía no hay una portada real — en ese caso
+       js/publications.js muestra el mismo placeholder sobrio que
+       usan los libros en vez de inventar una imagen.
    ============================================================ */
 
 var CamilaPublicationsData = {
@@ -173,6 +178,7 @@ var CamilaPublicationsData = {
       editorNames: "Fabio Wasserman",
       editorNamesEn: "Fabio Wasserman",
       publisher: "Silex Ediciones",
+      cover: "../img/chapter-pasado-presente.webp",
       url: ""
     },
     {
@@ -184,6 +190,7 @@ var CamilaPublicationsData = {
       editorNames: "Facundo Cruz y Gastón Alfaro",
       editorNamesEn: "Facundo Cruz and Gastón Alfaro",
       publisher: "China Editora",
+      cover: "../img/chapter-despues-del-terremoto.webp",
       url: ""
     },
     {
@@ -195,6 +202,7 @@ var CamilaPublicationsData = {
       editorNames: "Pablo Touzon y Martín Rodríguez",
       editorNamesEn: "Pablo Touzon and Martín Rodríguez",
       publisher: "Siglo Veintiuno",
+      cover: "../img/chapter-que-hacemos-con-menem.webp",
       url: ""
     }
   ],

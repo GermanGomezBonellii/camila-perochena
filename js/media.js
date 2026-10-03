@@ -24,6 +24,18 @@
     window.CamilaMedia.attachLazyEmbed(document);
   }
 
+  /* The CMS replaces only Odisea's editable data. Podcasts and press
+     remain part of the final editorial frontend unchanged. */
+  if (odiseaGrid && window.CamilaCms && window.CamilaMedia) {
+    window.CamilaCms.getContent().then(function (content) {
+      odiseaGrid.innerHTML = "";
+      window.CamilaMedia.renderMediaItems(odiseaGrid, content.odisea || []);
+      window.CamilaMedia.attachLazyEmbed(odiseaGrid);
+    }).catch(function (error) {
+      console.error("CMS Odisea content could not be loaded.", error);
+    });
+  }
+
   /* ---------- Podcasts ----------
      Tratamiento distinto al de Odisea: no son videos con miniatura,
      sino proyectos (portada cuadrada + nombre + rol + descripción +

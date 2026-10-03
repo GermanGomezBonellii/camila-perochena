@@ -616,12 +616,21 @@
 
 /* ---------------------------------------------------------
    Reconocimientos — cronología editorial
+
+   Grilla de dos columnas (año fijo + texto) en vez de flex-wrap:
+   con flex-wrap, un .timeline-desc que no entraba en lo que
+   quedaba de la línea pasaba completo a una nueva línea propia,
+   arrancando desde el borde izquierdo del <li> en vez de quedar
+   alineado bajo el resto de las descripciones (se notaba en el
+   ítem de texto más largo). Con grid, la columna de texto tiene
+   un ancho fijo y su propio salto de línea interno respeta ese
+   mismo arranque horizontal en todos los ítems.
    --------------------------------------------------------- */
 .timeline li {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  column-gap: 1.75rem;
   align-items: baseline;
-  gap: 0.35rem 1.75rem;
   padding-block: clamp(0.85rem, 1.5vw, 1.15rem);
   border-top: 1px solid var(--color-line);
 }
@@ -635,7 +644,6 @@
   font-size: var(--fs-small);
   letter-spacing: var(--tracking-wide);
   color: var(--color-accent);
-  min-width: 6.5rem;
 }
 
 .timeline-desc {
@@ -666,31 +674,13 @@
   color: var(--color-muted);
 }
 
-.footer-inner nav ul {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.footer-inner nav a {
-  font-family: var(--font-sans);
-  font-size: var(--fs-meta);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-muted);
-}
-
-.footer-inner nav a:hover,
-.footer-inner nav a:focus-visible {
-  color: var(--color-accent-hover);
-}
-
 .footer-meta {
   font-family: var(--font-sans);
   font-size: var(--fs-meta);
   color: var(--color-muted-light);
 }
 
-/* En mobile el nombre y las redes pasan de estar lado a lado a
+/* En mobile el nombre y el copyright pasan de estar lado a lado a
    apilarse en columna, ambos alineados al mismo margen izquierdo
    (el gutter de .container) — sin quedar uno centrado y otro no. */
 @media (max-width: 720px) {

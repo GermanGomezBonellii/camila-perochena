@@ -212,10 +212,10 @@
       var thumb = document.createElement("span");
       thumb.className = "media-thumb";
 
-      if (item.youtubeId) {
+      if (item.thumbnail || item.youtubeId) {
         var img = document.createElement("img");
         img.className = "media-thumb-img";
-        img.src = "https://i.ytimg.com/vi/" + item.youtubeId + "/hqdefault.jpg";
+        img.src = item.thumbnail || ("https://i.ytimg.com/vi/" + item.youtubeId + "/hqdefault.jpg");
         img.alt = "";
         img.loading = "lazy";
         thumb.appendChild(img);
@@ -244,16 +244,19 @@
 
       var date = document.createElement("span");
       date.className = "media-date";
-      if (item.date) {
+      if (item.publishedAt) {
+        var parsedDate = new Date(item.publishedAt);
+        date.textContent = isNaN(parsedDate.getTime()) ? "" : new Intl.DateTimeFormat(
+          window.CamilaI18n && window.CamilaI18n.getLanguage() === "en" ? "en-US" : "es-AR",
+          { year: "numeric", month: "long", day: "numeric" }
+        ).format(parsedDate);
+      } else if (item.date) {
         date.textContent = item.date;
-      } else {
-        date.setAttribute("data-i18n", "media.dateTbc");
-        date.textContent = t("media.dateTbc");
       }
 
       info.appendChild(program);
       info.appendChild(title);
-      info.appendChild(date);
+      if (date.textContent) info.appendChild(date);
 
       button.appendChild(thumb);
       button.appendChild(info);

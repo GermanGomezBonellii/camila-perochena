@@ -7,16 +7,7 @@
      marca html.js antes del primer render (para las animaciones de
      entrada) y fija lang="en" de entrada si ya había un idioma
      guardado de una visita anterior. -->
-<script>
-(function () {
-  document.documentElement.classList.add("js");
-  try {
-    if (localStorage.getItem("camila-language") === "en") {
-      document.documentElement.lang = "en";
-    }
-  } catch (e) {}
-})();
-</script>
+<script src="../js/preload.js"></script>
 <title>Camila Perochena / Medios</title>
 <meta name="description" content="Columnas, entrevistas, podcasts y participaciones audiovisuales de la historiadora Camila Perochena, incluyendo su columna en Odisea Argentina.">
 
@@ -47,7 +38,7 @@
           <li><a href="../sobre-mi/index.html" data-i18n="nav.about">Sobre mí</a></li>
           <li><a href="../publicaciones/index.html" data-i18n="nav.publications">Publicaciones</a></li>
           <li><a href="index.html" data-i18n="nav.media" aria-current="page">Medios</a></li>
-          <li><a href="../contacto/index.html" data-i18n="nav.contact">Contacto</a></li>
+          <li><a href="../index.html#contacto" data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </nav>
 
@@ -173,13 +164,7 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-name">Camila Perochena</p>
-    <nav data-i18n-aria-label="footer.socialLabel" aria-label="Redes sociales">
-      <ul>
-        <li><a href="https://www.linkedin.com/in/camila-perochena-2b861613/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://www.instagram.com/camiperochena/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.tiktok.com/@camiperochena" target="_blank" rel="noopener">TikTok</a></li>
-      </ul>
-    </nav>
+    <!-- LinkedIn/Instagram/TikTok: ver el bloque de Contacto en Home. -->
     <p class="footer-meta">© 2026</p>
   </div>
 </footer>
@@ -187,6 +172,7 @@
 <script src="../js/i18n.js"></script>
 <script src="../js/site.js"></script>
 <script src="../js/media-data.js"></script>
+<script src="../js/cms-content.js"></script>
 <script src="../js/media.js"></script>
 </body>
 </html>

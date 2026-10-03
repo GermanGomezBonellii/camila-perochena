@@ -47,6 +47,12 @@
   border-top: 0;
 }
 
+/* Cuando no hay novedades, la sección oculta no debe crear una
+   separación visual antes del índice editorial. */
+.news-feature[hidden] + .index-editorial {
+  border-top: 0;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -184,6 +190,177 @@
 }
 
 /* ---------------------------------------------------------
+   Novedades — una pieza editorial por vez, inmediatamente
+   después del hero. No usa cards: imagen, texto, líneas y grilla.
+   --------------------------------------------------------- */
+.news-feature {
+  background-color: var(--color-bg-raised);
+  background-image: url("../img/heroblanco.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
+.news-feature-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--grid-gap);
+  padding-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  border-bottom: 1px solid var(--color-line-strong);
+}
+
+.news-feature-head h2 {
+  font-size: var(--fs-h2);
+}
+
+.news-carousel {
+  padding-top: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.news-slide {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  align-items: center;
+}
+
+.news-visual {
+  grid-column: 1 / 7;
+  margin: 0;
+}
+
+.news-image,
+.news-image-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--color-line-strong);
+}
+
+.news-image-placeholder {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--color-placeholder-bg);
+  color: var(--color-placeholder-text);
+  font-family: var(--font-serif);
+  font-style: italic;
+  text-align: center;
+}
+
+.news-copy {
+  grid-column: 8 / 13;
+  padding: clamp(0.25rem, 1vw, 1rem) 0;
+}
+
+.news-type,
+.news-date {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.news-type {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.news-date {
+  color: var(--color-muted);
+  margin-top: 0.55rem;
+}
+
+.news-title {
+  margin-top: clamp(0.8rem, 1.5vw, 1.3rem);
+  font-size: var(--fs-h1);
+  line-height: var(--line-tight);
+}
+
+.news-description {
+  max-width: 39ch;
+  margin-top: clamp(1rem, 1.8vw, 1.4rem);
+  color: var(--color-text-soft);
+}
+
+.news-cta {
+  display: inline-block;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.news-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 2.5vw, 2.2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.news-carousel-controls[hidden] {
+  display: none;
+}
+
+.news-arrow,
+.news-indicator {
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease),
+              border-color var(--duration-fast) var(--ease),
+              background-color var(--duration-fast) var(--ease);
+}
+
+.news-arrow:hover,
+.news-arrow:focus-visible,
+.news-indicator:hover,
+.news-indicator:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.news-indicators {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.news-indicator {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-color: var(--color-muted-light);
+  border-radius: 50%;
+}
+
+.news-indicator[aria-current="true"] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .news-slide--enter {
+    animation: news-enter var(--duration-reveal) var(--ease) both;
+  }
+
+  @keyframes news-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* ---------------------------------------------------------
    Índice editorial — cuatro áreas, composición asimétrica
 
    La asimetría es estructural, no decorativa: surge del ancho
@@ -245,6 +422,21 @@
 /* ---------------------------------------------------------
    Libro destacado
    --------------------------------------------------------- */
+.featured-book {
+  /* Misma textura sutil de papel que el hero de Home y de Sobre mí
+     (ver about.css): mismo background-image/size/position/repeat y
+     el mismo background-blend-mode para teñirla con --color-bg en
+     vez de introducir un color ajeno a la paleta. Solo el fondo —
+     layout, padding y el divisor de "section + section" (layout.css)
+     no se tocan acá. */
+  background-color: var(--color-bg);
+  background-image: url("../img/heroblanco.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -345,6 +537,19 @@
 /* ---------------------------------------------------------
    Docencia e investigación
    --------------------------------------------------------- */
+.teaching-section {
+  /* Misma textura sutil de papel que el hero de Home y de Sobre mí
+     (ver about.css): mismo background-image/size/position/repeat y
+     el mismo background-blend-mode para teñirla con --color-bg en
+     vez de introducir un color ajeno a la paleta. Solo el fondo. */
+  background-color: var(--color-bg);
+  background-image: url("../img/heroblanco.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
 .teaching-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -360,21 +565,124 @@
 }
 
 /* ---------------------------------------------------------
-   Contacto final
+   Reconocimientos
    --------------------------------------------------------- */
-.contact-cta {
-  text-align: right;
+.recognitions-section {
+  /* Misma textura sutil de papel que el hero de Home y de Sobre mí
+     (ver about.css): mismo background-image/size/position/repeat y
+     el mismo background-blend-mode para teñirla con --color-bg en
+     vez de introducir un color ajeno a la paleta. Solo el fondo. */
+  background-color: var(--color-bg);
+  background-image: url("../img/heroblanco.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
 }
 
-.contact-cta h2 {
+/* ---------------------------------------------------------
+   Contacto final — cierre editorial compacto de la Home, no una
+   página aparte. Dos niveles, uno debajo del otro:
+
+   - nivel superior (.contact-cta-top): título + descripción a la
+     izquierda, email grande a la derecha, mismo split 1/6 + 6/13 que
+     .hero-text/.hero-figure, centrados entre sí (align-items: center)
+     para que el email se lea integrado al bloque, no flotando solo;
+   - un divisor fino a todo el ancho del contenedor;
+   - nivel inferior (.contact-cta-bottom): Redes y CV, alineados bajo
+     las mismas dos columnas que el nivel superior (Redes bajo el
+     título, CV bajo el email), con bastante menos altura/peso
+     tipográfico —cierre, no una segunda sección.
+   --------------------------------------------------------- */
+.contact-cta {
+  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+
+.contact-cta-top {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  align-items: center;
+}
+
+.contact-cta-intro {
+  grid-column: 1 / 6;
+}
+
+.contact-cta-heading {
   font-size: var(--fs-h1);
 }
 
-.contact-cta p {
-  max-width: 42ch;
-  margin-left: auto;
+.contact-cta-desc {
+  max-width: 38ch;
   margin-top: 1rem;
-  margin-bottom: 1.5rem;
+}
+
+.contact-cta-email {
+  grid-column: 6 / 13;
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.85rem, 1.7vw + 1.2rem, 2.75rem);
+  line-height: 1.15;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.contact-cta-email:hover,
+.contact-cta-email:focus-visible {
+  color: var(--color-accent);
+}
+
+.contact-cta-divider {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.contact-cta-bottom {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.contact-cta-block:first-child {
+  grid-column: 1 / 6;
+}
+
+.contact-cta-block:last-child {
+  grid-column: 6 / 13;
+}
+
+/* REDES / CV: metadata editorial —ver .eyebrow en layout.css—,
+   pequeño, sans, bordó. */
+.contact-cta-label {
+  margin-bottom: 0.65rem;
+}
+
+/* Links apilados verticalmente, no en una sola fila. */
+.contact-cta-channels,
+.contact-cta-cv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-cta-cv-link {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.contact-cta-cv-link:hover,
+.contact-cta-cv-link:focus-visible {
+  color: var(--color-accent);
 }
 
 /* ============================================================
@@ -432,6 +740,19 @@
     margin-left: 0;
   }
 
+  .news-slide {
+    row-gap: clamp(1.4rem, 4vw, 2rem);
+  }
+
+  .news-visual,
+  .news-copy {
+    grid-column: 1 / -1;
+  }
+
+  .news-copy {
+    padding-top: 0;
+  }
+
   .index-item--publicaciones,
   .index-item--medios,
   .index-item--docencia,
@@ -487,12 +808,33 @@
     grid-column: 1 / -1;
   }
 
-  .contact-cta {
-    text-align: left;
+  /* Una sola columna: el orden del HTML ya es título → descripción →
+     email → divisor → Redes → CV, así que alcanza con apilar ambos
+     niveles —no hace falta reordenar con grid-row. */
+  .contact-cta-top,
+  .contact-cta-bottom {
+    grid-template-columns: 1fr;
+    row-gap: 1.6rem;
   }
 
-  .contact-cta p {
-    margin-left: 0;
+  .contact-cta-intro,
+  .contact-cta-email,
+  .contact-cta-block:first-child,
+  .contact-cta-block:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contact-cta-bottom {
+    row-gap: 1.75rem;
+  }
+
+  .contact-cta-desc {
+    max-width: none;
+  }
+
+  .contact-cta-email {
+    margin-top: 0.25rem;
+    font-size: clamp(1.5rem, 6vw, 2rem);
   }
 }
 
@@ -503,6 +845,18 @@
 
   .media-grid {
     grid-template-columns: 1fr;
+  }
+
+  .news-feature-head {
+    display: block;
+  }
+
+  .news-feature-head h2 {
+    margin-top: 0.35rem;
+  }
+
+  .news-carousel-controls {
+    justify-content: space-between;
   }
 
   .article-list li {
@@ -519,10 +873,16 @@
     margin-bottom: 0.35rem;
   }
 
-  .role-list li,
-  .timeline li {
+  .role-list li {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.3rem;
+  }
+
+  /* .timeline pasó a grid (components.css): en vez de flex-direction,
+     se apila la columna de año sobre la de texto. */
+  .timeline li {
+    grid-template-columns: 1fr;
+    row-gap: 0.3rem;
   }
 }

@@ -43,21 +43,22 @@
 
   /* ---------- 01 / Libros ---------- */
   var booksList = document.getElementById("booksList");
+  var cmsBooks = null;
 
   function renderBooks() {
     if (!booksList) return;
     booksList.innerHTML = "";
 
-    data.books.forEach(function (book) {
+    (cmsBooks || data.books).forEach(function (book) {
       var li = document.createElement("li");
       li.className = "pub-book";
 
       var cover = document.createElement("div");
       cover.className = "pub-book-cover";
 
-      if (book.cover) {
+      if (book.coverPath || book.cover) {
         var img = document.createElement("img");
-        img.src = book.cover;
+        img.src = book.coverPath || book.cover;
         img.loading = "lazy";
         img.alt = "";
         cover.appendChild(img);
@@ -93,17 +94,17 @@
       meta.textContent = [book.publisher, book.year].filter(Boolean).join(", ");
       info.appendChild(meta);
 
-      if (book.descKey) {
+      if (book.descriptionEs || book.descriptionEn || book.descKey) {
         var desc = document.createElement("p");
         desc.className = "pub-book-desc";
-        desc.textContent = t(book.descKey);
+        desc.textContent = (lang() === "en" ? book.descriptionEn : book.descriptionEs) || (book.descKey ? t(book.descKey) : "");
         info.appendChild(desc);
       }
 
-      if (book.url) {
+      if (book.externalUrl || book.url) {
         var link = document.createElement("a");
         link.className = "text-link";
-        link.href = book.url;
+        link.href = book.externalUrl || book.url;
         link.target = "_blank";
         link.rel = "noopener";
         link.textContent = t("publicationsPage.readCta");
@@ -195,21 +196,41 @@
       var li = document.createElement("li");
       li.className = "pub-chapter";
 
+      // Portada del libro que contiene el capítulo (no del capítulo en
+      // sí): misma lógica que la sección de Libros — placeholder sobrio
+      // si todavía no hay una imagen real, nunca una inventada.
+      var cover = document.createElement("div");
+      cover.className = "pub-chapter-cover";
+
+      if (chapter.cover) {
+        var coverImg = document.createElement("img");
+        coverImg.src = chapter.cover;
+        coverImg.loading = "lazy";
+        coverImg.alt = "";
+        cover.appendChild(coverImg);
+      } else {
+        cover.classList.add("media-placeholder");
+      }
+      li.appendChild(cover);
+
+      var info = document.createElement("div");
+      info.className = "pub-chapter-info";
+
       var tag = document.createElement("p");
       tag.className = "eyebrow";
       tag.textContent = t("publicationsPage.bookChapters.tag");
-      li.appendChild(tag);
+      info.appendChild(tag);
 
       var title = document.createElement("h3");
       title.className = "pub-chapter-title";
       title.textContent = chapter.title;
-      li.appendChild(title);
+      info.appendChild(title);
 
       if (chapter.coAuthor) {
         var coAuthor = document.createElement("p");
         coAuthor.className = "pub-chapter-meta";
         coAuthor.textContent = t("publicationsPage.bookChapters.coAuthorLabel") + ": " + chapter.coAuthor;
-        li.appendChild(coAuthor);
+        info.appendChild(coAuthor);
       }
 
       var inBook = document.createElement("p");
@@ -219,7 +240,7 @@
       inLabel.textContent = t("publicationsPage.bookChapters.inLabel");
       inBook.appendChild(inLabel);
       inBook.appendChild(document.createTextNode(" " + chapter.inBook));
-      li.appendChild(inBook);
+      info.appendChild(inBook);
 
       var editorLine = document.createElement("p");
       editorLine.className = "pub-chapter-meta";
@@ -227,13 +248,14 @@
       var roleLabel = t(isCompilers ? "publicationsPage.bookChapters.compilersLabel" : "publicationsPage.bookChapters.editorLabel");
       var names = (lang() === "en" && chapter.editorNamesEn) ? chapter.editorNamesEn : chapter.editorNames;
       editorLine.textContent = roleLabel + ": " + names;
-      li.appendChild(editorLine);
+      info.appendChild(editorLine);
 
       var pubMeta = document.createElement("p");
       pubMeta.className = "pub-chapter-pub";
       pubMeta.textContent = [chapter.publisher, chapter.year].filter(Boolean).join(" / ");
-      li.appendChild(pubMeta);
+      info.appendChild(pubMeta);
 
+      li.appendChild(info);
       chaptersList.appendChild(li);
     });
   }
@@ -250,5 +272,16 @@
 
   renderAll();
   if (window.CamilaI18n) window.CamilaI18n.onChange(renderAll);
+
+  // Books are the only editable collection on this page; articles and
+  // chapters keep Claude's final editorial data and presentation.
+  if (window.CamilaCms) {
+    window.CamilaCms.getContent().then(function (content) {
+      cmsBooks = content.books || [];
+      renderBooks();
+    }).catch(function (error) {
+      console.error("CMS books could not be loaded.", error);
+    });
+  }
 
 })();

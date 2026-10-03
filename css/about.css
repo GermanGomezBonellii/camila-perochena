@@ -476,31 +476,10 @@
   gap: 0.6rem;
 }
 
-/* Enlace real (cuando haya un archivo verificado en assets/cv/):
-   mismo lenguaje que el resto de los text-link del sitio. */
+/* Archivos reales en assets/cv/: mismo lenguaje que el resto de los
+   text-link del sitio. */
 .about-cv-links a.text-link {
   display: inline-block;
-}
-
-/* Todavía sin archivo: mismo texto, sin afirmar que es un link
-   navegable (nunca un href roto) — ver nota en el HTML. */
-.about-cv-links .about-cv-link--pending {
-  font-family: var(--font-sans);
-  font-size: var(--fs-small);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-muted-light);
-}
-
-.about-cv-pending-note {
-  display: block;
-  margin-top: 0.2rem;
-  font-family: var(--font-sans);
-  font-size: var(--fs-meta);
-  font-style: italic;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--color-muted-light);
 }
 
 /* ============================================================

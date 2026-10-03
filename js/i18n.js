@@ -61,11 +61,6 @@ var CamilaI18n = (function () {
           title: "Camila Perochena / Sobre mí",
           description:
             "Historiadora argentina. Investigación, docencia y comunicación pública sobre los usos políticos del pasado, la memoria y la historia reciente."
-        },
-        contact: {
-          title: "Camila Perochena / Contacto",
-          description:
-            "Contacto profesional de la historiadora Camila Perochena: conferencias, notas periodísticas, actividades académicas y otras consultas."
         }
       },
       a11y: {
@@ -116,9 +111,12 @@ var CamilaI18n = (function () {
         heading: "En medios",
         noscript: "Activá JavaScript para ver las columnas, o visitá la playlist directamente en YouTube.",
         viewAllCta: "Ver todas las columnas →",
-        dateTbc: "Fecha a confirmar",
         thumbUnavailable: "Miniatura no disponible todavía",
         videoSoon: "Video disponible próximamente."
+      },
+      news: {
+        eyebrow: "Actualidad",
+        heading: "Novedades"
       },
       teaching: {
         heading: "Docencia e investigación",
@@ -136,10 +134,7 @@ var CamilaI18n = (function () {
       contact: {
         heading: "Contacto profesional",
         description: "Para conferencias, notas periodísticas, actividades académicas y otras consultas profesionales.",
-        cta: "Ir a contacto →"
-      },
-      footer: {
-        socialLabel: "Redes sociales"
+        socialLabel: "Redes"
       },
 
       // Página /medios/. Nombres propios (Odisea Argentina, El espejo
@@ -281,7 +276,8 @@ var CamilaI18n = (function () {
           items: {
             scientistsCount: "Científicas que cuentan / CONICET + Embajada de Francia",
             canaveseAward: "Premio Alfredo Canavese a la excelencia docente / Universidad Torcuato Di Tella",
-            bestAverage: "Mejor promedio académico de la carrera de Historia / Universidad Nacional de Rosario + Academia Nacional de la Historia"
+            bestAverage: "Mejor promedio académico de la carrera de Historia / Universidad Nacional de Rosario + Academia Nacional de la Historia",
+            honorMedal: "Medalla de Honor por mejor promedio en el Instituto Libre de Segunda Enseñanza / UBA"
           }
         },
         cv: {
@@ -289,14 +285,7 @@ var CamilaI18n = (function () {
           body: "Para consultar publicaciones, becas, conferencias y experiencia profesional en detalle:",
           label: "Descargar CV",
           es: "CV / Español",
-          en: "CV / English",
-          pending: "Se habilita al incorporar el archivo."
-        }
-      },
-      contactPage: {
-        heroTitle: "Contacto",
-        social: {
-          heading: "Redes"
+          en: "CV / English"
         }
       }
     },
@@ -322,11 +311,6 @@ var CamilaI18n = (function () {
           title: "Camila Perochena / About",
           description:
             "Argentine historian. Research, teaching and public communication on the political uses of the past, memory and recent history."
-        },
-        contact: {
-          title: "Camila Perochena / Contact",
-          description:
-            "Professional contact for historian Camila Perochena: conferences, press pieces, academic activities and other inquiries."
         }
       },
       a11y: {
@@ -380,9 +364,12 @@ var CamilaI18n = (function () {
         heading: "Media appearances",
         noscript: "Enable JavaScript to see the columns, or visit the playlist directly on YouTube.",
         viewAllCta: "View all columns →",
-        dateTbc: "Date to be confirmed",
         thumbUnavailable: "Thumbnail not available yet",
         videoSoon: "Video available soon."
+      },
+      news: {
+        eyebrow: "Actual",
+        heading: "News"
       },
       teaching: {
         heading: "Teaching & Research",
@@ -399,11 +386,8 @@ var CamilaI18n = (function () {
       },
       contact: {
         heading: "Professional contact",
-        description: "For conferences, press pieces, academic activities and other professional inquiries.",
-        cta: "Go to contact →"
-      },
-      footer: {
-        socialLabel: "Social media"
+        description: "For conferences, press inquiries, academic activities and other professional enquiries.",
+        socialLabel: "Social"
       },
 
       mediaPage: {
@@ -533,7 +517,8 @@ var CamilaI18n = (function () {
           items: {
             scientistsCount: "Científicas que cuentan / CONICET + Embajada de Francia",
             canaveseAward: "Premio Alfredo Canavese a la excelencia docente / Universidad Torcuato Di Tella",
-            bestAverage: "Best academic average, History program / Universidad Nacional de Rosario + Academia Nacional de la Historia"
+            bestAverage: "Best academic average, History program / Universidad Nacional de Rosario + Academia Nacional de la Historia",
+            honorMedal: "Honor Medal for top academic average, Instituto Libre de Segunda Enseñanza / UBA"
           }
         },
         cv: {
@@ -541,14 +526,7 @@ var CamilaI18n = (function () {
           body: "For publications, fellowships, conferences and professional experience in detail:",
           label: "Download CV",
           es: "CV / Español",
-          en: "CV / English",
-          pending: "Enabled once the file is added."
-        }
-      },
-      contactPage: {
-        heroTitle: "Contact",
-        social: {
-          heading: "Social"
+          en: "CV / English"
         }
       }
     }
