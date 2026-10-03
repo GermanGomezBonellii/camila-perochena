@@ -133,7 +133,7 @@
     if (meta) meta.textContent = [book.publisher, book.year].filter(Boolean).join(", ");
     if (description) description.textContent = (isEnglish() ? book.descriptionEn : book.descriptionEs) || "";
     if (link) {
-      link.href = book.externalUrl || "publicaciones/index.html";
+      link.href = book.externalUrl || "/publicaciones";
       if (book.externalUrl) {
         link.target = "_blank";
         link.rel = "noopener";

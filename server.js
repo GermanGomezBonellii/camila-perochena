@@ -19,14 +19,20 @@ app.disable('x-powered-by');
 app.use(helmet({ contentSecurityPolicy: { directives: { defaultSrc: ["'self'"], imgSrc: ["'self'", 'https://i.ytimg.com', 'data:'], styleSrc: ["'self'", 'https://fonts.googleapis.com'], fontSrc: ["'self'", 'https://fonts.gstatic.com'], scriptSrc: ["'self'"], frameSrc: ['https://www.youtube-nocookie.com'] } }, referrerPolicy: { policy: 'strict-origin-when-cross-origin' } }));
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
+const publicPages = [
+  ['/', 'index.html'], ['/index.html', 'index.html'],
+  ['/medios', 'medios/index.html'], ['/medios/', 'medios/index.html'], ['/medios/index.html', 'medios/index.html'],
+  ['/publicaciones', 'publicaciones/index.html'], ['/publicaciones/', 'publicaciones/index.html'], ['/publicaciones/index.html', 'publicaciones/index.html'],
+  ['/sobre-mi', 'sobre-mi/index.html'], ['/sobre-mi/', 'sobre-mi/index.html'], ['/sobre-mi/index.html', 'sobre-mi/index.html']
+];
+// Register exact page routes before static directories so canonical URLs never redirect.
+for (const [route, file] of publicPages) app.get(route, (req,res) => res.sendFile(path.join(root, file)));
 app.use('/uploads', express.static(uploadsDir, { fallthrough: false, index: false, maxAge: '7d' }));
 app.use('/admin/assets', express.static(path.join(root, 'admin'), { dotfiles: 'deny', index: false, maxAge: '1h' }));
 // Deliberate allow-list: never serve the project root (which contains SQLite, backups, docs and dependencies).
 for (const folder of ['css', 'js', 'img']) app.use('/' + folder, express.static(path.join(root, folder), { dotfiles: 'deny', index: false }));
 app.use('/assets', express.static(path.join(root, 'assets'), { dotfiles: 'deny', index: false, maxAge: '7d' }));
 app.use('/publicaciones', express.static(path.join(root, 'publicaciones'), { dotfiles: 'deny', index: false, maxAge: '7d' }));
-for (const page of [['/','index.html'], ['/medios','medios/index.html'], ['/publicaciones','publicaciones/index.html'], ['/sobre-mi','sobre-mi/index.html']]) app.get(page[0], (req,res) => res.sendFile(path.join(root, page[1])));
-for (const page of [['/medios/index.html','medios/index.html'], ['/publicaciones/index.html','publicaciones/index.html'], ['/sobre-mi/index.html','sobre-mi/index.html']]) app.get(page[0], (req,res) => res.sendFile(path.join(root, page[1])));
 app.get('/robots.txt', (req,res) => res.type('text/plain').send('User-agent: *\nDisallow: /admin\n'));
 
 function parseCookies(req) { return Object.fromEntries((req.headers.cookie || '').split(';').map(x => x.trim().split('=').map(decodeURIComponent)).filter(x => x.length === 2)); }
