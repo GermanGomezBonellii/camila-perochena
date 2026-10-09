@@ -7,7 +7,7 @@
 3. Ejecutá `npm install`, `npm run seed-existing-content` y luego `npm run create-admin`. El último asistente crea únicamente `germangomezbonelli2@gmail.com` y `camipero@gmail.com` si no existen y muestra una URI TOTP independiente para cada cuenta. Nunca imprime ni guarda las contraseñas.
 4. Ejecutá `npm start`, abrí `http://localhost:3000/admin` e iniciá sesión.
 
-El panel permite crear, editar, publicar/ocultar, ordenar y eliminar libros, novedades y videos de Odisea. Todo lo marcado como publicado queda disponible para el frontend por `GET /api/public/content`; contenido no publicado nunca aparece allí.
+El panel permite crear, editar, publicar/ocultar, ordenar y eliminar libros, novedades, videos de Odisea Argentina y participaciones de OLGA. OLGA tiene su propio módulo: pegá una URL de YouTube, esperá la previsualización y revisá título, fecha, miniatura y descripción opcional antes de guardar. Todo lo marcado como publicado queda disponible para el frontend por `GET /api/public/content`; contenido no publicado nunca aparece allí.
 
 Para rotar solamente el segundo factor de Camila sin cambiar su contraseña ni eliminar la cuenta, ejecutá `npm run reset-totp -- camipero@gmail.com`. El comando verifica que la cuenta exista, reemplaza exclusivamente su secreto TOTP cifrado y muestra una nueva URI para escanear. La URI es sensible: no la compartas ni la guardes en Git.
 
@@ -26,13 +26,24 @@ La respuesta tiene esta forma. Los nombres de campos son camelCase y `version` p
   "version": 1,
   "generatedAt": "2026-10-02T12:00:00.000Z",
   "odisea": [{"id": 1, "youtubeId": "…", "title": "…", "publishedAt": "…", "thumbnail": "https://…", "url": "https://…", "program": "Odisea Argentina", "sortOrder": 0}],
+  "olga": [{"id": 1, "youtubeId": "…", "title": "…", "publishedAt": "…", "thumbnail": "https://…", "url": "https://…", "description": "…", "sortOrder": 0}],
   "books": [{"id": 1, "title": "…", "year": 2026, "publisher": "…", "descriptionEs": "…", "descriptionEn": "…", "coverPath": "/uploads/…webp", "externalUrl": "https://…", "featuredHome": 1, "sortOrder": 0}],
   "news": [{"id": 1, "type": "award", "titleEs": "…", "titleEn": "…", "descriptionEs": "…", "descriptionEn": "…", "eventDate": "2026-10-02", "imagePath": "/uploads/…webp", "externalUrl": "https://…", "featuredHome": 1, "sortOrder": 0}],
   "featured": {"books": [], "news": []}
 }
 ```
 
-Las colecciones ya contienen únicamente contenido publicado. `featured.books` y `featured.news` son subconjuntos del contenido publicado marcado para Home. El frontend no debe depender de columnas internas de SQLite ni de endpoints `/api/admin/*`.
+Las colecciones ya contienen únicamente contenido publicado. `odisea` y `olga` son colecciones independientes; `featured.books` y `featured.news` son subconjuntos del contenido publicado marcado para Home. El frontend no debe depender de columnas internas de SQLite ni de endpoints `/api/admin/*`.
+
+## Endpoints de administración de OLGA
+
+Todos requieren sesión de administrador y, para cambios de estado, el token CSRF de esa sesión:
+
+- `GET /api/admin/olga` — lista incluso borradores.
+- `POST /api/admin/olga` — crea una participación desde una URL o ID de YouTube; una alta sin orden manual queda primera.
+- `GET`, `PATCH`, `DELETE /api/admin/olga/:id` — consulta, edición y eliminación.
+- `POST /api/admin/olga/reorder` — recibe el orden completo como `{"ids":[…]}`.
+- `POST /api/admin/youtube/preview` — previsualización compartida con Odisea: URL, ID, título, miniatura y fecha oficial cuando está configurada `YOUTUBE_API_KEY`.
 
 ## Integración con el frontend
 

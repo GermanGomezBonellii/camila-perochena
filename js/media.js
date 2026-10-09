@@ -13,8 +13,10 @@
     return window.CamilaI18n ? window.CamilaI18n.t(key) : key;
   }
 
-  /* ---------- Odisea Argentina ---------- */
+  /* ---------- Videos administrables ---------- */
   var odiseaGrid = document.getElementById("odiseaGrid");
+  var olgaGrid = document.getElementById("olgaGrid");
+  var olgaContent = document.getElementById("olgaContent");
 
   if (odiseaGrid && window.CamilaMedia && window.CamilaMediaData) {
     window.CamilaMedia.renderMediaItems(odiseaGrid, window.CamilaMediaData.odisea);
@@ -24,15 +26,26 @@
     window.CamilaMedia.attachLazyEmbed(document);
   }
 
-  /* The CMS replaces only Odisea's editable data. Podcasts and press
-     remain part of the final editorial frontend unchanged. */
-  if (odiseaGrid && window.CamilaCms && window.CamilaMedia) {
+  // Odisea conserva el fallback editorial existente si la API no responde.
+  // OLGA no tiene fallback: con cero videos publicados solo queda su introducción.
+  if (window.CamilaCms && window.CamilaMedia) {
     window.CamilaCms.getContent().then(function (content) {
-      odiseaGrid.innerHTML = "";
-      window.CamilaMedia.renderMediaItems(odiseaGrid, content.odisea || []);
-      window.CamilaMedia.attachLazyEmbed(odiseaGrid);
+      if (odiseaGrid) {
+        odiseaGrid.innerHTML = "";
+        window.CamilaMedia.renderMediaItems(odiseaGrid, content.odisea || []);
+        window.CamilaMedia.attachLazyEmbed(odiseaGrid);
+      }
+      if (olgaGrid && olgaContent) {
+        var olgaVideos = Array.isArray(content.olga) ? content.olga : [];
+        olgaGrid.innerHTML = "";
+        olgaContent.hidden = olgaVideos.length === 0;
+        if (olgaVideos.length) {
+          window.CamilaMedia.renderMediaItems(olgaGrid, olgaVideos);
+          window.CamilaMedia.attachLazyEmbed(olgaGrid);
+        }
+      }
     }).catch(function (error) {
-      console.error("CMS Odisea content could not be loaded.", error);
+      console.error("CMS media content could not be loaded.", error);
     });
   }
 

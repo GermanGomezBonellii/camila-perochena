@@ -10,8 +10,9 @@
   <header><p class="eyebrow">Camila Perochena</p><h1>Administración</h1><p id="session" class="muted"></p></header>
   <form id="login" class="card narrow"><h2>Ingresar</h2><label>Email<input name="email" type="email" autocomplete="username" required></label><label>Contraseña<input name="password" type="password" autocomplete="current-password" required></label><label>Código de seis dígitos<input name="totp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required></label><button>Entrar</button><p class="error" id="login-error" aria-live="polite"></p></form>
   <div id="panel" hidden>
-    <nav><a href="#odisea">Odisea Argentina</a><a href="#books">Libros</a><a href="#news">Novedades</a><button class="link-button" id="logout">Salir</button></nav>
+    <nav><a href="#odisea">Odisea Argentina</a><a href="#olga">OLGA</a><a href="#books">Libros</a><a href="#news">Novedades</a><button class="link-button" id="logout">Salir</button></nav>
     <section id="odisea"><div class="section-title"><div><p class="eyebrow">Videos</p><h2>Odisea Argentina</h2></div><button data-open="videos">+ Agregar columna</button></div><div id="videos-list" class="items"></div></section>
+    <section id="olga"><div class="section-title"><div><p class="eyebrow">Videos</p><h2>OLGA</h2></div><button data-open="olga">+ Agregar participación</button></div><div id="olga-list" class="items"></div></section>
     <section id="books"><div class="section-title"><div><p class="eyebrow">Publicaciones</p><h2>Libros</h2></div><button data-open="books">+ Nuevo libro</button></div><div id="books-list" class="items"></div></section>
     <section id="news"><div class="section-title"><div><p class="eyebrow">Actualidad</p><h2>Novedades</h2></div><button data-open="news">+ Nueva novedad</button></div><div id="news-list" class="items"></div></section>
   </div>

@@ -1,27 +1,166 @@
 (() => {
   const $ = selector => document.querySelector(selector);
-  const state = { csrf: '', current: null, rows: { videos: [], books: [], news: [] } };
-  const labels = { videos: 'columna', books: 'libro', news: 'novedad' };
-  const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[char]));
-  async function api(url, options = {}) { const headers = { ...(options.headers || {}), ...(state.csrf ? { 'X-CSRF-Token': state.csrf } : {}) }; if (options.body && !(options.body instanceof FormData)) headers['content-type'] = 'application/json'; const response = await fetch(url, { ...options, headers }); if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.error || 'No se pudo completar la acción.'); } return response.status === 204 ? null : response.json(); }
+  const state = { csrf: '', current: null, rows: { videos: [], olga: [], books: [], news: [] } };
+  const labels = { videos: 'columna de Odisea', olga: 'participación de OLGA', books: 'libro', news: 'novedad' };
+  let previewTimer = null;
+
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  const isVideoType = type => type === 'videos' || type === 'olga';
+  async function api(url, options = {}) {
+    const headers = { ...(options.headers || {}), ...(state.csrf ? { 'X-CSRF-Token': state.csrf } : {}) };
+    if (options.body && !(options.body instanceof FormData)) headers['content-type'] = 'application/json';
+    const response = await fetch(url, { ...options, headers });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new Error(body.error || 'No se pudo completar la acción.');
+    }
+    return response.status === 204 ? null : response.json();
+  }
   function formValue(form, name) { return form.elements[name]?.value ?? ''; }
   function checkbox(form, name) { return form.elements[name]?.checked ? 1 : 0; }
-  const base = (name, label, value = '', type = 'text', wide = false) => `<label class="${wide?'wide':''}">${label}<input name="${name}" type="${type}" value="${esc(value)}" ${name==='title'||name==='title_es'||name==='year'||name==='publisher'||name==='event_date'?'required':''}></label>`;
-  function fields(type, item = {}) { if (type === 'videos') return `<div class="grid"><label class="wide">URL de YouTube<input name="youtube_url" type="url" value="${esc(item.url || '')}" placeholder="https://www.youtube.com/watch?v=…"></label><div class="wide"><button type="button" id="preview-video">Buscar video</button><div id="video-preview"></div></div>${base('title','Título',item.title||'','text',true)}<input name="youtube_id" type="hidden" value="${esc(item.youtube_id||'')}">${base('published_at','Fecha real de publicación',item.published_at||'','datetime-local',true)}<input name="thumbnail" type="hidden" value="${esc(item.thumbnail||'')}">${base('program','Programa',item.program||'Odisea Argentina','text',true)}<label class="check wide"><input name="published" type="checkbox" ${item.published?'checked':''}> Publicar en el sitio</label></div>`;
-    if (type === 'books') return `<div class="grid">${base('title','Título',item.title)}${base('year','Año',item.year||'','number')}${base('publisher','Editorial',item.publisher)}${base('external_url','URL externa',item.external_url||'','url')}<label class="wide">Descripción ES<textarea name="description_es">${esc(item.description_es||'')}</textarea></label><label class="wide">Description EN<textarea name="description_en">${esc(item.description_en||'')}</textarea></label>${uploadFields('cover_path','Portada',item.cover_path)}<label class="check"><input name="published" type="checkbox" ${item.published?'checked':''}> Publicado</label><label class="check"><input name="featured_home" type="checkbox" ${item.featured_home?'checked':''}> Destacar en Home</label></div>`;
-    return `<div class="grid"><label>Tipo<select name="type">${[['book','Libro'],['conference','Conferencia'],['award','Premio'],['media','Medio'],['other','Otro']].map(x=>`<option value="${x[0]}" ${item.type===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label>${base('event_date','Fecha',item.event_date||'','date')}${base('title_es','Título ES',item.title_es||'','text',true)}${base('title_en','Title EN',item.title_en||'','text',true)}<label class="wide">Descripción ES<textarea name="description_es">${esc(item.description_es||'')}</textarea></label><label class="wide">Description EN<textarea name="description_en">${esc(item.description_en||'')}</textarea></label>${base('external_url','Link externo',item.external_url||'','url',true)}${uploadFields('image_path','Imagen opcional',item.image_path)}<label class="check"><input name="published" type="checkbox" ${item.published?'checked':''}> Publicar</label><label class="check"><input name="featured_home" type="checkbox" ${item.featured_home?'checked':''}> Destacar en Home</label></div>`; }
-  function uploadFields(name,label,value) { return `<div class="wide"><label>${label}<input name="${name}" type="hidden" value="${esc(value||'')}"></label><div class="upload-row"><input id="upload-input" type="file" accept="image/jpeg,image/png,image/webp"><button type="button" id="upload-image">Subir imagen</button></div><p id="upload-status" class="muted">${value?`Imagen cargada: ${esc(value)}`:'JPEG, PNG o WebP, máximo 5 MB.'}</p></div>`; }
-  function itemMarkup(type, item, index) { const title = type === 'news' ? item.title_es : item.title; const image = type === 'videos' ? item.thumbnail : type === 'books' ? item.cover_path : item.image_path; const date = type === 'videos' ? item.published_at : type === 'news' ? item.event_date : item.year; return `<article class="item" data-id="${item.id}">${image?`<img class="thumb" src="${esc(image)}" alt="">`:''}<div class="item-info"><div class="item-title">${esc(title)}</div><div class="item-meta">${esc(date||'Sin fecha')} · ${item.published?'<span class="tag live">Publicado</span>':'<span class="tag">Borrador</span>'}${item.featured_home?'<span class="tag">Home</span>':''}</div></div><div class="item-actions"><button data-action="up" data-type="${type}" data-id="${item.id}" ${index===0?'disabled':''}>↑</button><button data-action="down" data-type="${type}" data-id="${item.id}" ${index===state.rows[type].length-1?'disabled':''}>↓</button><button data-action="edit" data-type="${type}" data-id="${item.id}">Editar</button><button data-action="toggle" data-type="${type}" data-id="${item.id}">${item.published?'Ocultar':'Publicar'}</button><button class="secondary danger" data-action="delete" data-type="${type}" data-id="${item.id}">Eliminar</button></div></article>`; }
-  async function load(type) { state.rows[type] = await api('/api/admin/' + type); $('#' + type + '-list').innerHTML = state.rows[type].map((item,index)=>itemMarkup(type,item,index)).join('') || '<p class="muted">Todavía no hay elementos.</p>'; }
-  async function loadAll() { await Promise.all(['videos','books','news'].map(load)); }
-  function openEditor(type, item = {}) { state.current = { type, id: item.id || null }; $('#editor-title').textContent = item.id ? `Editar ${labels[type]}` : `Nueva ${labels[type]}`; $('#fields').innerHTML = fields(type,item); $('#form-error').textContent = ''; $('#editor').showModal(); }
-  async function previewVideo() { const form = $('#entry-form'); const output = $('#video-preview'); output.textContent = 'Buscando…'; try { const video = await api('/api/admin/videos/preview', { method:'POST', body: JSON.stringify({ url: formValue(form,'youtube_url') }) }); form.elements.youtube_id.value = video.youtubeId; form.elements.title.value = video.title || ''; form.elements.published_at.value = video.publishedAt ? video.publishedAt.slice(0,16) : ''; form.elements.thumbnail.value = video.thumbnail; output.innerHTML = `<div class="preview"><img src="${esc(video.thumbnail)}" alt=""><p><strong>${esc(video.title||'Video encontrado')}</strong></p><p>${video.publishedAt ? esc(new Date(video.publishedAt).toLocaleString('es-AR')) : 'Fecha pendiente: configurá la API oficial de YouTube.'}</p>${video.warning?`<p class="muted">${esc(video.warning)}</p>`:''}</div>`; } catch(error) { output.innerHTML = `<p class="error">${esc(error.message)}</p>`; } }
-  async function uploadImage() { const file = $('#upload-input').files[0]; if (!file) return $('#upload-status').textContent = 'Elegí una imagen primero.'; const data = new FormData(); data.set('image',file); $('#upload-status').textContent = 'Subiendo…'; try { const response = await api('/api/admin/upload', {method:'POST',body:data}); $('#entry-form').querySelector('input[type=hidden][name=cover_path],input[type=hidden][name=image_path]').value=response.path; $('#upload-status').textContent='Imagen lista.'; } catch(error) { $('#upload-status').textContent=error.message; } }
-  function payload(type, form) { const data = Object.fromEntries(new FormData(form)); ['published','featured_home'].forEach(name => { if (form.elements[name]) data[name] = checkbox(form,name); }); if (type === 'videos') { data.published_at = data.published_at ? new Date(data.published_at).toISOString() : ''; } return data; }
-  $('#login').addEventListener('submit',async event=>{event.preventDefault();$('#login-error').textContent='';try{const result=await api('/api/auth/login',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(event.target)))});state.csrf=result.csrfToken;$('#session').textContent='Sesión iniciada como '+result.email;$('#login').hidden=true;$('#panel').hidden=false;await loadAll();}catch(error){$('#login-error').textContent=error.message;}});
-  $('#logout').addEventListener('click',async()=>{await api('/api/auth/logout',{method:'POST',body:JSON.stringify({})});location.reload();});
-  document.addEventListener('click',async event=>{const open=event.target.closest('[data-open]');if(open)return openEditor(open.dataset.open);const action=event.target.dataset.action;if(!action)return;const type=event.target.dataset.type,id=Number(event.target.dataset.id),index=state.rows[type].findIndex(x=>x.id===id);if(action==='edit')return openEditor(type,state.rows[type][index]);if(action==='toggle'){await api(`/api/admin/${type}/${id}`,{method:'PATCH',body:JSON.stringify({published:state.rows[type][index].published?0:1})});return load(type);}if(action==='delete'){if(confirm(`¿Eliminar esta ${labels[type]}? Esta acción no se puede deshacer.`)){await api(`/api/admin/${type}/${id}`,{method:'DELETE'});await load(type);}return;}const target=action==='up'?index-1:index+1;if(target>=0&&target<state.rows[type].length){const ids=state.rows[type].map(x=>x.id);[ids[index],ids[target]]=[ids[target],ids[index]];await api(`/api/admin/${type}/reorder`,{method:'POST',body:JSON.stringify({ids})});await load(type);}});
-  $('#close-editor').onclick=()=>$('#editor').close();$('#cancel-editor').onclick=()=>$('#editor').close();
-  $('#entry-form').addEventListener('click',event=>{if(event.target.id==='preview-video')previewVideo();if(event.target.id==='upload-image')uploadImage();});
-  $('#entry-form').addEventListener('submit',async event=>{event.preventDefault();const {type,id}=state.current;$('#form-error').textContent='';try{const data=payload(type,event.target);if(type==='videos'&&!data.youtube_id){$('#form-error').textContent='Primero buscá el video para confirmar los datos.';return;}if(type==='news'&&data.featured_home&&!data.image_path&&!window.confirm('Esta novedad se destacará en Home sin imagen. La composición editorial se verá mejor con una imagen. ¿Querés continuar?'))return;const url='/api/admin/'+type+(id?'/'+id:'');await api(url,{method:id?'PATCH':'POST',body:JSON.stringify(data)});$('#editor').close();await load(type);}catch(error){$('#form-error').textContent=error.message;}});
+  function base(name, label, value = '', type = 'text', wide = false) {
+    const required = ['title', 'title_es', 'year', 'publisher', 'event_date'].includes(name) ? 'required' : '';
+    return `<label class="${wide ? 'wide' : ''}">${label}<input name="${name}" type="${type}" value="${esc(value)}" ${required}></label>`;
+  }
+  function videoFields(type, item) {
+    const description = type === 'olga' ? `<label class="wide">Descripción opcional<textarea name="description">${esc(item.description || '')}</textarea></label>` : '';
+    const order = base('sort_order', 'Orden manual (menor = primero)', item.id ? item.sort_order : '', 'number', true);
+    const publishedAt = item.published_at ? String(item.published_at).slice(0, 16) : '';
+    return `<div class="grid"><label class="wide">URL de YouTube<input name="youtube_url" type="url" value="${esc(item.url || '')}" placeholder="https://www.youtube.com/watch?v=…"></label><div class="wide"><button type="button" id="preview-video">Buscar video</button><div id="video-preview"></div></div>${base('title', 'Título', item.title || '', 'text', true)}<input name="youtube_id" type="hidden" value="${esc(item.youtube_id || '')}">${base('published_at', 'Fecha real de publicación', publishedAt, 'datetime-local', true)}<input name="thumbnail" type="hidden" value="${esc(item.thumbnail || '')}">${description}${order}<label class="check wide"><input name="published" type="checkbox" ${item.published ? 'checked' : ''}> Publicar en el sitio</label></div>`;
+  }
+  function fields(type, item = {}) {
+    if (isVideoType(type)) return videoFields(type, item);
+    if (type === 'books') return `<div class="grid">${base('title', 'Título', item.title)}${base('year', 'Año', item.year || '', 'number')}${base('publisher', 'Editorial', item.publisher)}${base('external_url', 'URL externa', item.external_url || '', 'url')}<label class="wide">Descripción ES<textarea name="description_es">${esc(item.description_es || '')}</textarea></label><label class="wide">Description EN<textarea name="description_en">${esc(item.description_en || '')}</textarea></label>${uploadFields('cover_path', 'Portada', item.cover_path)}<label class="check"><input name="published" type="checkbox" ${item.published ? 'checked' : ''}> Publicado</label><label class="check"><input name="featured_home" type="checkbox" ${item.featured_home ? 'checked' : ''}> Destacar en Home</label></div>`;
+    return `<div class="grid"><label>Tipo<select name="type">${[['book', 'Libro'], ['conference', 'Conferencia'], ['award', 'Premio'], ['media', 'Medio'], ['other', 'Otro']].map(option => `<option value="${option[0]}" ${item.type === option[0] ? 'selected' : ''}>${option[1]}</option>`).join('')}</select></label>${base('event_date', 'Fecha', item.event_date || '', 'date')}${base('title_es', 'Título ES', item.title_es || '', 'text', true)}${base('title_en', 'Title EN', item.title_en || '', 'text', true)}<label class="wide">Descripción ES<textarea name="description_es">${esc(item.description_es || '')}</textarea></label><label class="wide">Description EN<textarea name="description_en">${esc(item.description_en || '')}</textarea></label>${base('external_url', 'Link externo', item.external_url || '', 'url', true)}${uploadFields('image_path', 'Imagen opcional', item.image_path)}<label class="check"><input name="published" type="checkbox" ${item.published ? 'checked' : ''}> Publicar</label><label class="check"><input name="featured_home" type="checkbox" ${item.featured_home ? 'checked' : ''}> Destacar en Home</label></div>`;
+  }
+  function uploadFields(name, label, value) {
+    return `<div class="wide"><label>${label}<input name="${name}" type="hidden" value="${esc(value || '')}"></label><div class="upload-row"><input id="upload-input" type="file" accept="image/jpeg,image/png,image/webp"><button type="button" id="upload-image">Subir imagen</button></div><p id="upload-status" class="muted">${value ? `Imagen cargada: ${esc(value)}` : 'JPEG, PNG o WebP, máximo 5 MB.'}</p></div>`;
+  }
+  function itemMarkup(type, item, index) {
+    const title = type === 'news' ? item.title_es : item.title;
+    const image = isVideoType(type) ? item.thumbnail : type === 'books' ? item.cover_path : item.image_path;
+    const date = isVideoType(type) ? item.published_at : type === 'news' ? item.event_date : item.year;
+    return `<article class="item" data-id="${item.id}">${image ? `<img class="thumb" src="${esc(image)}" alt="">` : ''}<div class="item-info"><div class="item-title">${esc(title)}</div><div class="item-meta">${esc(date || 'Sin fecha')} · ${item.published ? '<span class="tag live">Publicado</span>' : '<span class="tag">Borrador</span>'}${item.featured_home ? '<span class="tag">Home</span>' : ''}</div></div><div class="item-actions"><button data-action="up" data-type="${type}" data-id="${item.id}" ${index === 0 ? 'disabled' : ''}>↑</button><button data-action="down" data-type="${type}" data-id="${item.id}" ${index === state.rows[type].length - 1 ? 'disabled' : ''}>↓</button><button data-action="edit" data-type="${type}" data-id="${item.id}">Editar</button><button data-action="toggle" data-type="${type}" data-id="${item.id}">${item.published ? 'Ocultar' : 'Publicar'}</button><button class="secondary danger" data-action="delete" data-type="${type}" data-id="${item.id}">Eliminar</button></div></article>`;
+  }
+  async function load(type) {
+    state.rows[type] = await api('/api/admin/' + type);
+    $('#' + type + '-list').innerHTML = state.rows[type].map((item, index) => itemMarkup(type, item, index)).join('') || '<p class="muted">Todavía no hay elementos.</p>';
+  }
+  async function loadAll() { await Promise.all(['videos', 'olga', 'books', 'news'].map(load)); }
+  function openEditor(type, item = {}) {
+    state.current = { type, id: item.id || null };
+    $('#editor-title').textContent = item.id ? `Editar ${labels[type]}` : `Nueva ${labels[type]}`;
+    $('#fields').innerHTML = fields(type, item);
+    $('#form-error').textContent = '';
+    $('#editor').showModal();
+  }
+  async function previewVideo() {
+    const form = $('#entry-form');
+    const output = $('#video-preview');
+    const url = formValue(form, 'youtube_url').trim();
+    if (!url) return;
+    output.textContent = 'Buscando…';
+    try {
+      const video = await api('/api/admin/youtube/preview', { method: 'POST', body: JSON.stringify({ url }) });
+      form.elements.youtube_id.value = video.youtubeId;
+      form.elements.title.value = video.title || '';
+      form.elements.published_at.value = video.publishedAt ? video.publishedAt.slice(0, 16) : '';
+      form.elements.thumbnail.value = video.thumbnail;
+      output.innerHTML = `<div class="preview"><img src="${esc(video.thumbnail)}" alt=""><p><strong>${esc(video.title || 'Video encontrado')}</strong></p><p>${video.publishedAt ? esc(new Date(video.publishedAt).toLocaleString('es-AR')) : 'Fecha pendiente: configurá la API oficial de YouTube.'}</p>${video.warning ? `<p class="muted">${esc(video.warning)}</p>` : ''}</div>`;
+    } catch (error) { output.innerHTML = `<p class="error">${esc(error.message)}</p>`; }
+  }
+  async function uploadImage() {
+    const file = $('#upload-input').files[0];
+    if (!file) return $('#upload-status').textContent = 'Elegí una imagen primero.';
+    const data = new FormData();
+    data.set('image', file);
+    $('#upload-status').textContent = 'Subiendo…';
+    try {
+      const response = await api('/api/admin/upload', { method: 'POST', body: data });
+      $('#entry-form').querySelector('input[type=hidden][name=cover_path],input[type=hidden][name=image_path]').value = response.path;
+      $('#upload-status').textContent = 'Imagen lista.';
+    } catch (error) { $('#upload-status').textContent = error.message; }
+  }
+  function payload(type, form) {
+    const data = Object.fromEntries(new FormData(form));
+    ['published', 'featured_home'].forEach(name => { if (form.elements[name]) data[name] = checkbox(form, name); });
+    if (isVideoType(type)) {
+      data.published_at = data.published_at ? new Date(data.published_at).toISOString() : '';
+      if (data.sort_order === '') delete data.sort_order;
+    }
+    return data;
+  }
+
+  $('#login').addEventListener('submit', async event => {
+    event.preventDefault();
+    $('#login-error').textContent = '';
+    try {
+      const result = await api('/api/auth/login', { method: 'POST', body: JSON.stringify(Object.fromEntries(new FormData(event.target))) });
+      state.csrf = result.csrfToken;
+      $('#session').textContent = 'Sesión iniciada como ' + result.email;
+      $('#login').hidden = true;
+      $('#panel').hidden = false;
+      await loadAll();
+    } catch (error) { $('#login-error').textContent = error.message; }
+  });
+  $('#logout').addEventListener('click', async () => {
+    await api('/api/auth/logout', { method: 'POST', body: JSON.stringify({}) });
+    location.reload();
+  });
+  document.addEventListener('click', async event => {
+    const open = event.target.closest('[data-open]');
+    if (open) return openEditor(open.dataset.open);
+    const action = event.target.dataset.action;
+    if (!action) return;
+    const type = event.target.dataset.type;
+    const id = Number(event.target.dataset.id);
+    const index = state.rows[type].findIndex(item => item.id === id);
+    if (action === 'edit') return openEditor(type, state.rows[type][index]);
+    if (action === 'toggle') {
+      await api(`/api/admin/${type}/${id}`, { method: 'PATCH', body: JSON.stringify({ published: state.rows[type][index].published ? 0 : 1 }) });
+      return load(type);
+    }
+    if (action === 'delete') {
+      if (confirm(`¿Eliminar esta ${labels[type]}? Esta acción no se puede deshacer.`)) {
+        await api(`/api/admin/${type}/${id}`, { method: 'DELETE' });
+        await load(type);
+      }
+      return;
+    }
+    const target = action === 'up' ? index - 1 : index + 1;
+    if (target >= 0 && target < state.rows[type].length) {
+      const ids = state.rows[type].map(item => item.id);
+      [ids[index], ids[target]] = [ids[target], ids[index]];
+      await api(`/api/admin/${type}/reorder`, { method: 'POST', body: JSON.stringify({ ids }) });
+      await load(type);
+    }
+  });
+  $('#close-editor').onclick = () => $('#editor').close();
+  $('#cancel-editor').onclick = () => $('#editor').close();
+  $('#entry-form').addEventListener('click', event => {
+    if (event.target.id === 'preview-video') previewVideo();
+    if (event.target.id === 'upload-image') uploadImage();
+  });
+  $('#entry-form').addEventListener('input', event => {
+    if (event.target.name !== 'youtube_url') return;
+    clearTimeout(previewTimer);
+    if (event.target.value.trim()) previewTimer = setTimeout(previewVideo, 700);
+  });
+  $('#entry-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const { type, id } = state.current;
+    $('#form-error').textContent = '';
+    try {
+      const data = payload(type, event.target);
+      if (isVideoType(type) && !data.youtube_id) {
+        $('#form-error').textContent = 'Primero buscá el video para confirmar los datos.';
+        return;
+      }
+      if (type === 'news' && data.featured_home && !data.image_path && !window.confirm('Esta novedad se destacará en Home sin imagen. La composición editorial se verá mejor con una imagen. ¿Querés continuar?')) return;
+      const url = '/api/admin/' + type + (id ? '/' + id : '');
+      await api(url, { method: id ? 'PATCH' : 'POST', body: JSON.stringify(data) });
+      $('#editor').close();
+      await load(type);
+    } catch (error) { $('#form-error').textContent = error.message; }
+  });
 })();
