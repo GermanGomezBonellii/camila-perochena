@@ -132,12 +132,14 @@ var CamilaMediaData = {
       year: 2025,
       title: "Ustedes no habían nacido",
       outlet: "Cenital",
+      image: "../img/ustedes-no-habian-nacido.jpg",
       roleKey: "mediaPage.audiovisual.cenital.role",
       descKey: "mediaPage.audiovisual.cenital.description"
     },
     {
       year: 2020,
       title: "Terapia de Noticias / LN+",
+      image: "../img/terapia-de-noticias.jpg",
       roleKey: "mediaPage.audiovisual.terapia.role",
       descKey: "mediaPage.audiovisual.terapia.description"
     }

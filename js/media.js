@@ -128,12 +128,24 @@
     list.innerHTML = "";
     items.forEach(function (item) {
       var li = document.createElement("li");
-      li.className = "press-item";
+      li.className = "press-item" + (item.image ? " media-experience-item--with-image" : "");
 
       var year = document.createElement("span");
       year.className = "press-type";
       year.textContent = String(item.year);
       li.appendChild(year);
+
+      if (item.image) {
+        var cover = document.createElement("figure");
+        cover.className = "media-experience-cover";
+        var image = document.createElement("img");
+        image.className = "media-experience-image";
+        image.src = item.image;
+        image.alt = "";
+        image.loading = "lazy";
+        cover.appendChild(image);
+        li.appendChild(cover);
+      }
 
       var body = document.createElement("div");
       body.className = "press-body";
