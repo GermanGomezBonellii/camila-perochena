@@ -213,7 +213,7 @@
 }
 
 .news-visual {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   margin: 0;
   width: min(100%, 20rem);
   justify-self: start;
@@ -258,8 +258,8 @@
 }
 
 .news-copy {
-  grid-column: 6 / 13;
-  max-width: 44rem;
+  grid-column: 5 / 13;
+  max-width: 48rem;
 }
 
 .news-type,
@@ -285,10 +285,11 @@
   margin-top: clamp(0.65rem, 1.2vw, 1rem);
   font-size: var(--fs-h2);
   line-height: var(--line-tight);
+  max-width: 48rem;
 }
 
 .news-description {
-  max-width: 39ch;
+  max-width: 46rem;
   margin-top: clamp(0.75rem, 1.2vw, 1rem);
   color: var(--color-text-soft);
 }
