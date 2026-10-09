@@ -175,6 +175,20 @@
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
+  // Novedades suele usar afiches, tapas y placas verticales. La caja nace
+  // en retrato y, cuando la imagen termina de cargar, se adapta sin recortar
+  // las piezas cuadradas o apaisadas que puedan cargarse más adelante.
+  function fitNewsVisual(image, visual) {
+    function setShape() {
+      if (!image.naturalWidth || !image.naturalHeight) return;
+      var ratio = image.naturalWidth / image.naturalHeight;
+      visual.classList.remove("news-visual--portrait", "news-visual--square", "news-visual--landscape");
+      visual.classList.add(ratio > 1.15 ? "news-visual--landscape" : ratio > 0.85 ? "news-visual--square" : "news-visual--portrait");
+    }
+    image.addEventListener("load", setShape, { once: true });
+    if (image.complete) setShape();
+  }
+
   function showNews(index, shouldAnimate) {
     if (!newsItems.length || !newsStage) return;
     newsIndex = (index + newsItems.length) % newsItems.length;
@@ -194,6 +208,7 @@
       image.alt = "";
       image.loading = "eager";
       visual.appendChild(image);
+      fitNewsVisual(image, visual);
     } else {
       var placeholder = document.createElement("div");
       placeholder.className = "news-image-placeholder";
