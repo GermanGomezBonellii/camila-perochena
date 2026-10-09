@@ -109,6 +109,8 @@
   var newsTimer = null;
   var newsControlsBound = false;
   var cmsContent;
+  var contactHashNavigation = document.documentElement.classList.contains("contact-anchor-pending");
+  var contactAnchorListening = false;
 
   function isEnglish() {
     return window.CamilaI18n && window.CamilaI18n.getLanguage() === "en";
@@ -173,6 +175,56 @@
 
   function reducedMotion() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  // La navegación a /#contacto se captura en el <head> antes de que el
+  // navegador haga su salto nativo. Así, cuando el CMS agrega una novedad
+  // destacada y cambia la altura de la Home, podemos calcular Contacto con
+  // el final real del documento en vez de con la altura inicial.
+  function restoreContactAnchor() {
+    if (!contactHashNavigation || contactAnchorListening) return;
+    contactAnchorListening = true;
+    var root = document.documentElement;
+    var scroller = document.scrollingElement || root;
+    var resizeTimer;
+    var cleanupTimer;
+    var observer;
+    var alignToPageEnd = function () {
+      if (!contactHashNavigation) return;
+      var previousBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      root.getBoundingClientRect();
+      var finalTop = scroller.scrollHeight - scroller.clientHeight;
+      window.scrollTo({ top: finalTop, behavior: "auto" });
+      window.setTimeout(function () {
+        root.style.scrollBehavior = previousBehavior;
+      }, 500);
+    };
+    var scheduleAlignment = function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(alignToPageEnd, 80);
+    };
+    var stopObserving = function () {
+      window.clearTimeout(resizeTimer);
+      window.clearTimeout(cleanupTimer);
+      if (observer) observer.disconnect();
+      alignToPageEnd();
+      contactHashNavigation = false;
+      contactAnchorListening = false;
+      root.classList.remove("contact-anchor-pending");
+    };
+    var observeLayout = function () {
+      if ("ResizeObserver" in window) {
+        observer = new ResizeObserver(scheduleAlignment);
+        observer.observe(root);
+      }
+      scheduleAlignment();
+      // Fuentes e imágenes pueden recalcular la altura después del CMS.
+      // Durante este breve lapso mantenemos Contacto unido al final real.
+      cleanupTimer = window.setTimeout(stopObserving, 1800);
+    };
+    if (document.readyState === "complete") observeLayout();
+    else window.addEventListener("load", observeLayout, { once: true });
   }
 
   // Novedades suele usar afiches, tapas y placas verticales. La caja nace
@@ -318,6 +370,7 @@
     }
     renderFeaturedBook((cmsContent.featured && cmsContent.featured.books || [])[0]);
     renderNews(cmsContent.featured && cmsContent.featured.news);
+    restoreContactAnchor();
   }
 
   if (window.CamilaCms) {
@@ -329,7 +382,8 @@
       console.error("CMS content could not be loaded.", error);
       // El fallback editorial no revela detalles técnicos y mantiene el layout usable.
       if (featuredBookSection) featuredBookSection.hidden = false;
+      restoreContactAnchor();
     });
-  }
+  } else restoreContactAnchor();
 
 })();
