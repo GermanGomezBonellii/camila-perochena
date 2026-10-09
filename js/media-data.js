@@ -17,7 +17,7 @@
      (https://youtube.com/playlist?list=PLWYpDY_TMICI) que todavía
      no se sumaron acá — agregarlas es solo sumar un objeto más.
 
-   podcasts: { name, url, cover, roleKey, descKey }.
+   podcasts: { name, url, cover, roleKey, descKey, statsKey }.
      name: nombre real del proyecto (no se traduce).
      url: enlace público oficial verificado (Spotify o Apple
        Podcasts). Dejar sin "url" si no hay un enlace verificado.
@@ -100,26 +100,72 @@ var CamilaMediaData = {
       url: "https://open.spotify.com/show/6ZzcVyIlDzcz3YaXAb7KEg",
       cover: "../img/podcast-historiar.jpg",
       roleKey: "mediaPage.podcasts.historiar.role",
-      descKey: "mediaPage.podcasts.historiar.description"
+      descKey: "mediaPage.podcasts.historiar.description",
+      statsKey: "mediaPage.podcasts.historiar.stats"
     },
     {
       name: "Primavera Cero",
       url: "https://open.spotify.com/show/6uyHGJfT4kgpcNZAv9wAUv",
       cover: "../img/podcast-primavera-cero.jpg",
       roleKey: "mediaPage.podcasts.primaveraCero.role",
-      descKey: "mediaPage.podcasts.primaveraCero.description"
+      descKey: "mediaPage.podcasts.primaveraCero.description",
+      statsKey: "mediaPage.podcasts.primaveraCero.stats"
     },
     {
       name: "Hay que pasar el invierno",
       url: "https://open.spotify.com/show/1eXph4FqMC82dFek4zz5cW",
       cover: "../img/podcast-hay-que-pasar-el-invierno.jpg",
-      descKey: "mediaPage.podcasts.hayQuePasarElInvierno.description"
+      descKey: "mediaPage.podcasts.hayQuePasarElInvierno.description",
+      statsKey: "mediaPage.podcasts.hayQuePasarElInvierno.stats"
     },
     {
       name: "La banda presidencial",
       url: "https://open.spotify.com/show/2Js8jTzuiQP0FkybFbsjcB",
       cover: "../img/podcast-la-banda-presidencial.jpg",
-      descKey: "mediaPage.podcasts.laBandaPresidencial.description"
+      descKey: "mediaPage.podcasts.laBandaPresidencial.description",
+      statsKey: "mediaPage.podcasts.laBandaPresidencial.stats"
+    }
+  ],
+
+  audiovisual: [
+    {
+      year: 2025,
+      title: "Ustedes no habían nacido",
+      outlet: "Cenital",
+      roleKey: "mediaPage.audiovisual.cenital.role",
+      descKey: "mediaPage.audiovisual.cenital.description"
+    },
+    {
+      year: 2020,
+      title: "Terapia de Noticias / LN+",
+      roleKey: "mediaPage.audiovisual.terapia.role",
+      descKey: "mediaPage.audiovisual.terapia.description"
+    }
+  ],
+
+  otherParticipations: [
+    {
+      year: 2023,
+      title: "“Argentina elige: La campaña electoral de 1983 en afiches”",
+      roleKey: "mediaPage.other.items.argentinaElige.role",
+      descKey: "mediaPage.other.items.argentinaElige.description"
+    },
+    {
+      year: 2021,
+      title: "“Pequeñas Historias para Entender la Argentina”",
+      roleKey: "mediaPage.other.items.pequenasHistorias.role",
+      descKey: "mediaPage.other.items.pequenasHistorias.description"
+    },
+    {
+      year: 2021,
+      title: "Museo Histórico de Buenos Aires Brigadier Cornelio de Saavedra",
+      roleKey: "mediaPage.other.items.saavedra.role"
+    },
+    {
+      year: 2020,
+      title: "“Belgrano: Mito y Ciudad”",
+      roleKey: "mediaPage.other.items.belgrano.role",
+      descKey: "mediaPage.other.items.belgrano.description"
     }
   ],
 

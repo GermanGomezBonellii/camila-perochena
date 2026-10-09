@@ -121,7 +121,7 @@ var CamilaI18n = (function () {
       teaching: {
         heading: "Docencia e investigación",
         role1: { title: "Profesora e investigadora" },
-        role2: { title: "Directora" }
+        role2: { title: "Directora de la Maestría y el Doctorado en Historia" }
       },
       articles: {
         heading: "Artículos",
@@ -151,25 +151,40 @@ var CamilaI18n = (function () {
         },
         olga: {
           heading: "OLGA",
-          description: "Desde 2024, Camila participa con columnas históricas periódicas en OLGA.",
-          comingSoon: "Selección de columnas en preparación."
+          description: "Desde 2024, Camila participa con columnas históricas periódicas en OLGA."
+        },
+        audiovisual: {
+          heading: "Participaciones audiovisuales",
+          description: "Series y segmentos de historia para medios audiovisuales.",
+          cenital: {
+            role: "Creadora y co-conductora",
+            description: "Serie de historia en YouTube de 8 episodios, con un promedio aproximado de 50.000 visualizaciones por episodio."
+          },
+          terapia: {
+            role: "Columnista de historia",
+            description: "Segmento semanal con perspectiva histórica sobre la actualidad."
+          }
         },
         podcasts: {
           heading: "Podcasts",
           listenCta: "Escuchar →",
           historiar: {
             role: "Copresentadora y coproductora",
-            description: "Bienvenidos al podcast de la ASAIH, la Asociación Argentina de Investigadores en Historia.\nUn podcast de entrevistas a historiadores sobre historia argentina, latinoamericana y mundial.\nUn recorrido por el pasado para pensarnos en el presente."
+            description: "Bienvenidos al podcast de la ASAIH, la Asociación Argentina de Investigadores en Historia.\nUn podcast de entrevistas a historiadores sobre historia argentina, latinoamericana y mundial.\nUn recorrido por el pasado para pensarnos en el presente.",
+            stats: "Más de 156 episodios · 334.000 reproducciones"
           },
           primaveraCero: {
             role: "Productora y conductora",
-            description: "Primavera Cero recorre, año por año, la vuelta de la democracia en la Argentina, desde 1982 hasta 1989, a través de las voces de sus protagonistas.\nCon la conducción de los historiadores Camila Perochena y Martín Marimón, cada episodio aborda un año específico de este período."
+            description: "Primavera Cero recorre, año por año, la vuelta de la democracia en la Argentina, desde 1982 hasta 1989, a través de las voces de sus protagonistas.\nCon la conducción de los historiadores Camila Perochena y Martín Marimón, cada episodio aborda un año específico de este período.",
+            stats: "10 episodios · 170.000 reproducciones"
           },
           hayQuePasarElInvierno: {
-            description: "A lo largo de una quincena de episodios vamos a conocer cómo el país se fue insertando en el mercado internacional, primero de la mano de las ovejas; cómo en el camino al presente pasamos por crisis bancarias, cesaciones de pago (nuestros amigos los defaults), tipos de cambio fijos, variables, industrializaciones parciales, crecimiento interrumpido, 1 a 1, corralitos y corralones."
+            description: "A lo largo de una quincena de episodios vamos a conocer cómo el país se fue insertando en el mercado internacional, primero de la mano de las ovejas; cómo en el camino al presente pasamos por crisis bancarias, cesaciones de pago (nuestros amigos los defaults), tipos de cambio fijos, variables, industrializaciones parciales, crecimiento interrumpido, 1 a 1, corralitos y corralones.",
+            stats: "14 episodios · 350.000 reproducciones"
           },
           laBandaPresidencial: {
-            description: "La banda presidencial es un podcast conducido por Camila Perochena, historiadora y docente de la Universidad Torcuato Di Tella, y Santiago Rodríguez Rey, politólogo y especialista en comunicación política, que hará un repaso semanal por todos los presidentes argentinos, desde Bernardino Rivadavia hasta Mauricio Macri, al estilo de lo que hicieron los podcasts Presidential, de Lillian Cunningham para el Washington Post, y Presidente da Semana, de Rodrigo Vizeu para Folha de São Paulo."
+            description: "La banda presidencial es un podcast conducido por Camila Perochena, historiadora y docente de la Universidad Torcuato Di Tella, y Santiago Rodríguez Rey, politólogo y especialista en comunicación política, que hará un repaso semanal por todos los presidentes argentinos, desde Bernardino Rivadavia hasta Mauricio Macri, al estilo de lo que hicieron los podcasts Presidential, de Lillian Cunningham para el Washington Post, y Presidente da Semana, de Rodrigo Vizeu para Folha de São Paulo.",
+            stats: "23 episodios · 550.000 reproducciones"
           }
         },
         press: {
@@ -182,8 +197,22 @@ var CamilaI18n = (function () {
         },
         other: {
           heading: "Otras participaciones",
-          description: "Entrevistas, documentales y otras participaciones audiovisuales.",
-          comingSoon: "Sección en preparación."
+          description: "Exposiciones, documentales y proyectos museográficos.",
+          items: {
+            argentinaElige: {
+              role: "Colaboradora en el guion de la exposición",
+              description: "Universidad Torcuato Di Tella + Museo Histórico Nacional"
+            },
+            pequenasHistorias: {
+              role: "Guionista",
+              description: "Serie documental conducida por Carlos Pagni y producida por Flow"
+            },
+            saavedra: { role: "Colaboradora en el guion museográfico" },
+            belgrano: {
+              role: "Curadora",
+              description: "Museo de la Ciudad de Wladimir Mikielievich, Rosario"
+            }
+          }
         }
       },
 
@@ -374,7 +403,7 @@ var CamilaI18n = (function () {
       teaching: {
         heading: "Teaching & Research",
         role1: { title: "Professor and Researcher" },
-        role2: { title: "Director" }
+        role2: { title: "Director of the Master's and PhD Programs in History" }
       },
       articles: {
         heading: "Articles",
@@ -400,25 +429,40 @@ var CamilaI18n = (function () {
         },
         olga: {
           heading: "OLGA",
-          description: "Since 2024, Camila has contributed periodic history columns to OLGA.",
-          comingSoon: "A selection of columns is being prepared."
+          description: "Since 2024, Camila has contributed periodic history columns to OLGA."
+        },
+        audiovisual: {
+          heading: "Audiovisual appearances",
+          description: "History series and segments for audiovisual media.",
+          cenital: {
+            role: "Creator and co-host",
+            description: "An eight-episode history series on YouTube, averaging approximately 50,000 views per episode."
+          },
+          terapia: {
+            role: "History columnist",
+            description: "A weekly segment bringing a historical perspective to current affairs."
+          }
         },
         podcasts: {
           heading: "Podcasts",
           listenCta: "Listen →",
           historiar: {
             role: "Co-host and co-producer",
-            description: "Welcome to the podcast of ASAIH, the Asociación Argentina de Investigadores en Historia.\nA podcast of interviews with historians on Argentine, Latin American and world history.\nA journey through the past to think about the present."
+            description: "Welcome to the podcast of ASAIH, the Asociación Argentina de Investigadores en Historia.\nA podcast of interviews with historians on Argentine, Latin American and world history.\nA journey through the past to think about the present.",
+            stats: "Over 156 episodes · 334,000 plays"
           },
           primaveraCero: {
             role: "Producer and host",
-            description: "Primavera Cero traces, year by year, Argentina's return to democracy between 1982 and 1989, through the voices of the people who lived it.\nHosted by historians Camila Perochena and Martín Marimón, each episode focuses on one specific year of that period."
+            description: "Primavera Cero traces, year by year, Argentina's return to democracy between 1982 and 1989, through the voices of the people who lived it.\nHosted by historians Camila Perochena and Martín Marimón, each episode focuses on one specific year of that period.",
+            stats: "10 episodes · 170,000 plays"
           },
           hayQuePasarElInvierno: {
-            description: "Over a fortnight of episodes, we trace how the country became part of the international market, starting with wool, and follow the road to the present through banking crises, defaults, fixed and floating exchange rates, partial industrialization drives, growth cut short, the 1-to-1 peg, and the corralito and corralón."
+            description: "Over a fortnight of episodes, we trace how the country became part of the international market, starting with wool, and follow the road to the present through banking crises, defaults, fixed and floating exchange rates, partial industrialization drives, growth cut short, the 1-to-1 peg, and the corralito and corralón.",
+            stats: "14 episodes · 350,000 plays"
           },
           laBandaPresidencial: {
-            description: "La banda presidencial is a podcast hosted by Camila Perochena, historian and professor at Universidad Torcuato Di Tella, and Santiago Rodríguez Rey, political scientist and political communication specialist, taking a weekly look back at every Argentine president, from Bernardino Rivadavia to Mauricio Macri, in the spirit of Presidential, by Lillian Cunningham for The Washington Post, and Presidente da Semana, by Rodrigo Vizeu for Folha de São Paulo."
+            description: "La banda presidencial is a podcast hosted by Camila Perochena, historian and professor at Universidad Torcuato Di Tella, and Santiago Rodríguez Rey, political scientist and political communication specialist, taking a weekly look back at every Argentine president, from Bernardino Rivadavia to Mauricio Macri, in the spirit of Presidential, by Lillian Cunningham for The Washington Post, and Presidente da Semana, by Rodrigo Vizeu for Folha de São Paulo.",
+            stats: "23 episodes · 550,000 plays"
           }
         },
         press: {
@@ -431,8 +475,22 @@ var CamilaI18n = (function () {
         },
         other: {
           heading: "Other appearances",
-          description: "Interviews, documentaries and other audiovisual appearances.",
-          comingSoon: "Section in preparation."
+          description: "Exhibitions, documentaries and museum projects.",
+          items: {
+            argentinaElige: {
+              role: "Exhibition scriptwriting collaborator",
+              description: "Universidad Torcuato Di Tella + Museo Histórico Nacional"
+            },
+            pequenasHistorias: {
+              role: "Screenwriter",
+              description: "Documentary series hosted by Carlos Pagni and produced by Flow"
+            },
+            saavedra: { role: "Museographic scriptwriting collaborator" },
+            belgrano: {
+              role: "Curator",
+              description: "Museo de la Ciudad de Wladimir Mikielievich, Rosario"
+            }
+          }
         }
       },
 

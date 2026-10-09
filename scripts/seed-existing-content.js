@@ -2,7 +2,7 @@
 const { q } = require('../lib/db');
 
 const books = [{
-  title: 'Cristina y la Historia', year: 2022, publisher: 'Crítica',
+  title: 'Cristina y la Historia', subtitle: 'El kirchnerismo y sus batallas por el pasado', year: 2022, publisher: 'Crítica',
   description_es: 'Basado en su tesis doctoral, el libro estudia cómo Cristina Fernández de Kirchner utilizó distintas interpretaciones del pasado para construir identidad política, legitimar su gobierno y estructurar sus conflictos con la oposición.',
   description_en: 'Drawing on her doctoral dissertation, the book examines how Cristina Fernández de Kirchner used different interpretations of the past to build political identity, legitimize her government and frame her conflicts with the opposition.',
   cover_path: '/img/cristina_y_la_historia.jpg', external_url: null, published: 1, featured_home: 1, sort_order: 0
@@ -16,7 +16,7 @@ const videos = [
   ['brvUhyoNTbU','La Argentina y una historia de cepos cambiarios']
 ];
 for (const book of books) {
-  if (!q('SELECT id FROM books WHERE title=? AND year=?').get(book.title, book.year)) q('INSERT INTO books(title,year,publisher,description_es,description_en,cover_path,external_url,published,featured_home,sort_order) VALUES(?,?,?,?,?,?,?,?,?,?)').run(book.title,book.year,book.publisher,book.description_es,book.description_en,book.cover_path,book.external_url,book.published,book.featured_home,book.sort_order);
+  if (!q('SELECT id FROM books WHERE title=? AND year=?').get(book.title, book.year)) q('INSERT INTO books(title,subtitle,year,publisher,description_es,description_en,cover_path,external_url,published,featured_home,sort_order) VALUES(?,?,?,?,?,?,?,?,?,?,?)').run(book.title,book.subtitle,book.year,book.publisher,book.description_es,book.description_en,book.cover_path,book.external_url,book.published,book.featured_home,book.sort_order);
 }
 for (const [index, video] of videos.entries()) {
   if (!q('SELECT id FROM media_videos WHERE youtube_id=?').get(video[0])) q('INSERT INTO media_videos(youtube_id,title,published_at,thumbnail,url,program,published,sort_order) VALUES(?,?,?,?,?,?,?,?)').run(video[0],video[1],null,`https://i.ytimg.com/vi/${video[0]}/hqdefault.jpg`,`https://www.youtube.com/watch?v=${video[0]}`,'Odisea Argentina',1,index);

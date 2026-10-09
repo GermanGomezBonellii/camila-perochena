@@ -94,6 +94,14 @@
         body.appendChild(desc);
       }
 
+      if (item.statsKey) {
+        var stats = document.createElement("span");
+        stats.className = "podcast-stats";
+        stats.setAttribute("data-i18n", item.statsKey);
+        stats.textContent = t(item.statsKey);
+        body.appendChild(stats);
+      }
+
       if (item.url) {
         var link = document.createElement("a");
         link.className = "text-link podcast-link";
@@ -110,6 +118,63 @@
       podcastList.appendChild(li);
     });
   }
+
+  /* ---------- Participaciones audiovisuales y colaboraciones ----------
+     Reutilizan la lista editorial de Prensa: año a la izquierda y
+     título, rol y detalle a la derecha. */
+  function renderExperienceList(listId, items) {
+    var list = document.getElementById(listId);
+    if (!list || !items) return;
+    list.innerHTML = "";
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "press-item";
+
+      var year = document.createElement("span");
+      year.className = "press-type";
+      year.textContent = String(item.year);
+      li.appendChild(year);
+
+      var body = document.createElement("div");
+      body.className = "press-body";
+
+      var title = document.createElement("span");
+      title.className = "press-outlet";
+      title.textContent = item.title;
+      body.appendChild(title);
+
+      if (item.outlet) {
+        var outlet = document.createElement("p");
+        outlet.className = "media-experience-outlet";
+        outlet.textContent = item.outlet;
+        body.appendChild(outlet);
+      }
+
+      var role = document.createElement("p");
+      role.className = "media-experience-role";
+      role.textContent = t(item.roleKey);
+      body.appendChild(role);
+
+      if (item.descKey) {
+        var description = document.createElement("p");
+        description.className = "media-experience-description";
+        description.textContent = t(item.descKey);
+        body.appendChild(description);
+      }
+
+      li.appendChild(body);
+      list.appendChild(li);
+    });
+  }
+
+  function renderExperiences() {
+    if (!window.CamilaMediaData) return;
+    renderExperienceList("audiovisualList", window.CamilaMediaData.audiovisual);
+    renderExperienceList("otherParticipationsList", window.CamilaMediaData.otherParticipations);
+  }
+
+  renderExperiences();
+  if (window.CamilaI18n) window.CamilaI18n.onChange(renderExperiences);
 
   /* ---------- Prensa y columnas ----------
      Igual lógica que los artículos de Publicaciones (js/publications.js):

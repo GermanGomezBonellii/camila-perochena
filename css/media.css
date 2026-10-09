@@ -228,6 +228,14 @@ a.podcast-name:focus-visible {
   white-space: pre-line;
 }
 
+.podcast-stats {
+  margin-top: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
 .podcast-link {
   margin-top: 0.9rem;
   align-self: flex-start;
@@ -308,6 +316,26 @@ a.press-outlet:focus-visible {
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   color: var(--color-muted);
+}
+
+.media-experience-outlet {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-soft);
+}
+
+.media-experience-role {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent);
+}
+
+.media-experience-description {
+  max-width: 52ch;
+  color: var(--color-text-soft);
 }
 
 /* ============================================================

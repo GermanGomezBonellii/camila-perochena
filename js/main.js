@@ -129,7 +129,10 @@
     if (image && book.coverPath) image.src = book.coverPath;
     if (image) image.alt = book.title || "";
     if (title) title.textContent = book.title || "";
-    if (subtitle) subtitle.hidden = true;
+    if (subtitle) {
+      subtitle.textContent = book.subtitle || "";
+      subtitle.hidden = !book.subtitle;
+    }
     if (meta) meta.textContent = [book.publisher, book.year].filter(Boolean).join(", ");
     if (description) description.textContent = (isEnglish() ? book.descriptionEn : book.descriptionEs) || "";
     if (link) {
